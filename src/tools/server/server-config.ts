@@ -7,10 +7,10 @@ export interface IServerConfig {
 }
 
 const PROD_SERVER_CONFIG: IServerConfig = {
-  port: 3001,
+  port: 3002,
   is_development: false,
   user_timeout_limit: 300, // 5 minutes
-  subdomain: "server",
+  subdomain: "shape-smash",
   log_user_connections: true,
 };
 
