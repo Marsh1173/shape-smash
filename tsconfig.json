@@ -1,11 +1,13 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "outDir": "./public/js",
-        "lib": ["ES2020", "DOM"],
-        "jsx": "react",
-        "esModuleInterop": true,
-        "target": "ESNext"
-    },
-    "include": ["./src/ts/**/*.ts", "./src/ts/**/*.tsx"]
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./public/js",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "experimentalDecorators": true,
+    "module": "NodeNext"
+  },
+  "include": ["src/client/**/*.js", "src/client/**/*.ts", "src/client/**/*.tsx"]
 }
