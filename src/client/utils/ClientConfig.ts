@@ -5,10 +5,9 @@ export interface IClientConfig {
 }
 
 const PRODUCTION_CLIENT_CONFIG: IClientConfig = {
-  port: 3001,
+  port: 3002,
   ws_url: () => {
-    const protocol = window.location.protocol.includes("https") ? "wss" : "ws";
-    return `${protocol}://${location.host}:${PRODUCTION_CLIENT_CONFIG.port}`;
+    return `wss://${location.host}:${PRODUCTION_CLIENT_CONFIG.port}`;
   },
   is_development: false,
 };
