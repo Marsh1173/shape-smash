@@ -24,17 +24,17 @@ const DEVELOPMENT_CLIENT_CONFIG: IClientConfig = {
 type ClientConfigMode = "production" | "development";
 
 export class ClientConfig {
-  protected static mode: ClientConfigMode = "development";
+  protected static mode: ClientConfigMode = "production";
   protected static config_record: Record<ClientConfigMode, IClientConfig> = {
     production: PRODUCTION_CLIENT_CONFIG,
     development: DEVELOPMENT_CLIENT_CONFIG,
   };
 
   public static set(mode: ClientConfigMode) {
-    this.mode = mode;
+    ClientConfig.mode = mode;
   }
 
   public static get(): IClientConfig {
-    return this.config_record[this.mode];
+    return ClientConfig.config_record[ClientConfig.mode];
   }
 }

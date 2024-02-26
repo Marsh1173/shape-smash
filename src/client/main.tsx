@@ -64,5 +64,3 @@ export function run() {
   const root = createRoot(domContainer);
   root.render(<MainDiv></MainDiv>);
 }
-
-run();
