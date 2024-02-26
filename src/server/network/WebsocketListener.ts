@@ -21,12 +21,11 @@ export class WebsocketListener {
 
     [this.server, this.port, this.url] = this.get_server_args();
     this.socket = new WebSocket.Server({ server: this.server });
-    this.start_listener();
 
     this.socket.on("connection", (ws) => this.on_connect(ws));
   }
 
-  private start_listener() {
+  public start_websocket_listener() {
     this.server.listen(this.port, () => {
       console.log("Listening on " + this.url);
     });

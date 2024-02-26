@@ -7,10 +7,4 @@ import { ServerConfig } from "./server-config";
 
 ServerConfig.set("production");
 
-try {
-  new ServerApp();
-} catch (err) {
-  console.error("Could not initialize server app.");
-  console.error(err);
-  process.exitCode = 1;
-}
+new ServerApp();

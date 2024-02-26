@@ -20,6 +20,7 @@ export class ServerApp {
     this.websocket_listener = new WebsocketListener(this, this.app);
     this.server_listener = new ServerListener(this.app);
     this.server_listener.start_server_listener();
+    this.websocket_listener.start_websocket_listener();
 
     this.init_game();
   }
