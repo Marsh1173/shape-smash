@@ -7,7 +7,7 @@ import { Input } from "../model/game/display/Input";
 import { ImageAssetHandler } from "../model/game/display/Assets";
 import { ServerTalker } from "./network/ServerTalker";
 import { ClientGameData, ClientGameSystem } from "../model/game/system/ClientGameSystem";
-import { RapierPromise } from "../model/utils/Rapier";
+import RAPIER from "@dimforge/rapier2d-compat";
 
 export function run() {
   const server_talker = new ServerTalker();
@@ -44,7 +44,7 @@ export function run() {
 
     protected async attempt_start_game() {
       if (this.canvas && this.game_data) {
-        await Promise.all([RapierPromise, load_all_images_promise]);
+        await Promise.all([RAPIER.init(), load_all_images_promise]);
 
         const game_data = this.game_data;
         const canvas = this.canvas;

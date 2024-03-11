@@ -1,4 +1,4 @@
-import {
+import RAPIER, {
   Collider,
   ColliderDesc,
   KinematicCharacterController,
@@ -7,7 +7,6 @@ import {
   Vector,
   World,
 } from "@dimforge/rapier2d-compat";
-import { Rapier } from "../../../utils/Rapier";
 import { IsOnGround } from "../../physicsutils/IsOnGround";
 
 export interface ShapeletBodyData {
@@ -33,11 +32,17 @@ export class ShapeletBody {
     this._velocity.y += v.y ?? 0;
   }
 
+  private prev_pos: Vector;
   public get pos(): Vector {
+    if (isNaN(this.rigid_body.translation().x)) {
+      console.warn("RECOVERING RIGID BODY POSITION");
+      this.pos = this.prev_pos;
+    }
     return this.rigid_body.translation();
   }
-  protected set pos(pos: Partial<Vector>) {
-    this.rigid_body.setTranslation({ ...this.pos, ...pos }, true);
+
+  protected set pos(pos: Vector) {
+    this.rigid_body.setTranslation(pos, true);
   }
 
   protected _on_ground: boolean = false;
@@ -58,10 +63,11 @@ export class ShapeletBody {
   constructor(protected readonly world: World, data: ShapeletBodyData) {
     this._velocity = data.velocity ?? { x: 0, y: 0 };
 
-    this.rigid_body_desc = Rapier.RigidBodyDesc.kinematicVelocityBased().setTranslation(data.pos.x, data.pos.y);
+    this.rigid_body_desc = RAPIER.RigidBodyDesc.kinematicVelocityBased().setTranslation(data.pos.x, data.pos.y);
+    this.prev_pos = data.pos;
     this.rigid_body = this.world.createRigidBody(this.rigid_body_desc);
 
-    this.collider_desc = Rapier.ColliderDesc.cuboid(0.75, 0.75).setCollisionGroups(this.groups_and_filters);
+    this.collider_desc = RAPIER.ColliderDesc.cuboid(0.75, 0.75).setCollisionGroups(this.groups_and_filters);
     this.collider = this.world.createCollider(this.collider_desc, this.rigid_body);
 
     this.shapelet_controller = this.world.createCharacterController(0.01);
@@ -91,6 +97,8 @@ export class ShapeletBody {
     this._velocity.x = corrected_frame_velocity.x / elapsed_seconds;
     this._velocity.y = corrected_frame_velocity.y / elapsed_seconds;
     this.rigid_body.setLinvel(this._velocity, true);
+
+    this.prev_pos = this.pos;
   }
 
   protected compute_velocity(elapsed_seconds: number) {

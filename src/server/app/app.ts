@@ -5,7 +5,7 @@ import { WebsocketListener } from "../network/WebsocketListener";
 import { ServerGameSystem } from "../../model/game/system/ServerGameSystem";
 import { ServerTicker } from "../../model/utils/ticker/ServerTicker";
 import { uuid } from "../../model/utils/Id";
-import { RapierPromise } from "../../model/utils/Rapier";
+import RAPIER from "@dimforge/rapier2d-compat";
 
 export class ServerApp {
   private readonly server_listener: ServerListener;
@@ -26,7 +26,7 @@ export class ServerApp {
   }
 
   private async init_game() {
-    await RapierPromise;
+    await RAPIER.init();
 
     const game = new ServerGameSystem({
       shapelets: [],

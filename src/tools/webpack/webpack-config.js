@@ -60,9 +60,6 @@ const get_module_export = (entry, mode, server = true) => {
     resolve: {
       extensions: [".tsx", ".ts", ".js", ".less", ".css"],
     },
-    experiments: {
-      asyncWebAssembly: true,
-    },
   };
 };
 module.exports = { get_module_export };

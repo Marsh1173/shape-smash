@@ -1,8 +1,7 @@
 import { HasId } from "../../utils/Id";
 import { Platform, PlatformData } from "../objects/platform/Platform";
 import { ObjectFactory } from "../factory/ObjectFactory";
-import { Rapier } from "../../utils/Rapier";
-import { World } from "@dimforge/rapier2d-compat";
+import RAPIER, { World } from "@dimforge/rapier2d-compat";
 import { Shapelet, ShapeletData } from "../objects/shapelet/Shapelet";
 
 export abstract class GameSystem extends HasId {
@@ -15,7 +14,7 @@ export abstract class GameSystem extends HasId {
   constructor(data: GameData) {
     super();
 
-    this.rapier_world = new Rapier.World({ x: 0, y: 70 });
+    this.rapier_world = new RAPIER.World({ x: 0, y: 70 });
   }
 
   protected populate_objects(data: GameData) {
@@ -32,13 +31,6 @@ export abstract class GameSystem extends HasId {
 
     this.rapier_world.timestep = elapsed_seconds; // sync physics across varying fps
     this.rapier_world.step();
-  }
-
-  public get_game_data(): GameData {
-    return {
-      platforms: this.platforms.map((platform) => platform.get_data()),
-      shapelets: [],
-    };
   }
 
   public dispose() {

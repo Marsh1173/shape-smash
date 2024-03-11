@@ -1,5 +1,4 @@
-import { World, Vector, ColliderDesc, Collider } from "@dimforge/rapier2d-compat";
-import { Rapier } from "../../../utils/Rapier";
+import RAPIER, { World, Vector, ColliderDesc, Collider } from "@dimforge/rapier2d-compat";
 
 export interface PlatformBodyData {
   len: number;
@@ -11,7 +10,7 @@ export class PlatformBody {
   protected readonly collider: Collider;
 
   constructor(protected readonly world: World, protected readonly data: PlatformBodyData) {
-    this.collider_desc = Rapier.ColliderDesc.cuboid(this.data.len / 2, 0.5)
+    this.collider_desc = RAPIER.ColliderDesc.cuboid(this.data.len / 2, 0.5)
       .setTranslation(this.data.pos.x, this.data.pos.y)
       .setCollisionGroups(0x0001ffff);
 

@@ -4,7 +4,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const contentBase = path.join(__dirname, "public");
 
 module.exports = {
-  entry: "./src/client/main.tsx",
+  entry: "./src/client/main",
   devServer: {
     port: 3000,
     static: {
@@ -52,8 +52,5 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".less", ".css"],
-  },
-  experiments: {
-    asyncWebAssembly: true,
   },
 };
