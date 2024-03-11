@@ -8,6 +8,7 @@ import RAPIER, {
   World,
 } from "@dimforge/rapier2d-compat";
 import { IsOnGround } from "../../physicsutils/IsOnGround";
+import { ValueObservable } from "../../../utils/observer/ValueObserver";
 
 export interface ShapeletBodyData {
   pos: Vector;
@@ -50,9 +51,10 @@ export class ShapeletBody {
     return this._on_ground;
   }
 
-  public facing: "left" | "right" = "right";
+  public facing = new ValueObservable<"left" | "right">("right");
 
   protected readonly groups_and_filters: number = 0x00020001;
+  protected readonly offset: number = 0.01;
   protected readonly rigid_body_desc: RigidBodyDesc;
   protected readonly rigid_body: RigidBody;
   protected readonly collider_desc: ColliderDesc;
@@ -67,10 +69,12 @@ export class ShapeletBody {
     this.prev_pos = data.pos;
     this.rigid_body = this.world.createRigidBody(this.rigid_body_desc);
 
-    this.collider_desc = RAPIER.ColliderDesc.cuboid(0.75, 0.75).setCollisionGroups(this.groups_and_filters);
+    this.collider_desc = RAPIER.ColliderDesc.cuboid(0.5 - this.offset, 0.5 - this.offset).setCollisionGroups(
+      this.groups_and_filters
+    );
     this.collider = this.world.createCollider(this.collider_desc, this.rigid_body);
 
-    this.shapelet_controller = this.world.createCharacterController(0.01);
+    this.shapelet_controller = this.world.createCharacterController(this.offset);
   }
 
   public destroy() {

@@ -27,13 +27,12 @@ export class ClientGameSystem extends GameSystem {
       height: Camera.standard_viewport_size.h,
       backgroundAlpha: 0,
       view: canvas,
+      antialias: true, // disable for a 1% performance increase
     });
     this.pixijs_main_stage = new Container();
     this.pixijs_main_stage.interactiveChildren = false;
 
     this.object_factory = new ClientObjectFactory(this.rapier_world, this, this.pixijs_main_stage);
-    this.main_player = this.object_factory.player(data.main_player_data);
-    this.camera = new Camera(this.pixijs_main_stage, this.main_player.get_shapelet());
 
     this.server_talker.set_listener({
       receive_message: (msg: ServerMessage) => {
@@ -44,6 +43,9 @@ export class ClientGameSystem extends GameSystem {
     });
 
     this.populate_objects(data);
+
+    this.main_player = this.object_factory.player(data.main_player_data);
+    this.camera = new Camera(this.pixijs_main_stage, this.main_player.get_shapelet());
   }
 
   public update(elapsed_seconds: number): void {

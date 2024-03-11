@@ -32,6 +32,7 @@ export class ServerApp {
       shapelets: [],
       platforms: [
         { body_data: { len: 10, pos: { x: 10, y: 10 } } },
+        { body_data: { len: 6, pos: { x: 14, y: 8 } } },
         { body_data: { len: 5, pos: { x: 20, y: 5 } } },
         { body_data: { len: 1, pos: { x: 1, y: 6 } } },
         { body_data: { len: 2, pos: { x: 5, y: 2 } } },

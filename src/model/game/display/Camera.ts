@@ -44,4 +44,6 @@ export class Camera {
       y: p.y / this.px_per_unit,
     };
   }
+
+  public static sprite_scale = Camera.px_per_unit / 160;
 }

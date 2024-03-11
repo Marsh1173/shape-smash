@@ -94,9 +94,9 @@ export class ShapeletController {
 
   protected handle_face_direction() {
     if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
-      this.shapelet_body.facing = "left";
+      this.shapelet_body.facing.set_value("left");
     } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
-      this.shapelet_body.facing = "right";
+      this.shapelet_body.facing.set_value("right");
     }
   }
 
