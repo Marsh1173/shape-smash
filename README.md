@@ -7,5 +7,6 @@ X Good-looking platforms
 X Multiplayer
 
 Rig
+Server controller
 Combat
 Lobby

@@ -18,7 +18,25 @@ export type ShapeletBodyType =
   | "pink_body_squircle"
   | "purple_body_squircle"
   | "red_body_squircle"
-  | "yellow_body_squircle";
+  | "yellow_body_squircle"
+  | "blue_body_square"
+  | "green_body_square"
+  | "pink_body_square"
+  | "purple_body_square"
+  | "red_body_square"
+  | "yellow_body_square"
+  | "blue_body_rhombus"
+  | "green_body_rhombus"
+  | "pink_body_rhombus"
+  | "purple_body_rhombus"
+  | "red_body_rhombus"
+  | "yellow_body_rhombus"
+  | "blue_body_circle"
+  | "green_body_circle"
+  | "pink_body_circle"
+  | "purple_body_circle"
+  | "red_body_circle"
+  | "yellow_body_circle";
 
 export interface ShapeletSpriteData {
   body_type: ShapeletBodyType;
@@ -58,6 +76,24 @@ const bodies: ShapeletBodyType[] = [
   "purple_body_squircle",
   "red_body_squircle",
   "yellow_body_squircle",
+  "blue_body_square",
+  "green_body_square",
+  "pink_body_square",
+  "purple_body_square",
+  "red_body_square",
+  "yellow_body_square",
+  "blue_body_rhombus",
+  "green_body_rhombus",
+  "pink_body_rhombus",
+  "purple_body_rhombus",
+  "red_body_rhombus",
+  "yellow_body_rhombus",
+  "blue_body_circle",
+  "green_body_circle",
+  "pink_body_circle",
+  "purple_body_circle",
+  "red_body_circle",
+  "yellow_body_circle",
 ];
 
 function get_random<T>(arr: T[]): T {
