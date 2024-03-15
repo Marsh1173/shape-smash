@@ -83,7 +83,7 @@ export class ShapeletController {
         };
       }
     } else {
-      let decel_factor = this.on_ground ? this.side_accel : this.side_accel / 6;
+      let decel_factor = this.on_ground ? this.side_accel : this.side_accel / 10;
       if (current_velocity.x > 0) {
         this.shapelet_body.velocity = { x: Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0) };
       } else if (current_velocity.x < 0) {
