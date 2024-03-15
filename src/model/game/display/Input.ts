@@ -31,8 +31,13 @@ export class Input {
   }
 
   public static init() {
-    window.onkeydown = (e) => this.process_input_start(e.key);
-    window.onkeyup = (e) => this.process_input_end(e.key);
+    window.onkeydown = (e) => this.process_input_start(e.key.toLowerCase());
+    window.onkeyup = (e) => this.process_input_end(e.key.toLowerCase());
+
+    window.oncontextmenu = (ev) => {
+      // stop right click from opening context menu
+      ev.preventDefault();
+    };
 
     window.onmousedown = (e) => {
       this.listener?.on_start_primary_action?.({ x: e.pageX, y: e.pageY });
