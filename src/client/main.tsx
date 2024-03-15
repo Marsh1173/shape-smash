@@ -53,7 +53,7 @@ export function run() {
 
         ClientTicker.add({
           id: uuid(),
-          update: (elapsed_seconds: number) => game.update(elapsed_seconds),
+          update: (elapsed_seconds: number) => game.update(Math.min(elapsed_seconds, 1)),
         });
       }
     }

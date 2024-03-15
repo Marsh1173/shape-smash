@@ -12,10 +12,10 @@ export interface ClientGameData extends GameData {
 }
 
 export class ClientGameSystem extends GameSystem {
-  protected readonly object_factory: ClientObjectFactory;
-  protected readonly pixijs_main_stage: Container<DisplayObject>;
-  protected readonly renderer: Renderer;
-  protected readonly camera: Camera;
+  public readonly object_factory: ClientObjectFactory;
+  public readonly pixijs_main_stage: Container<DisplayObject>;
+  public readonly renderer: Renderer;
+  public readonly camera: Camera;
 
   protected readonly main_player: ClientPlayer;
 

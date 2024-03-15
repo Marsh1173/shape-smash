@@ -17,6 +17,8 @@ export class ShapeletController {
   protected readonly active_actions: Record<ShapeletAction, boolean>;
 
   protected readonly side_accel: number = 70;
+  protected readonly side_deccel: number = this.side_accel * 1.5;
+  protected readonly side_deccel_airborne: number = this.side_deccel / 10;
   protected readonly side_max_velocity: number = 11;
   protected readonly jump_force: number;
 
@@ -83,7 +85,7 @@ export class ShapeletController {
         };
       }
     } else {
-      let decel_factor = this.on_ground ? this.side_accel : this.side_accel / 10;
+      let decel_factor = this.on_ground ? this.side_deccel : this.side_deccel_airborne;
       if (current_velocity.x > 0) {
         this.shapelet_body.velocity = { x: Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0) };
       } else if (current_velocity.x < 0) {

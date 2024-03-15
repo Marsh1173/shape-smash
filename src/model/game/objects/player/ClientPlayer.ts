@@ -4,6 +4,9 @@ import { ClientShapelet } from "../shapelet/ClientShapelet";
 import { ClientGameSystem } from "../../system/ClientGameSystem";
 import { HasId, Id } from "../../../utils/Id";
 import { ShapeletAction } from "../shapelet/ShapeletController";
+import { Vector } from "@dimforge/rapier2d-compat";
+import { Graphics } from "pixi.js";
+import { Camera } from "../../display/Camera";
 
 export interface ClientPlayerData {
   shapelet_data: ShapeletData;
@@ -12,6 +15,8 @@ export interface ClientPlayerData {
 export class ClientPlayer extends HasId {
   public readonly id: Id;
 
+  private readonly mouse_sprite: Graphics;
+
   constructor(
     protected readonly shapelet: ClientShapelet,
     data: ClientPlayerData,
@@ -19,6 +24,12 @@ export class ClientPlayer extends HasId {
   ) {
     super();
     this.id = data.shapelet_data.id;
+
+    this.mouse_sprite = new Graphics();
+    this.mouse_sprite.beginFill(0x00ff00);
+    this.mouse_sprite.drawCircle(0, 0, 10);
+    this.mouse_sprite.endFill();
+    this.game_system.pixijs_main_stage.addChild(this.mouse_sprite);
 
     Input.set_listener({
       on_start_up: () => {
@@ -44,6 +55,25 @@ export class ClientPlayer extends HasId {
       on_end_right: () => {
         this.shapelet.controller.on_input(ShapeletAction.MoveRight, false);
         this.broadcast_move(ShapeletAction.MoveRight, false);
+      },
+      on_start_primary_action: (screen_pos: Vector) => {
+        // const world_pos = this.game_system.camera.get_world_pos_from_screen_pos(screen_pos);
+        // console.log(world_pos);
+        // const pixi_pos = Camera.units_to_px(world_pos);
+        // console.log(pixi_pos);
+        // this.mouse_sprite.setTransform(world_pos.x, world_pos.y);
+      },
+      on_end_primary_action: (screen_pos: Vector) => {
+        // const world_pos = this.game_system.camera.get_world_pos_from_screen_pos(screen_pos);
+        // console.log(world_pos);
+      },
+      on_mouse_move: (screen_pos: Vector) => {
+        const world_pos = this.game_system.camera.get_world_pos_from_screen_pos(screen_pos);
+        // console.log(world_pos);
+
+        const pixi_pos = Camera.units_to_px(world_pos);
+        // console.log(pixi_pos);
+        this.mouse_sprite.setTransform(pixi_pos.x, pixi_pos.y);
       },
     });
   }

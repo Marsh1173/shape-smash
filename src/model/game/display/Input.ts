@@ -1,3 +1,5 @@
+import { Vector } from "@dimforge/rapier2d-compat";
+
 export interface InputListener {
   on_start_up?: () => void;
   on_end_up?: () => void;
@@ -7,6 +9,9 @@ export interface InputListener {
   on_end_left?: () => void;
   on_start_right?: () => void;
   on_end_right?: () => void;
+  on_start_primary_action?: (screen_pos: Vector) => void;
+  on_end_primary_action?: (screen_pos: Vector) => void;
+  on_mouse_move?: (screen_pos: Vector) => void;
 }
 
 export class Input {
@@ -28,6 +33,16 @@ export class Input {
   public static init() {
     window.onkeydown = (e) => this.process_input_start(e.key);
     window.onkeyup = (e) => this.process_input_end(e.key);
+
+    window.onmousedown = (e) => {
+      this.listener?.on_start_primary_action?.({ x: e.pageX, y: e.pageY });
+    };
+    window.onmouseup = (e) => {
+      this.listener?.on_end_primary_action?.({ x: e.pageX, y: e.pageY });
+    };
+    window.onmousemove = (e) => {
+      this.listener?.on_mouse_move?.({ x: e.pageX, y: e.pageY });
+    };
   }
 
   private static process_input_start(key: string) {
