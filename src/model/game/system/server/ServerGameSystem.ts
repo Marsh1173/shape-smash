@@ -3,18 +3,17 @@ import { ServerObjectFactory } from "../../factory/ServerObjectFactory";
 import { GameUser } from "./GameUser";
 import { Id } from "../../../utils/Id";
 import { ShapeletData } from "../../objects/shapelet/Shapelet";
-import { ClientPlayerData } from "../../objects/player/ClientPlayer";
+import { ClientPlayerData } from "../client/ClientPlayer";
 import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/sprite/ShapeletAssets";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 import { GameServerRoom } from "./GameServerRoom";
-import { ServerShapelet } from "../../objects/shapelet/server/ServerShapelet";
+import { ServerObjectContainer } from "../../objectcontainer/ServerObjectContainer";
 
 export interface ServerGameData extends GameData {}
 
 export class ServerGameSystem extends GameSystem {
-  declare readonly shapelets: ServerShapelet[];
-
   public readonly object_factory: ServerObjectFactory;
+  public readonly object_container: ServerObjectContainer;
   public readonly server_room: GameServerRoom;
 
   constructor(data: ServerGameData) {
@@ -22,12 +21,9 @@ export class ServerGameSystem extends GameSystem {
 
     this.server_room = new GameServerRoom(this);
     this.object_factory = new ServerObjectFactory(this);
+    this.object_container = new ServerObjectContainer();
 
     this.populate_objects(data);
-  }
-
-  public update(elapsed_seconds: number): void {
-    super.update(elapsed_seconds);
   }
 
   public add_user(ws_wrapper: WebsocketWrapper) {
@@ -48,27 +44,23 @@ export class ServerGameSystem extends GameSystem {
     const game_user_listener = new GameUser(ws_wrapper, this);
     this.server_room.add_user(
       game_user_listener,
-      { ...this.get_game_data(), main_player_data: player_data },
+      { ...this.get_game_data(ws_wrapper.id), main_player_data: player_data },
       player_data
     );
-
-    this.shapelets.push(server_player);
   }
 
   public remove_user(id: Id) {
-    const shapelet_index = this.shapelets.findIndex((shapelet) => shapelet.id === id);
-    if (shapelet_index !== -1) {
-      this.shapelets[shapelet_index].destroy();
-      this.shapelets.splice(shapelet_index, 1);
-    }
-
+    this.object_container.shapelets.get(id)?.destroy();
     this.server_room.remove_user(id, id);
   }
 
-  public get_game_data(): GameData {
+  public get_game_data(exclude_shapelet_id: Id): GameData {
+    const shapelet_datas = [...this.object_container.shapelets]
+      .filter(([id, shapelet]) => id !== exclude_shapelet_id)
+      .map(([id, shapelet]) => shapelet.serialize());
     return {
-      shapelets: this.shapelets.map((shapelet) => shapelet.serialize()),
-      platforms: this.platforms.map((platform) => platform.get_data()),
+      shapelets: shapelet_datas,
+      platforms: [...this.object_container.platforms].map(([id, platform]) => platform.get_data()),
     };
   }
 }

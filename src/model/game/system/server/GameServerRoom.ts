@@ -1,6 +1,6 @@
 import { ServerRoom } from "../../../../server/network/ServerRoom";
 import { Id } from "../../../utils/Id";
-import { ClientPlayerData } from "../../objects/player/ClientPlayer";
+import { ClientPlayerData } from "../client/ClientPlayer";
 import { ClientGameData } from "../client/ClientGameSystem";
 import { ServerGameSystem } from "./ServerGameSystem";
 import { GameUser } from "./GameUser";

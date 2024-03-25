@@ -10,7 +10,7 @@ export class ClientShapelet extends Shapelet {
   public readonly rig: ShapeletRig;
 
   constructor(protected readonly game_system: ClientGameSystem, data: ShapeletData) {
-    super(game_system.rapier_world, data);
+    super(game_system, data);
 
     this.health_component = new ClientHealthComponent(Shapelet.base_stats.max_health, data.health_data);
 

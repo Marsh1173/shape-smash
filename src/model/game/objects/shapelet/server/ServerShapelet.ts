@@ -8,7 +8,7 @@ export class ServerShapelet extends Shapelet {
   public readonly health_component: ServerHealthComponent;
 
   constructor(game_system: ServerGameSystem, data: ShapeletData) {
-    super(game_system.rapier_world, data);
+    super(game_system, data);
 
     this.health_component = new ServerHealthComponent(Shapelet.base_stats.max_health, data.health_data);
 

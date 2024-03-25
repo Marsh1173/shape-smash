@@ -1,16 +1,11 @@
 import { Vector } from "@dimforge/rapier2d-compat";
 import { Container } from "pixi.js";
-import { Shapelet } from "../objects/shapelet/Shapelet";
+import { ClientGameSystem } from "../system/client/ClientGameSystem";
 
 export class Camera {
-  protected readonly camera_pos: Vector;
-  constructor(protected readonly pixijs_main_stage: Container, protected readonly shapelet: Shapelet) {
-    const focus_pos = this.shapelet.body.pos;
-    this.camera_pos = {
-      x: focus_pos.x,
-      y: focus_pos.y,
-    };
-  }
+  protected readonly camera_pos: Vector = { x: 0, y: 0 };
+  protected focus_pos: (() => Vector) | undefined = undefined;
+  constructor(protected readonly pixijs_main_stage: Container, protected readonly game_system: ClientGameSystem) {}
 
   public update(elapsed_seconds: number) {
     this.scoot_camera(elapsed_seconds);
@@ -22,11 +17,23 @@ export class Camera {
   }
 
   protected scoot_camera(elapsed_seconds: number) {
-    const focus_pos = this.shapelet.body.pos;
-    const follow_factor = 5;
+    if (this.focus_pos) {
+      const focus_pos = this.focus_pos();
+      const follow_factor = 5;
+      this.camera_pos.x += (focus_pos.x - this.camera_pos.x) * elapsed_seconds * follow_factor;
+      this.camera_pos.y += (focus_pos.y - this.camera_pos.y) * elapsed_seconds * follow_factor;
+    }
+  }
 
-    this.camera_pos.x += (focus_pos.x - this.camera_pos.x) * elapsed_seconds * follow_factor;
-    this.camera_pos.y += (focus_pos.y - this.camera_pos.y) * elapsed_seconds * follow_factor;
+  public set_focus(get_focus: () => Vector) {
+    this.focus_pos = get_focus;
+    const focus_pos = this.focus_pos();
+    this.camera_pos.x = focus_pos.x;
+    this.camera_pos.y = focus_pos.y;
+  }
+
+  public clear_focus() {
+    this.focus_pos = undefined;
   }
 
   // CONVERSIONS

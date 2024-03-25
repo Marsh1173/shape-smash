@@ -1,9 +1,9 @@
-import { World } from "@dimforge/rapier2d-compat";
 import { HasId, Id } from "../../../utils/Id";
 import { ShapeletBody, ShapeletBodyData } from "./ShapeletBody";
 import { ShapeletController, ShapeletControllerData } from "./ShapeletController";
 import { ShapeletSpriteData } from "./sprite/ShapeletAssets";
 import { HealthComponent, HealthComponentData } from "../components/health/HealthComponent";
+import { GameSystem } from "../../system/GameSystem";
 
 export interface ShapeletData extends HasId {
   body_data: ShapeletBodyData;
@@ -24,17 +24,19 @@ export abstract class Shapelet extends HasId {
     max_health: 4,
   };
 
-  constructor(protected readonly world: World, data: ShapeletData) {
+  constructor(protected readonly game_system: GameSystem, data: ShapeletData) {
     super();
     this.id = data.id;
     this.sprite_data = data.sprite_data;
 
-    this.body = new ShapeletBody(this.world, data.body_data);
-    this.controller = new ShapeletController(this.body, this.world, data.controller_data);
+    this.body = new ShapeletBody(this.game_system.rapier_world, data.body_data);
+    this.controller = new ShapeletController(this.body, this.game_system.rapier_world, data.controller_data);
+    this.game_system.object_container.shapelets.set(this.id, this);
   }
 
   public destroy() {
     this.body.destroy();
+    this.game_system.object_container.shapelets.delete(this.id);
   }
 
   public update(elapsed_seconds: number) {

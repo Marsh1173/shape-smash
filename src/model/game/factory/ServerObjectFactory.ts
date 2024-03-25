@@ -15,6 +15,6 @@ export class ServerObjectFactory extends ObjectFactory {
   }
 
   public platform(data: PlatformData): Platform {
-    return new Platform(this.game_system.rapier_world, data);
+    return new Platform(this.game_system, data);
   }
 }

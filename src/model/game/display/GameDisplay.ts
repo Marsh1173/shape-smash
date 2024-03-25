@@ -32,7 +32,7 @@ export class GameDisplay {
 
     this.pixijs_main_stage.addChild(this.layers.indicators, this.layers.shapelets, this.layers.platforms);
 
-    this.camera = new Camera(this.pixijs_main_stage, this.game_system.main_player.get_shapelet());
+    this.camera = new Camera(this.pixijs_main_stage, this.game_system);
   }
 
   public update(elapsed_seconds: number) {
