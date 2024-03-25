@@ -1,15 +1,15 @@
 const express = require("express");
 import { Application } from "express-ws";
 import { ServerListener } from "../network/ServerListener";
-import { WebsocketListener } from "../network/WebsocketListener";
-import { ServerGameSystem } from "../../model/game/system/ServerGameSystem";
+import { WebsocketConnectionListener } from "../network/WebsocketConnectionListener";
+import { ServerGameSystem } from "../../model/game/system/server/ServerGameSystem";
 import { ServerTicker } from "../../model/utils/ticker/ServerTicker";
 import { uuid } from "../../model/utils/Id";
 import RAPIER from "@dimforge/rapier2d-compat";
 
 export class ServerApp {
   private readonly server_listener: ServerListener;
-  public readonly websocket_listener: WebsocketListener;
+  public readonly websocket_connection_listener: WebsocketConnectionListener;
   private readonly app: Application;
 
   public game!: ServerGameSystem;
@@ -17,10 +17,10 @@ export class ServerApp {
   constructor() {
     //network listeners
     this.app = express();
-    this.websocket_listener = new WebsocketListener(this, this.app);
+    this.websocket_connection_listener = new WebsocketConnectionListener(this, this.app);
     this.server_listener = new ServerListener(this.app);
     this.server_listener.start_server_listener();
-    this.websocket_listener.start_websocket_listener();
+    this.websocket_connection_listener.start_websocket_listener();
 
     this.init_game();
   }

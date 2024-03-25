@@ -1,8 +1,9 @@
 import { Vector } from "@dimforge/rapier2d-compat";
-import { ClientGameData } from "../../../model/game/system/ClientGameSystem";
+import { ClientGameData } from "../../../model/game/system/client/ClientGameSystem";
 import { Id } from "../../../model/utils/Id";
 import { ShapeletAction } from "../../../model/game/objects/shapelet/ShapeletController";
 import { ClientPlayerData } from "../../../model/game/objects/player/ClientPlayer";
+import { ServerShapeletMessage } from "../../../model/game/objects/shapelet/server/ServerShapeletSchema";
 
 export type ServerMessage = GameDataMessage | ServerGameMessage;
 
@@ -13,16 +14,7 @@ export interface GameDataMessage {
 
 export interface ServerGameMessage {
   type: "ServerGameMessage";
-  msg: UserMoveMessage | UserJoinMessage | UserLeaveMessage;
-}
-
-export interface UserMoveMessage {
-  type: "UserMoveMessage";
-  id: Id;
-  active: boolean;
-  action: ShapeletAction;
-  pos: Vector;
-  vel: Vector;
+  msg: ServerShapeletMessage | UserJoinMessage | UserLeaveMessage;
 }
 
 export interface UserJoinMessage {

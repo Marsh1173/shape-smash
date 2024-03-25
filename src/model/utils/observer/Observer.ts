@@ -1,13 +1,14 @@
 import { HasId, Id } from "../Id";
 
-export interface Observer extends HasId {
-  on_observable_deconstruct?(): void;
-}
+export interface Observer extends HasId {}
 
 export abstract class Observable<ObserverType extends Observer> {
   protected readonly observer_map: Map<Id, ObserverType> = new Map();
 
   public add_observer(observer: ObserverType) {
+    if (this.observer_map.has(observer.id)) {
+      throw new Error("Tried to add an observer with an already-registered id " + observer.id);
+    }
     this.observer_map.set(observer.id, observer);
   }
 
@@ -29,9 +30,5 @@ export abstract class Observable<ObserverType extends Observer> {
         f(observer)?.();
       }
     };
-  }
-
-  public on_deconstruct() {
-    this.broadcast_no_params((o) => o.on_observable_deconstruct)();
   }
 }

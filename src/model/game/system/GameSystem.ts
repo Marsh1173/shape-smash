@@ -5,11 +5,11 @@ import RAPIER, { World } from "@dimforge/rapier2d-compat";
 import { Shapelet, ShapeletData } from "../objects/shapelet/Shapelet";
 
 export abstract class GameSystem extends HasId {
-  protected readonly platforms: Platform[] = [];
-  protected readonly shapelets: Shapelet[] = [];
+  public readonly platforms: Platform[] = [];
+  public readonly shapelets: Shapelet[] = [];
 
-  protected readonly rapier_world: World;
-  protected abstract readonly object_factory: ObjectFactory;
+  public readonly rapier_world: World;
+  public abstract readonly object_factory: ObjectFactory;
 
   constructor(data: GameData) {
     super();

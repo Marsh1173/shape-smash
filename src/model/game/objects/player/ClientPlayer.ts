@@ -1,7 +1,7 @@
 import { ShapeletData } from "../shapelet/Shapelet";
 import { Input } from "../../display/Input";
-import { ClientShapelet } from "../shapelet/ClientShapelet";
-import { ClientGameSystem } from "../../system/ClientGameSystem";
+import { ClientShapelet } from "../shapelet/client/ClientShapelet";
+import { ClientGameSystem } from "../../system/client/ClientGameSystem";
 import { HasId, Id } from "../../../utils/Id";
 import { ShapeletAction } from "../shapelet/ShapeletController";
 import { Vector } from "@dimforge/rapier2d-compat";

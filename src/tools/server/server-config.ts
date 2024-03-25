@@ -3,7 +3,7 @@ export interface IServerConfig {
   is_development: boolean;
   user_timeout_limit?: number;
   subdomain: string;
-  log_user_connections: boolean;
+  log_ws_connections: boolean;
 }
 
 const PROD_SERVER_CONFIG: IServerConfig = {
@@ -11,7 +11,7 @@ const PROD_SERVER_CONFIG: IServerConfig = {
   is_development: false,
   user_timeout_limit: 300, // 5 minutes
   subdomain: "shape-smash",
-  log_user_connections: true,
+  log_ws_connections: true,
 };
 
 const DEV_SERVER_CONFIG: IServerConfig = {
@@ -19,7 +19,7 @@ const DEV_SERVER_CONFIG: IServerConfig = {
   port: 3000,
   user_timeout_limit: undefined, // no timeout limit
   is_development: true,
-  log_user_connections: false,
+  log_ws_connections: false,
 };
 
 type ServerConfigMode = "production" | "development";

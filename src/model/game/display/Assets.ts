@@ -1,7 +1,15 @@
 import { Texture } from "pixi.js";
 import { ShapeletBodyType, ShapeletFaceType } from "../objects/shapelet/sprite/ShapeletAssets";
 
-export type ImageAsset = ShapeletFaceType | ShapeletBodyType | "tile_center" | "tile_left" | "tile_right" | "tile";
+export type ImageAsset =
+  | ShapeletFaceType
+  | ShapeletBodyType
+  | "tile_center"
+  | "tile_left"
+  | "tile_right"
+  | "tile"
+  | "heart"
+  | "empty_health";
 
 const ImageAssetUrl: Record<ImageAsset, string> = {
   blue_body_squircle: "./assets/images/bodies/blue_body_squircle.png",
@@ -44,6 +52,8 @@ const ImageAssetUrl: Record<ImageAsset, string> = {
   tile_left: "./assets/images/tile_left.png",
   tile_right: "./assets/images/tile_right.png",
   tile: "./assets/images/tile.png",
+  heart: "./assets/images/heart.png",
+  empty_health: "./assets/images/empty_health.png",
 };
 
 export class ImageAssetHandler {

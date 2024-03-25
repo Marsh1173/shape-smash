@@ -6,7 +6,7 @@ import "./main.less";
 import { Input } from "../model/game/display/Input";
 import { ImageAssetHandler } from "../model/game/display/Assets";
 import { ServerTalker } from "./network/ServerTalker";
-import { ClientGameData, ClientGameSystem } from "../model/game/system/ClientGameSystem";
+import { ClientGameData, ClientGameSystem } from "../model/game/system/client/ClientGameSystem";
 import RAPIER from "@dimforge/rapier2d-compat";
 
 export function run() {
