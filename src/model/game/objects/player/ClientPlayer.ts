@@ -29,7 +29,7 @@ export class ClientPlayer extends HasId {
     this.mouse_sprite.beginFill(0x00ff00);
     this.mouse_sprite.drawCircle(0, 0, 10);
     this.mouse_sprite.endFill();
-    this.game_system.pixijs_main_stage.addChild(this.mouse_sprite);
+    this.game_system.display.layers.indicators.addChild(this.mouse_sprite);
 
     Input.set_listener({
       on_start_up: () => {
@@ -68,7 +68,7 @@ export class ClientPlayer extends HasId {
         // console.log(world_pos);
       },
       on_mouse_move: (screen_pos: Vector) => {
-        const world_pos = this.game_system.camera.get_world_pos_from_screen_pos(screen_pos);
+        const world_pos = this.game_system.display.camera.get_world_pos_from_screen_pos(screen_pos);
         // console.log(world_pos);
 
         const pixi_pos = Camera.units_to_px(world_pos);

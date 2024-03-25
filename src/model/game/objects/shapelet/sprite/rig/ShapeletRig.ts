@@ -4,6 +4,7 @@ import { ShapeletFaceRig } from "./ShapeletFaceRig";
 import { ShapeletBody } from "../../ShapeletBody";
 import { ShapeletSpriteData } from "../ShapeletAssets";
 import { Camera } from "../../../../display/Camera";
+import { GameDisplay } from "../../../../display/GameDisplay";
 
 export class ShapeletRig {
   protected readonly body_rig: ShapeletBodyRig;
@@ -12,12 +13,12 @@ export class ShapeletRig {
   protected readonly container: Container;
 
   constructor(
-    protected readonly pixijs_main_stage: Container,
+    protected readonly game_display: GameDisplay,
     protected readonly body: ShapeletBody,
     protected readonly data: ShapeletSpriteData
   ) {
     this.container = new Container();
-    this.pixijs_main_stage.addChild(this.container);
+    this.game_display.layers.shapelets.addChild(this.container);
 
     this.body_rig = new ShapeletBodyRig(this.container, this.data);
     this.face_rig = new ShapeletFaceRig(this.container, this.body, this.data);
@@ -32,7 +33,7 @@ export class ShapeletRig {
   }
 
   public destroy() {
-    this.pixijs_main_stage.removeChild(this.container);
+    this.game_display.layers.shapelets.removeChild(this.container);
     this.body_rig.destroy();
     this.face_rig.destroy();
   }

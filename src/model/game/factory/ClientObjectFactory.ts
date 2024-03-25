@@ -18,10 +18,10 @@ export class ClientObjectFactory extends ObjectFactory {
   }
 
   public shapelet(data: ShapeletData): ClientShapelet {
-    return new ClientShapelet(this.game_system.rapier_world, data, this.game_system.pixijs_main_stage);
+    return new ClientShapelet(this.game_system, data);
   }
 
   public platform(data: PlatformData): ClientPlatform {
-    return new ClientPlatform(this.game_system.rapier_world, data, this.game_system.pixijs_main_stage);
+    return new ClientPlatform(this.game_system, data);
   }
 }

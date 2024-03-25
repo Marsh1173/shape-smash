@@ -2,16 +2,17 @@ import { Container, Sprite } from "pixi.js";
 import { Camera } from "../../display/Camera";
 import { ImageAssetHandler } from "../../display/Assets";
 import { PlatformBodyData } from "./PlatformBody";
+import { GameDisplay } from "../../display/GameDisplay";
 
 export class PlatformSprite {
   protected readonly sprite_container: Container;
-  constructor(protected readonly data: PlatformBodyData, protected readonly pixijs_main_stage: Container) {
+  constructor(protected readonly data: PlatformBodyData, protected readonly game_display: GameDisplay) {
     const px_pos = Camera.units_to_px(this.data.pos);
     this.sprite_container = new Container();
     this.sprite_container.position.set(px_pos.x, px_pos.y);
 
     this.make_sprites();
-    this.pixijs_main_stage.addChild(this.sprite_container);
+    this.game_display.layers.platforms.addChild(this.sprite_container);
   }
 
   private make_sprites() {
@@ -42,6 +43,6 @@ export class PlatformSprite {
   }
 
   public destroy() {
-    this.pixijs_main_stage.removeChild(this.sprite_container);
+    this.game_display.layers.platforms.removeChild(this.sprite_container);
   }
 }

@@ -1,15 +1,14 @@
 import { Platform, PlatformData } from "./Platform";
-import { Container } from "pixi.js";
-import { World } from "@dimforge/rapier2d-compat";
 import { PlatformSprite } from "./PlatformSprite";
+import { ClientGameSystem } from "../../system/client/ClientGameSystem";
 
 export class ClientPlatform extends Platform {
   protected readonly sprite: PlatformSprite;
 
-  constructor(world: World, data: PlatformData, protected readonly pixijs_main_stage: Container) {
-    super(world, data);
+  constructor(protected readonly game_system: ClientGameSystem, data: PlatformData) {
+    super(game_system.rapier_world, data);
 
-    this.sprite = new PlatformSprite(data.body_data, pixijs_main_stage);
+    this.sprite = new PlatformSprite(data.body_data, this.game_system.display);
   }
 
   public destroy(): void {

@@ -5,8 +5,10 @@ X Camera
 X Asset loading
 X Good-looking platforms
 X Multiplayer
+X Rig
+X Server controller
 
-Rig
-Server controller
+Health UI
+Death
 Combat
 Lobby
