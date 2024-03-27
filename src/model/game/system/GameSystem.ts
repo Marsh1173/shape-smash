@@ -33,8 +33,9 @@ export abstract class GameSystem extends HasId {
   }
 
   public dispose() {
-    this.object_container.shapelets.forEach((shapelet) => shapelet.destroy());
-    this.object_container.platforms.forEach((platform) => platform.destroy());
+    this.object_container.objects.forEach((object) => {
+      this.object_container.remove_object(object.id);
+    });
   }
 }
 

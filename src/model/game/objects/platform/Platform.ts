@@ -10,6 +10,7 @@ export interface PlatformData {
 }
 
 export class Platform implements GameObject {
+  public readonly type = "Platform";
   public readonly id: Id;
   protected readonly body: PlatformBody;
 
@@ -17,15 +18,13 @@ export class Platform implements GameObject {
     this.id = data.id;
 
     this.body = new PlatformBody(game_system.rapier_world, data.body_data);
-    this.game_system.object_container.platforms.set(this.id, this);
   }
 
-  public get_data(): PlatformData {
+  public serialize(): PlatformData {
     return this.data;
   }
 
   public destroy() {
     this.body.destroy();
-    this.game_system.object_container.platforms.delete(this.id);
   }
 }

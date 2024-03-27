@@ -26,7 +26,7 @@ export class ClientGameSystem extends GameSystem {
 
     this.router = new ClientGameRouter(this);
     this.object_factory = new ClientObjectFactory(this);
-    this.object_container = new ClientObjectContainer();
+    this.object_container = new ClientObjectContainer(this);
 
     this.populate_objects(data);
 

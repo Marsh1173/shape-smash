@@ -1,4 +1,4 @@
-import { ClientGameMessage } from "../../../../server/network/schema/ClientMessage";
+import { ClientGameMessage } from "../../../../client/network/schema/ClientMessage";
 import { Id } from "../../../utils/Id";
 import { ServerGameSystem } from "./ServerGameSystem";
 

@@ -1,4 +1,4 @@
-import { ServerMessage } from "../../client/network/schema/ServerMessage";
+import { ServerMessage } from "./schema/ServerMessage";
 import { Id } from "../../model/utils/Id";
 import { User } from "./user/User";
 import { WebsocketWrapper } from "./user/WebsocketWrapper";

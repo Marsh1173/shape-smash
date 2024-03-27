@@ -21,13 +21,14 @@ export class ServerGameSystem extends GameSystem {
 
     this.server_room = new GameServerRoom(this);
     this.object_factory = new ServerObjectFactory(this);
-    this.object_container = new ServerObjectContainer();
+    this.object_container = new ServerObjectContainer(this);
 
     this.populate_objects(data);
   }
 
   public add_user(ws_wrapper: WebsocketWrapper) {
     const shapelet_data: ShapeletData = {
+      type: "ShapeletData",
       id: ws_wrapper.id,
       body_data: {
         pos: { x: 8, y: 5 },
@@ -50,8 +51,8 @@ export class ServerGameSystem extends GameSystem {
   }
 
   public remove_user(id: Id) {
-    this.object_container.shapelets.get(id)?.destroy();
     this.server_room.remove_user(id, id);
+    this.object_container.remove_object(id);
   }
 
   public get_game_data(exclude_shapelet_id: Id): GameData {
@@ -60,7 +61,7 @@ export class ServerGameSystem extends GameSystem {
       .map(([id, shapelet]) => shapelet.serialize());
     return {
       shapelets: shapelet_datas,
-      platforms: [...this.object_container.platforms].map(([id, platform]) => platform.get_data()),
+      platforms: [...this.object_container.platforms].map(([id, platform]) => platform.serialize()),
     };
   }
 }

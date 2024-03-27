@@ -1,4 +1,4 @@
-import { PlayerMoveMessage } from "../../../../../server/network/schema/ClientMessage";
+import { PlayerMoveMessage } from "../../../../../client/network/schema/ClientMessage";
 import { Id, uuid } from "../../../../utils/Id";
 import { GameServerRoom } from "../../../system/server/GameServerRoom";
 import {

@@ -26,7 +26,6 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, ClientP
       type: "ServerGameMessage",
       msg: {
         type: "UserJoinMessage",
-        player_data: data,
       },
     });
   }
@@ -36,7 +35,6 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, ClientP
       type: "ServerGameMessage",
       msg: {
         type: "UserLeaveMessage",
-        id: data,
       },
     });
   }

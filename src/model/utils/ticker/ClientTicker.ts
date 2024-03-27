@@ -7,10 +7,14 @@ export class ClientTicker {
   private static listeners: Map<Id, TickerListener> = new Map();
 
   public static add(listener: TickerListener) {
-    if (this.listeners.size === 0) {
+    if (this.listeners.has(listener.id)) {
+      return;
+    }
+
+    this.listeners.set(listener.id, listener);
+    if (this.listeners.size === 1) {
       this.start();
     }
-    this.listeners.set(listener.id, listener);
   }
 
   public static remove(id: Id) {

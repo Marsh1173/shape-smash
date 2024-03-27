@@ -1,5 +1,5 @@
 import { User } from "../../../../server/network/user/User";
-import { ClientMessage } from "../../../../server/network/schema/ClientMessage";
+import { ClientMessage } from "../../../../client/network/schema/ClientMessage";
 import { ServerGameSystem } from "./ServerGameSystem";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 

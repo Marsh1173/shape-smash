@@ -16,6 +16,7 @@ export interface ShapeletData extends HasId {
 
 export abstract class Shapelet implements GameObject {
   public readonly id: Id;
+  public readonly type = "Shapelet";
   protected readonly sprite_data: ShapeletSpriteData;
 
   public readonly body: ShapeletBody;
@@ -32,12 +33,10 @@ export abstract class Shapelet implements GameObject {
 
     this.body = new ShapeletBody(this.game_system.rapier_world, data.body_data);
     this.controller = new ShapeletController(this.body, this.game_system.rapier_world, data.controller_data);
-    this.game_system.object_container.shapelets.set(this.id, this);
   }
 
   public destroy() {
     this.body.destroy();
-    this.game_system.object_container.shapelets.delete(this.id);
   }
 
   public update(elapsed_seconds: number) {

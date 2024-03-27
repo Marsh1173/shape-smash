@@ -1,7 +1,7 @@
-import { ServerMessage } from "../../../client/network/schema/ServerMessage";
+import { ServerMessage } from "../schema/ServerMessage";
 import { Id } from "../../../model/utils/Id";
 import { WebsocketWrapper } from "./WebsocketWrapper";
-import { ClientMessage } from "../schema/ClientMessage";
+import { ClientMessage } from "../../../client/network/schema/ClientMessage";
 
 export abstract class User {
   public get id(): Id {

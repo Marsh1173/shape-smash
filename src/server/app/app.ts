@@ -31,12 +31,12 @@ export class ServerApp {
     const game = new ServerGameSystem({
       shapelets: [],
       platforms: [
-        { id: uuid(), body_data: { len: 10, pos: { x: 10, y: 10 } } },
-        { id: uuid(), body_data: { len: 2, pos: { x: 16, y: 9 } } },
-        { id: uuid(), body_data: { len: 6, pos: { x: 14, y: 8 } } },
-        { id: uuid(), body_data: { len: 5, pos: { x: 20, y: 5 } } },
-        { id: uuid(), body_data: { len: 1, pos: { x: 1, y: 6 } } },
-        { id: uuid(), body_data: { len: 2, pos: { x: 5, y: 2 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 10, pos: { x: 10, y: 10 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 2, pos: { x: 16, y: 9 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 6, pos: { x: 14, y: 8 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 5, pos: { x: 20, y: 5 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 1, pos: { x: 1, y: 6 } } },
+        { type: "PlatformData", id: uuid(), body_data: { len: 2, pos: { x: 5, y: 2 } } },
       ],
     });
 

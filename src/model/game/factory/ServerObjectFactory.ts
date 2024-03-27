@@ -11,10 +11,13 @@ export class ServerObjectFactory extends ObjectFactory {
 
   public shapelet(data: ShapeletData): ServerShapelet {
     const shapelet = new ServerShapelet(this.game_system, data);
+    this.game_system.object_container.add_object(shapelet);
     return shapelet;
   }
 
   public platform(data: PlatformData): Platform {
-    return new Platform(this.game_system, data);
+    const platform = new Platform(this.game_system, data);
+    this.game_system.object_container.add_object(platform);
+    return platform;
   }
 }

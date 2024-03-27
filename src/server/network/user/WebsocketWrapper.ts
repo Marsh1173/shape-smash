@@ -1,7 +1,7 @@
-import { ServerMessage } from "../../../client/network/schema/ServerMessage";
+import { ServerMessage } from "../schema/ServerMessage";
 import { HasId } from "../../../model/utils/Id";
 import { WebSocket } from "ws";
-import { ClientMessage } from "../schema/ClientMessage";
+import { ClientMessage } from "../../../client/network/schema/ClientMessage";
 import { ServerConfig } from "../../../tools/server/server-config";
 import { User } from "./User";
 

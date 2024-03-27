@@ -1,4 +1,5 @@
-import { ServerGameMessage, ServerMessage } from "../../../../client/network/schema/ServerMessage";
+import { ServerMessage } from "../../../../server/network/schema/ServerMessage";
+import { ServerGameMessage } from "../server/ServerGameMessageSchema";
 import { ClientGameSystem } from "./ClientGameSystem";
 
 export class ClientGameRouter {
@@ -14,12 +15,14 @@ export class ClientGameRouter {
 
   public route_msg(msg: ServerGameMessage) {
     if (msg.msg.type === "UserJoinMessage") {
-      this.game_system.object_factory.shapelet(msg.msg.player_data.shapelet_data);
+      //do nothing right now
     } else if (msg.msg.type === "UserLeaveMessage") {
-      this.game_system.object_container.shapelets.get(msg.msg.id)?.destroy();
+      //do nothing right now
     } else if (msg.msg.type === "ServerShapeletMessage") {
       const shapelet = this.game_system.object_container.shapelets.get(msg.msg.id);
       shapelet?.syncher.route_msg(msg.msg);
+    } else if (msg.msg.type === "ServerObjectMessage") {
+      this.game_system.object_container.route_msg(msg.msg);
     } else {
       throw new Error("Unknown message in client router");
     }

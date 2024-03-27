@@ -1,6 +1,6 @@
 import { ClientConfig } from "../utils/ClientConfig";
-import { ServerMessage } from "./schema/ServerMessage";
-import { ClientMessage } from "../../server/network/schema/ClientMessage";
+import { ServerMessage } from "../../server/network/schema/ServerMessage";
+import { ClientMessage } from "./schema/ClientMessage";
 
 export interface ServerTalkerListener {
   receive_message(msg: ServerMessage): void;
