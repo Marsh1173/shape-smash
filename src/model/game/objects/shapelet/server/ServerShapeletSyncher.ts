@@ -13,7 +13,7 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
   protected readonly health_syncher: ServerHealthComponentSyncher;
 
   constructor(protected readonly shapelet: ServerShapelet, protected readonly server_room: GameServerRoom) {
-    this.health_syncher = new ServerHealthComponentSyncher(shapelet.health_component, this.syncher_id, this);
+    this.health_syncher = new ServerHealthComponentSyncher(this.shapelet.health_component, this.syncher_id, this);
   }
 
   public broadcast(msg: ServerShapeletMessageContent, exclude_id?: Id) {
@@ -29,6 +29,7 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
       exclude_id
     );
   }
+
   public route_msg(msg: PlayerMoveMessage) {
     this.shapelet.controller.on_input(msg.action, msg.active);
     this.shapelet.body.set_pos_and_vel(msg.pos, msg.vel);

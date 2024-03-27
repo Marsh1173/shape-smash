@@ -27,8 +27,14 @@ export class ServerHealthComponentSyncher {
 
     this.health_component.max_health.add_observer({
       id: this.syncher_id,
-      on_change: () => {
-        throw new Error("Server health syncher not implemented yet");
+      on_change: (new_value: number) => {
+        this.broadcaster.broadcast({
+          type: "ServerHealthComponentMessage",
+          msg: {
+            type: "ServerHealthComponentUpdateMaxHealthMessage",
+            new_value,
+          },
+        });
       },
     });
   }

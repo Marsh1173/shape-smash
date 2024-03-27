@@ -4,15 +4,17 @@ import { ShapeletController, ShapeletControllerData } from "./ShapeletController
 import { ShapeletSpriteData } from "./sprite/ShapeletAssets";
 import { HealthComponent, HealthComponentData } from "../components/health/HealthComponent";
 import { GameSystem } from "../../system/GameSystem";
+import { GameObject } from "../model/GameObject";
 
 export interface ShapeletData extends HasId {
+  type: "ShapeletData";
   body_data: ShapeletBodyData;
   controller_data: ShapeletControllerData;
   sprite_data: ShapeletSpriteData;
   health_data: HealthComponentData;
 }
 
-export abstract class Shapelet extends HasId {
+export abstract class Shapelet implements GameObject {
   public readonly id: Id;
   protected readonly sprite_data: ShapeletSpriteData;
 
@@ -25,7 +27,6 @@ export abstract class Shapelet extends HasId {
   };
 
   constructor(protected readonly game_system: GameSystem, data: ShapeletData) {
-    super();
     this.id = data.id;
     this.sprite_data = data.sprite_data;
 
@@ -46,6 +47,7 @@ export abstract class Shapelet extends HasId {
 
   public serialize(): ShapeletData {
     return {
+      type: "ShapeletData",
       id: this.id,
       body_data: this.body.serialize(),
       controller_data: this.controller.serialize(),
