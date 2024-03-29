@@ -6,6 +6,7 @@ import { ClientGameRouter } from "./ClientGameRouter";
 import { GameDisplay } from "../../display/GameDisplay";
 import { ClientGamePlayerAliveState, ClientGamePlayerState } from "./ClientGamePlayerState";
 import { ClientObjectContainer } from "../../objectcontainer/ClientObjectContainer";
+import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
 
 export interface ClientGameData extends GameData {
   main_player_data: ClientPlayerData;
@@ -40,6 +41,7 @@ export class ClientGameSystem extends GameSystem {
 
   public dispose() {
     this.player_state.deconstruct();
+    LifecycleTextures.destroy_all();
     super.dispose();
   }
 }

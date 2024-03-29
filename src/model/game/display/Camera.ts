@@ -5,12 +5,12 @@ import { ClientGameSystem } from "../system/client/ClientGameSystem";
 export class Camera {
   protected readonly camera_pos: Vector = { x: 0, y: 0 };
   protected focus_pos: (() => Vector) | undefined = undefined;
-  constructor(protected readonly pixijs_main_stage: Container, protected readonly game_system: ClientGameSystem) {}
+  constructor(protected readonly translating_layer: Container, protected readonly game_system: ClientGameSystem) {}
 
   public update(elapsed_seconds: number) {
     this.scoot_camera(elapsed_seconds);
 
-    this.pixijs_main_stage.setTransform(
+    this.translating_layer.setTransform(
       -this.camera_pos.x * Camera.px_per_unit + Camera.standard_viewport_size.w / 2,
       -this.camera_pos.y * Camera.px_per_unit + Camera.standard_viewport_size.h / 2
     );

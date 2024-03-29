@@ -23,13 +23,13 @@ export class ClientObjectFactory extends ObjectFactory {
 
   public shapelet(data: ShapeletData): ClientShapelet {
     const shapelet = new ClientShapelet(this.game_system, data);
-    this.game_system.object_container.add_object(shapelet);
+    this.insert_object_into_container(shapelet);
     return shapelet;
   }
 
   public platform(data: PlatformData): ClientPlatform {
     const platform = new ClientPlatform(this.game_system, data);
-    this.game_system.object_container.add_object(platform);
+    this.insert_object_into_container(platform);
     return platform;
   }
 }
