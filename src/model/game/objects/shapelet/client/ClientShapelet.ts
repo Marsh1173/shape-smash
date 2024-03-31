@@ -1,5 +1,5 @@
 import { Shapelet, ShapeletData } from "../Shapelet";
-import { ShapeletRig } from "../sprite/rig/ShapeletRig";
+import { ShapeletRig } from "./sprite/rig/ShapeletRig";
 import { ClientHealthComponent } from "../../components/health/client/ClientHealthComponent";
 import { ClientShapeletSyncher } from "./ClientShapeletSyncher";
 import { ClientGameSystem } from "../../../system/client/ClientGameSystem";

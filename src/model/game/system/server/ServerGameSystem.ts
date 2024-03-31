@@ -4,7 +4,7 @@ import { GameUser } from "./GameUser";
 import { Id } from "../../../utils/Id";
 import { ShapeletData } from "../../objects/shapelet/Shapelet";
 import { ClientPlayerData } from "../client/ClientPlayer";
-import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/sprite/ShapeletAssets";
+import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/client/sprite/ShapeletAssets";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 import { GameServerRoom } from "./GameServerRoom";
 import { ServerObjectContainer } from "../../objectcontainer/ServerObjectContainer";

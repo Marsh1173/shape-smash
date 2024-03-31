@@ -2,10 +2,10 @@ import { Container } from "pixi.js";
 import { ShapeletBodyRig } from "./ShapeletBodyRig";
 import { ShapeletFaceRig } from "./ShapeletFaceRig";
 import { ShapeletSpriteData } from "../ShapeletAssets";
-import { Camera } from "../../../../display/Camera";
-import { GameDisplay } from "../../../../display/GameDisplay";
-import { ClientShapelet } from "../../client/ClientShapelet";
-import { ClientHealthComponentDisplay } from "../../../components/health/client/ClientHealthComponentDisplay";
+import { Camera } from "../../../../../display/Camera";
+import { GameDisplay } from "../../../../../display/GameDisplay";
+import { ClientShapelet } from "../../../client/ClientShapelet";
+import { ClientHealthComponentDisplay } from "../../../../components/health/client/ClientHealthComponentDisplay";
 import { Vector } from "@dimforge/rapier2d-compat";
 
 export class ShapeletRig {

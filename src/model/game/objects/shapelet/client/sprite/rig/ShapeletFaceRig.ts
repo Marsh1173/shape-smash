@@ -1,9 +1,9 @@
 import { Container, Sprite } from "pixi.js";
-import { ShapeletBody } from "../../ShapeletBody";
+import { ShapeletBody } from "../../../ShapeletBody";
 import { ShapeletSpriteData } from "../ShapeletAssets";
-import { ImageAssetHandler } from "../../../../display/Assets";
-import { Camera } from "../../../../display/Camera";
-import { uuid } from "../../../../../utils/Id";
+import { ImageAssetHandler } from "../../../../../display/Assets";
+import { Camera } from "../../../../../display/Camera";
+import { uuid } from "../../../../../../utils/Id";
 
 export class ShapeletFaceRig {
   protected readonly face_container: Container;

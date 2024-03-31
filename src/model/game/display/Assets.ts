@@ -1,5 +1,5 @@
 import { Texture } from "pixi.js";
-import { ShapeletBodyType, ShapeletFaceType } from "../objects/shapelet/sprite/ShapeletAssets";
+import { ShapeletBodyType, ShapeletFaceType } from "../objects/shapelet/client/sprite/ShapeletAssets";
 
 export type ImageAsset =
   | ShapeletFaceType

@@ -1,7 +1,7 @@
 import { Container, Sprite } from "pixi.js";
 import { ShapeletSpriteData } from "../ShapeletAssets";
-import { ImageAssetHandler } from "../../../../display/Assets";
-import { Camera } from "../../../../display/Camera";
+import { ImageAssetHandler } from "../../../../../display/Assets";
+import { Camera } from "../../../../../display/Camera";
 
 export class ShapeletBodyRig {
   protected readonly body_sprite: Container;
