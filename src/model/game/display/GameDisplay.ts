@@ -27,7 +27,6 @@ export class GameDisplay {
     this.renderer = new Renderer({
       width: Camera.standard_viewport_size.w,
       height: Camera.standard_viewport_size.h,
-      background: "#e1e8f0",
       view: canvas,
       antialias: true, // disable for a 1% performance increase
     });

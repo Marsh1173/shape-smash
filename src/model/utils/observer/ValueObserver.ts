@@ -26,5 +26,10 @@ export class ValueObservable<T> extends Observable<ValueObserver<T>> {
     return this._value;
   }
 
+  public add_observer_and_broadcast_value(observer: ValueObserver<T>) {
+    super.add_observer(observer);
+    observer.on_change(this._value);
+  }
+
   private broadcast_change = this.broadcast((o) => o.on_change);
 }

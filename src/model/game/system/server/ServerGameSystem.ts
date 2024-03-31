@@ -31,7 +31,7 @@ export class ServerGameSystem extends GameSystem {
       type: "ShapeletData",
       id: ws_wrapper.id,
       body_data: {
-        pos: { x: 8, y: 5 },
+        pos: { x: 8, y: -10 },
       },
       controller_data: {},
       sprite_data: ShapeletSpriteDataGenerator.generate(),

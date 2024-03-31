@@ -14,7 +14,7 @@ export class ClientShapelet extends Shapelet {
 
     this.health_component = new ClientHealthComponent(Shapelet.base_stats.max_health, data.health_data);
 
-    this.rig = new ShapeletRig(this.game_system.display, this.body, data.sprite_data);
+    this.rig = new ShapeletRig(this.game_system.display, this, data.sprite_data);
     this.syncher = new ClientShapeletSyncher(this);
   }
 
