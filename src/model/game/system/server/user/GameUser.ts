@@ -11,7 +11,7 @@ export class GameUser extends User {
   constructor(ws_wrapper: WebsocketWrapper, protected readonly game: ServerGameSystem, shapelet_data: ShapeletData) {
     super(ws_wrapper);
 
-    this.state = new GameUserState(new GameUserAliveState(this.game, shapelet_data));
+    this.state = new GameUserState(new GameUserAliveState(this.game, shapelet_data, this), this.game, this.id);
   }
 
   public receive_message(msg: ClientMessage): void {
@@ -23,5 +23,9 @@ export class GameUser extends User {
   public on_close(): void {
     this.game.server_room.remove_user(this.id, this.id);
     this.state.value.deconstruct();
+
+    if (this.state.value.type === "GameUserAliveState") {
+      this.game.object_container.remove_object(this.state.value.shapelet.id);
+    }
   }
 }

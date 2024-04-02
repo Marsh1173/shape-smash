@@ -15,7 +15,9 @@ export class ClientGameRouter {
 
   public route_msg(msg: ServerGameMessage) {
     if (msg.msg.type === "ServerGameUserMessage") {
-      //do nothing right now
+      if (msg.msg.msg.type === "UserStateUpdateMessage" && msg.msg.user_id === this.game_system.player_state.user_id) {
+        this.game_system.player_state.set_state_with_data(msg.msg.msg);
+      }
     } else if (msg.msg.type === "ServerShapeletMessage") {
       const shapelet = this.game_system.object_container.shapelets.get(msg.msg.id);
       shapelet?.syncher.route_msg(msg.msg);

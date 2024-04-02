@@ -4,6 +4,7 @@ export type ServerGameUserMessageContent = UserJoinMessage | UserLeaveMessage | 
 
 export interface ServerGameUserMessage {
   type: "ServerGameUserMessage";
+  user_id: Id;
   msg: ServerGameUserMessageContent;
 }
 

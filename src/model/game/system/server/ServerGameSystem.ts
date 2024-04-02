@@ -42,12 +42,13 @@ export class ServerGameSystem extends GameSystem {
       game_user,
       {
         ...this.get_game_data(),
+        user_id: game_user.id,
         player_state: {
           type: "UserStateUpdateMessage",
           msg: { type: "UserStateAliveMessage", shapelet_id: shapelet_data.id },
         },
       },
-      undefined
+      game_user.id
     );
   }
 

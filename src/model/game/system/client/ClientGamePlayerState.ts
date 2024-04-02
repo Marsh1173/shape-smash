@@ -3,9 +3,14 @@ import { ClientPlayer } from "./ClientPlayer";
 import { ClientShapelet } from "../../objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "./ClientGameSystem";
 import { UserStateAliveMessage, UserStateUpdateMessage } from "../server/user/ServerGameUserSchema";
+import { Id } from "../../../utils/Id";
 
 export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlayerStateType> {
-  constructor(data: UserStateUpdateMessage, protected readonly game_system: ClientGameSystem) {
+  constructor(
+    data: UserStateUpdateMessage,
+    protected readonly game_system: ClientGameSystem,
+    public readonly user_id: Id
+  ) {
     super(ClientGamePlayerState.get_state(data, game_system));
   }
 

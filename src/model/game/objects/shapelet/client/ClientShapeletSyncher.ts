@@ -15,7 +15,7 @@ export class ClientShapeletSyncher {
       this.health_syncher.route_msg(msg.msg);
     } else if (msg.msg.type === "ServerShapeletMoveMessage") {
       if (
-        this.game_system.player_state.value.type === "ClientGamePlayerAliveState" &&
+        this.game_system.player_state.value.type !== "ClientGamePlayerAliveState" ||
         this.shapelet.id !== this.game_system.player_state.value.shapelet.id
       ) {
         this.shapelet.controller.on_input(msg.msg.action, msg.msg.active);

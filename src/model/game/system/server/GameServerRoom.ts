@@ -5,7 +5,7 @@ import { ServerGameSystem } from "./ServerGameSystem";
 import { GameUser } from "./user/GameUser";
 import { GameServerRouter } from "./GameServerRouter";
 
-export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, undefined, Id> {
+export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, Id, Id> {
   public readonly router: GameServerRouter;
   constructor(game_system: ServerGameSystem) {
     super();
@@ -20,11 +20,12 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, undefin
     });
   }
 
-  protected broadcast_user_join(data: undefined) {
+  protected broadcast_user_join(data: Id) {
     this.broadcast({
       type: "ServerGameMessage",
       msg: {
         type: "ServerGameUserMessage",
+        user_id: data,
         msg: {
           type: "UserJoinMessage",
         },
@@ -37,6 +38,7 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, undefin
       type: "ServerGameMessage",
       msg: {
         type: "ServerGameUserMessage",
+        user_id: data,
         msg: {
           type: "UserLeaveMessage",
         },

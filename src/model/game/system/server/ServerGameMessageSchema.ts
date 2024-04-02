@@ -2,6 +2,7 @@ import { ServerShapeletMessage } from "../../objects/shapelet/server/ServerShape
 import { ServerObjectMessage } from "../../objects/model/ServerObjectSchema";
 import { ServerGameUserMessage, UserStateUpdateMessage } from "./user/ServerGameUserSchema";
 import { GameData } from "../GameSystem";
+import { Id } from "../../../utils/Id";
 
 export interface GameDataMessage {
   type: "GameDataMessage";
@@ -9,6 +10,7 @@ export interface GameDataMessage {
 }
 
 export interface ClientGameData extends GameData {
+  user_id: Id;
   player_state: UserStateUpdateMessage;
 }
 

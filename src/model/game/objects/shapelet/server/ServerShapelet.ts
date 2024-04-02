@@ -10,10 +10,15 @@ export class ServerShapelet extends Shapelet {
   public readonly health_component: ServerHealthComponent;
   protected readonly trigger_death_on_fall: TriggerDeathOnFall;
 
-  constructor(game_system: ServerGameSystem, data: ShapeletData) {
+  constructor(protected readonly game_system: ServerGameSystem, data: ShapeletData) {
     super(game_system, data);
 
-    this.health_component = new ServerHealthComponent(Shapelet.base_stats.max_health, data.health_data);
+    this.health_component = new ServerHealthComponent(
+      Shapelet.base_stats.max_health,
+      data.health_data,
+      this.game_system,
+      this.id
+    );
     this.trigger_death_on_fall = new TriggerDeathOnFall(this.health_component, () => this.body.pos);
 
     this.syncher = new ServerShapeletSyncher(this, game_system.server_room);

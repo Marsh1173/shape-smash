@@ -5,6 +5,7 @@ import { ClientGameSystem } from "../system/client/ClientGameSystem";
 export class Camera {
   protected readonly camera_pos: Vector = { x: 0, y: 0 };
   protected focus_pos: (() => Vector) | undefined = undefined;
+  protected last_focus_pos: Vector = { x: 0, y: 0 };
   constructor(protected readonly translating_layer: Container, protected readonly game_system: ClientGameSystem) {}
 
   public update(elapsed_seconds: number) {
@@ -18,18 +19,18 @@ export class Camera {
 
   protected scoot_camera(elapsed_seconds: number) {
     if (this.focus_pos) {
-      const focus_pos = this.focus_pos();
-      const follow_factor = 5;
-      this.camera_pos.x += (focus_pos.x - this.camera_pos.x) * elapsed_seconds * follow_factor;
-      this.camera_pos.y += (focus_pos.y - this.camera_pos.y) * elapsed_seconds * follow_factor;
+      this.last_focus_pos = this.focus_pos();
     }
+    const follow_factor = 5;
+    this.camera_pos.x += (this.last_focus_pos.x - this.camera_pos.x) * elapsed_seconds * follow_factor;
+    this.camera_pos.y += (this.last_focus_pos.y - this.camera_pos.y) * elapsed_seconds * follow_factor;
   }
 
   public set_focus(get_focus: () => Vector) {
     this.focus_pos = get_focus;
-    const focus_pos = this.focus_pos();
-    this.camera_pos.x = focus_pos.x;
-    this.camera_pos.y = focus_pos.y;
+    this.last_focus_pos = this.focus_pos();
+    this.camera_pos.x = this.last_focus_pos.x;
+    this.camera_pos.y = this.last_focus_pos.y;
   }
 
   public clear_focus() {
