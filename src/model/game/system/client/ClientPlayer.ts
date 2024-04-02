@@ -1,4 +1,3 @@
-import { ShapeletData } from "../../objects/shapelet/Shapelet";
 import { Input } from "../../display/Input";
 import { ClientShapelet } from "../../objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "./ClientGameSystem";
@@ -7,10 +6,7 @@ import { ShapeletAction } from "../../objects/shapelet/ShapeletController";
 import { Vector } from "@dimforge/rapier2d-compat";
 import { Graphics } from "pixi.js";
 import { Camera } from "../../display/Camera";
-
-export interface ClientPlayerData {
-  shapelet_data: ShapeletData;
-}
+import { UserStateAliveMessage } from "../server/user/ServerGameUserSchema";
 
 export class ClientPlayer extends HasId {
   public readonly id: Id;
@@ -19,11 +15,11 @@ export class ClientPlayer extends HasId {
 
   constructor(
     protected readonly shapelet: ClientShapelet,
-    data: ClientPlayerData,
+    data: UserStateAliveMessage,
     protected readonly game_system: ClientGameSystem
   ) {
     super();
-    this.id = data.shapelet_data.id;
+    this.id = data.shapelet_id;
 
     this.mouse_sprite = new Graphics();
     this.mouse_sprite.beginFill(0x00ff00);

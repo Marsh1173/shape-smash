@@ -1,18 +1,11 @@
-import { HasId, Id } from "../../../utils/Id";
-import { ShapeletBody, ShapeletBodyData } from "./ShapeletBody";
-import { ShapeletController, ShapeletControllerData } from "./ShapeletController";
+import { Id } from "../../../utils/Id";
+import { ShapeletBody } from "./ShapeletBody";
+import { ShapeletController } from "./ShapeletController";
 import { ShapeletSpriteData } from "./client/sprite/ShapeletAssets";
-import { HealthComponent, HealthComponentData } from "../components/health/HealthComponent";
+import { HealthComponent } from "../components/health/HealthComponent";
 import { GameSystem } from "../../system/GameSystem";
 import { GameObject } from "../model/GameObject";
-
-export interface ShapeletData extends HasId {
-  type: "ShapeletData";
-  body_data: ShapeletBodyData;
-  controller_data: ShapeletControllerData;
-  sprite_data: ShapeletSpriteData;
-  health_data: HealthComponentData;
-}
+import { ShapeletData } from "./ShapeletSchema";
 
 export abstract class Shapelet implements GameObject {
   public readonly id: Id;

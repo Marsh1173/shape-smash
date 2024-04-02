@@ -1,8 +1,9 @@
-import { Shapelet, ShapeletData } from "../Shapelet";
+import { Shapelet } from "../Shapelet";
 import { ShapeletRig } from "./sprite/rig/ShapeletRig";
 import { ClientHealthComponent } from "../../components/health/client/ClientHealthComponent";
 import { ClientShapeletSyncher } from "./ClientShapeletSyncher";
 import { ClientGameSystem } from "../../../system/client/ClientGameSystem";
+import { ShapeletData } from "../ShapeletSchema";
 
 export class ClientShapelet extends Shapelet {
   public readonly syncher: ClientShapeletSyncher;
@@ -15,7 +16,7 @@ export class ClientShapelet extends Shapelet {
     this.health_component = new ClientHealthComponent(Shapelet.base_stats.max_health, data.health_data);
 
     this.rig = new ShapeletRig(this.game_system.display, this, data.sprite_data);
-    this.syncher = new ClientShapeletSyncher(this);
+    this.syncher = new ClientShapeletSyncher(this, this.game_system);
   }
 
   public destroy() {

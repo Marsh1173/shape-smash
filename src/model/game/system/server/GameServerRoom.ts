@@ -1,12 +1,11 @@
 import { ServerRoom } from "../../../../server/network/ServerRoom";
 import { Id } from "../../../utils/Id";
-import { ClientPlayerData } from "../client/ClientPlayer";
 import { ClientGameData } from "../client/ClientGameSystem";
 import { ServerGameSystem } from "./ServerGameSystem";
-import { GameUser } from "./GameUser";
+import { GameUser } from "./user/GameUser";
 import { GameServerRouter } from "./GameServerRouter";
 
-export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, ClientPlayerData, Id> {
+export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, undefined, Id> {
   public readonly router: GameServerRouter;
   constructor(game_system: ServerGameSystem) {
     super();
@@ -14,18 +13,21 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, ClientP
     this.router = new GameServerRouter(game_system);
   }
 
-  protected send_room_data_on_join(user: GameUser, data: ClientGameData): void {
+  protected send_room_data_on_join(user: GameUser, data: ClientGameData) {
     user.send_message({
       type: "GameDataMessage",
       data,
     });
   }
 
-  protected broadcast_user_join(data: ClientPlayerData): void {
+  protected broadcast_user_join(data: undefined) {
     this.broadcast({
       type: "ServerGameMessage",
       msg: {
-        type: "UserJoinMessage",
+        type: "ServerGameUserMessage",
+        msg: {
+          type: "UserJoinMessage",
+        },
       },
     });
   }
@@ -34,7 +36,10 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, ClientP
     this.broadcast({
       type: "ServerGameMessage",
       msg: {
-        type: "UserLeaveMessage",
+        type: "ServerGameUserMessage",
+        msg: {
+          type: "UserLeaveMessage",
+        },
       },
     });
   }

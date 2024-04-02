@@ -16,33 +16,27 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
     this.health_syncher = new ServerHealthComponentSyncher(this.shapelet.health_component, this.syncher_id, this);
   }
 
-  public broadcast(msg: ServerShapeletMessageContent, exclude_id?: Id) {
-    this.server_room.broadcast(
-      {
-        type: "ServerGameMessage",
-        msg: {
-          type: "ServerShapeletMessage",
-          id: this.shapelet.id,
-          msg: msg,
-        },
+  public broadcast(msg: ServerShapeletMessageContent) {
+    this.server_room.broadcast({
+      type: "ServerGameMessage",
+      msg: {
+        type: "ServerShapeletMessage",
+        id: this.shapelet.id,
+        msg: msg,
       },
-      exclude_id
-    );
+    });
   }
 
   public route_msg(msg: PlayerMoveMessage) {
     this.shapelet.controller.on_input(msg.action, msg.active);
     this.shapelet.body.set_pos_and_vel(msg.pos, msg.vel);
 
-    this.broadcast(
-      {
-        type: "ServerShapeletMoveMessage",
-        active: msg.active,
-        action: msg.action,
-        pos: msg.pos,
-        vel: msg.vel,
-      },
-      this.shapelet.id
-    );
+    this.broadcast({
+      type: "ServerShapeletMoveMessage",
+      active: msg.active,
+      action: msg.action,
+      pos: msg.pos,
+      vel: msg.vel,
+    });
   }
 }

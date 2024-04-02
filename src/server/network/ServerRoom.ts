@@ -39,11 +39,9 @@ export abstract class ServerRoom<UserType extends User, SessionJoinData, UserJoi
     this.users.set(user.id, user);
   }
 
-  public broadcast(msg: ServerMessage, exclude_id: Id | undefined = undefined) {
+  public broadcast(msg: ServerMessage) {
     for (const user of this.users.values()) {
-      if (user.id !== exclude_id) {
-        user.send_message(msg);
-      }
+      user.send_message(msg);
     }
   }
 

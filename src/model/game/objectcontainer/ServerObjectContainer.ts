@@ -14,27 +14,18 @@ export class ServerObjectContainer extends ObjectContainer {
 
   public add_object(object: ServerGameObjectType) {
     super.add_object(object);
-
-    let exclude_id: Id | undefined = undefined;
-    if (object.type === "Shapelet") {
-      exclude_id = object.id;
-    }
-
     const object_data = object.serialize();
 
-    this.game_system.server_room.broadcast(
-      {
-        type: "ServerGameMessage",
+    this.game_system.server_room.broadcast({
+      type: "ServerGameMessage",
+      msg: {
+        type: "ServerObjectMessage",
         msg: {
-          type: "ServerObjectMessage",
-          msg: {
-            type: "ServerObjectCreateMessage",
-            object_data,
-          },
+          type: "ServerObjectCreateMessage",
+          object_data,
         },
       },
-      exclude_id
-    );
+    });
   }
 
   protected remove_object_inner(object: ServerGameObjectType): void {

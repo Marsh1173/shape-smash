@@ -1,7 +1,8 @@
 import { Platform, PlatformData } from "../objects/platform/Platform";
 import { GameSystem } from "../system/GameSystem";
-import { Shapelet, ShapeletData } from "../objects/shapelet/Shapelet";
+import { Shapelet } from "../objects/shapelet/Shapelet";
 import { GameObjectType } from "../objects/model/GameObject";
+import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
 
 export abstract class ObjectFactory {
   constructor(protected readonly game_system: GameSystem) {}

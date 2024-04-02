@@ -1,6 +1,7 @@
 import { HasId } from "../../../utils/Id";
 import { Platform, PlatformData } from "../platform/Platform";
-import { Shapelet, ShapeletData } from "../shapelet/Shapelet";
+import { Shapelet } from "../shapelet/Shapelet";
+import { ShapeletData } from "../shapelet/ShapeletSchema";
 
 export type GameObjectData = ShapeletData | PlatformData;
 

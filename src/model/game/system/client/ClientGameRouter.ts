@@ -14,9 +14,7 @@ export class ClientGameRouter {
   }
 
   public route_msg(msg: ServerGameMessage) {
-    if (msg.msg.type === "UserJoinMessage") {
-      //do nothing right now
-    } else if (msg.msg.type === "UserLeaveMessage") {
+    if (msg.msg.type === "ServerGameUserMessage") {
       //do nothing right now
     } else if (msg.msg.type === "ServerShapeletMessage") {
       const shapelet = this.game_system.object_container.shapelets.get(msg.msg.id);

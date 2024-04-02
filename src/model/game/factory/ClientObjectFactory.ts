@@ -3,8 +3,8 @@ import { ObjectFactory } from "./ObjectFactory";
 import { ClientPlatform } from "../objects/platform/ClientPlatform";
 import { ClientShapelet } from "../objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "../system/client/ClientGameSystem";
-import { ShapeletData } from "../objects/shapelet/Shapelet";
 import { GameObjectData } from "../objects/model/GameObject";
+import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
 
 export class ClientObjectFactory extends ObjectFactory {
   constructor(protected readonly game_system: ClientGameSystem) {

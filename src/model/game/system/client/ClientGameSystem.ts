@@ -1,16 +1,12 @@
 import { ClientObjectFactory } from "../../factory/ClientObjectFactory";
-import { GameData, GameSystem } from "../GameSystem";
-import { ClientPlayerData } from "./ClientPlayer";
+import { GameSystem } from "../GameSystem";
 import { ServerTalker } from "../../../../client/network/ServerTalker";
 import { ClientGameRouter } from "./ClientGameRouter";
 import { GameDisplay } from "../../display/GameDisplay";
 import { ClientGamePlayerAliveState, ClientGamePlayerState } from "./ClientGamePlayerState";
 import { ClientObjectContainer } from "../../objectcontainer/ClientObjectContainer";
 import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
-
-export interface ClientGameData extends GameData {
-  main_player_data: ClientPlayerData;
-}
+import { ClientGameData } from "../server/ServerGameMessageSchema";
 
 export class ClientGameSystem extends GameSystem {
   public readonly object_factory: ClientObjectFactory;
@@ -31,7 +27,7 @@ export class ClientGameSystem extends GameSystem {
 
     this.populate_objects(data);
 
-    this.player_state = new ClientGamePlayerState(new ClientGamePlayerAliveState(this, data.main_player_data));
+    this.player_state = new ClientGamePlayerState(data.player_state, this);
   }
 
   public update(elapsed_seconds: number): void {
@@ -45,3 +41,4 @@ export class ClientGameSystem extends GameSystem {
     super.dispose();
   }
 }
+export { ClientGameData };

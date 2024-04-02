@@ -1,8 +1,9 @@
 import { ServerHealthComponent } from "../../components/health/server/ServerHealthComponent";
-import { Shapelet, ShapeletData } from "../Shapelet";
+import { Shapelet } from "../Shapelet";
 import { ServerShapeletSyncher } from "./ServerShapeletSyncher";
 import { ServerGameSystem } from "../../../system/server/ServerGameSystem";
-import { TriggerDeathOnFall } from "../../components/health/TriggerDeathOnFall";
+import { TriggerDeathOnFall } from "../../components/TriggerDeathOnFall";
+import { ShapeletData } from "../ShapeletSchema";
 
 export class ServerShapelet extends Shapelet {
   public readonly syncher: ServerShapeletSyncher;

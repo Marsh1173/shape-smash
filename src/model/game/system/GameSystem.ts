@@ -2,8 +2,8 @@ import { HasId } from "../../utils/Id";
 import { PlatformData } from "../objects/platform/Platform";
 import { ObjectFactory } from "../factory/ObjectFactory";
 import RAPIER, { World } from "@dimforge/rapier2d-compat";
-import { ShapeletData } from "../objects/shapelet/Shapelet";
 import { ObjectContainer } from "../objectcontainer/ObjectContainer";
+import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
 
 export abstract class GameSystem extends HasId {
   public readonly rapier_world: World;

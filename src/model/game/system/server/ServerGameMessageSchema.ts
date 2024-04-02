@@ -1,21 +1,18 @@
 import { ServerShapeletMessage } from "../../objects/shapelet/server/ServerShapeletSchema";
-import { ClientGameData } from "../client/ClientGameSystem";
 import { ServerObjectMessage } from "../../objects/model/ServerObjectSchema";
+import { ServerGameUserMessage, UserStateUpdateMessage } from "./user/ServerGameUserSchema";
+import { GameData } from "../GameSystem";
 
 export interface GameDataMessage {
   type: "GameDataMessage";
   data: ClientGameData;
 }
 
+export interface ClientGameData extends GameData {
+  player_state: UserStateUpdateMessage;
+}
+
 export interface ServerGameMessage {
   type: "ServerGameMessage";
-  msg: ServerShapeletMessage | UserJoinMessage | UserLeaveMessage | ServerObjectMessage;
-}
-
-export interface UserJoinMessage {
-  type: "UserJoinMessage";
-}
-
-export interface UserLeaveMessage {
-  type: "UserLeaveMessage";
+  msg: ServerShapeletMessage | ServerObjectMessage | ServerGameUserMessage;
 }

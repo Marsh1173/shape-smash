@@ -28,11 +28,14 @@ export class ClientHealthComponentDisplay {
     this.container.position.set(this.position.x, this.position.y - 40);
   }
 
-  public destroy() {}
+  public destroy() {
+    this.container.destroy();
+  }
 
   public update_nits(count: number) {
     for (const nit of this.nits) {
       this.container.removeChild(nit);
+      nit.destroy();
     }
     this.nits = [];
 
