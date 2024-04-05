@@ -7,8 +7,11 @@ X Good-looking platforms
 X Multiplayer
 X Rig
 X Server controller
+X Health UI
+X Death
 
-Health UI
-Death
+Rezzing
+State update + routing cleanup
 Combat
+Death animation
 Lobby

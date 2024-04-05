@@ -22,7 +22,7 @@ export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlay
     if (msg.msg.type === "UserStateAliveMessage") {
       return new ClientGamePlayerAliveState(game_system, msg.msg);
     } else if (msg.msg.type === "UserStateDieMessage") {
-      return new ClientGamePlayerDeadState();
+      return new ClientGamePlayerDeadState(game_system);
     } else {
       throw new Error("Unknown user state update message");
     }
@@ -58,6 +58,12 @@ export class ClientGamePlayerAliveState implements StateMachineState {
 
 export class ClientGamePlayerDeadState implements StateMachineState {
   public readonly type = "ClientGamePlayerDeadState";
-  public init(): void {}
-  public deconstruct(): void {}
+  constructor(protected readonly game_system: ClientGameSystem) {}
+
+  public init(): void {
+    this.game_system.display.screen_effects.start_effect("death");
+  }
+  public deconstruct(): void {
+    this.game_system.display.screen_effects.end_effect("death");
+  }
 }
