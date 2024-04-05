@@ -48,7 +48,9 @@ export class GameUserAliveState implements StateMachineState {
     this.shapelet.health_component.death_observable.add_observer({
       id: this.shapelet.id,
       on_die: () => {
-        this.game_user.state.set_value(new GameUserDeadState());
+        this.game_user.state.set_value(
+          new GameUserDeadState(this.game_system, this.game_user, this.shapelet.serialize())
+        );
       },
     });
   }
@@ -64,10 +66,19 @@ export class GameUserAliveState implements StateMachineState {
       shapelet_id: this.shapelet.id,
     };
   }
+
+  public update(elapsed_seconds: number) {}
 }
 
 export class GameUserDeadState implements StateMachineState {
   public readonly type = "GameUserDeadState";
+
+  constructor(
+    protected readonly game_system: ServerGameSystem,
+    protected readonly game_user: GameUser,
+    protected readonly dead_shapelet_data: ShapeletData
+  ) {}
+
   public init(): void {}
   public deconstruct(): void {}
 
@@ -75,5 +86,29 @@ export class GameUserDeadState implements StateMachineState {
     return {
       type: "UserStateDieMessage",
     };
+  }
+
+  protected static readonly death_time: number = 3;
+  protected death_time_remaining: number = GameUserDeadState.death_time;
+  public update(elapsed_seconds: number) {
+    this.death_time_remaining -= elapsed_seconds;
+    if (this.death_time_remaining < 0) {
+      this.game_user.state.set_value(
+        new GameUserAliveState(
+          this.game_system,
+          {
+            type: "ShapeletData",
+            id: this.dead_shapelet_data.id,
+            sprite_data: this.dead_shapelet_data.sprite_data,
+            body_data: {
+              pos: { x: 8, y: -10 },
+            },
+            controller_data: {},
+            health_data: {},
+          },
+          this.game_user
+        )
+      );
+    }
   }
 }

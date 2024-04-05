@@ -13,6 +13,12 @@ export class GameServerRoom extends ServerRoom<GameUser, ClientGameData, Id, Id>
     this.router = new GameServerRouter(game_system);
   }
 
+  public update(elapsed_seconds: number) {
+    for (const [id, user] of this.users) {
+      user.state.value.update(elapsed_seconds);
+    }
+  }
+
   protected send_room_data_on_join(user: GameUser, data: ClientGameData) {
     user.send_message({
       type: "GameDataMessage",

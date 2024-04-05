@@ -25,6 +25,11 @@ export class ServerGameSystem extends GameSystem {
     this.populate_objects(data);
   }
 
+  public update(elapsed_seconds: number): void {
+    this.server_room.update(elapsed_seconds);
+    super.update(elapsed_seconds);
+  }
+
   public add_user(ws_wrapper: WebsocketWrapper) {
     const shapelet_data: ShapeletData = {
       type: "ShapeletData",

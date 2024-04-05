@@ -76,6 +76,8 @@ export class ClientPlayer extends HasId {
 
   public destroy() {
     Input.clear_listener();
+    this.mouse_sprite.destroy();
+    this.game_system.display.layers.indicators.removeChild(this.mouse_sprite);
   }
 
   public get_shapelet(): ClientShapelet {

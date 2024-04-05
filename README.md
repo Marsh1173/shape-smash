@@ -9,9 +9,9 @@ X Rig
 X Server controller
 X Health UI
 X Death
+X Rezzing
 
-Rezzing
 State update + routing cleanup
+Client input cleanup
 Combat
 Death animation
-Lobby
