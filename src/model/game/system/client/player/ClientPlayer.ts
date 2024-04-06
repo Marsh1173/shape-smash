@@ -1,12 +1,12 @@
-import { Input } from "../../display/Input";
-import { ClientShapelet } from "../../objects/shapelet/client/ClientShapelet";
-import { ClientGameSystem } from "./ClientGameSystem";
-import { HasId, Id } from "../../../utils/Id";
-import { ShapeletAction } from "../../objects/shapelet/ShapeletController";
+import { Input } from "../../../display/Input";
+import { ClientShapelet } from "../../../objects/shapelet/client/ClientShapelet";
+import { ClientGameSystem } from "../ClientGameSystem";
+import { HasId, Id } from "../../../../utils/Id";
+import { ShapeletAction } from "../../../objects/shapelet/ShapeletController";
 import { Vector } from "@dimforge/rapier2d-compat";
 import { Graphics } from "pixi.js";
-import { Camera } from "../../display/Camera";
-import { UserStateAliveMessage } from "../server/user/ServerGameUserSchema";
+import { Camera } from "../../../display/Camera";
+import { UserStateAliveMessage } from "../../server/user/ServerGameUserSchema";
 
 export class ClientPlayer extends HasId {
   public readonly id: Id;

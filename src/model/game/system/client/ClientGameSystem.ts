@@ -3,7 +3,7 @@ import { GameSystem } from "../GameSystem";
 import { ServerTalker } from "../../../../client/network/ServerTalker";
 import { ClientGameRouter } from "./ClientGameRouter";
 import { GameDisplay } from "../../display/GameDisplay";
-import { ClientGamePlayerState } from "./ClientGamePlayerState";
+import { ClientGamePlayerState } from "./player/ClientGamePlayerState";
 import { ClientObjectContainer } from "../../objectcontainer/ClientObjectContainer";
 import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
 import { ClientGameData } from "../server/ServerGameMessageSchema";

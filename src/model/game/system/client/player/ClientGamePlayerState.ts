@@ -1,9 +1,9 @@
-import { StateMachineObservable, StateMachineState } from "../../../utils/observer/StateMachineObservable";
+import { StateMachineObservable, StateMachineState } from "../../../../utils/observer/StateMachineObservable";
 import { ClientPlayer } from "./ClientPlayer";
-import { ClientShapelet } from "../../objects/shapelet/client/ClientShapelet";
-import { ClientGameSystem } from "./ClientGameSystem";
-import { UserStateAliveMessage, UserStateUpdateMessage } from "../server/user/ServerGameUserSchema";
-import { Id } from "../../../utils/Id";
+import { ClientShapelet } from "../../../objects/shapelet/client/ClientShapelet";
+import { ClientGameSystem } from "../ClientGameSystem";
+import { UserStateAliveMessage, UserStateUpdateMessage } from "../../server/user/ServerGameUserSchema";
+import { Id } from "../../../../utils/Id";
 
 export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlayerStateType> {
   constructor(
