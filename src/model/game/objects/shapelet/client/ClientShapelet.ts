@@ -22,6 +22,17 @@ export class ClientShapelet extends Shapelet {
 
     this.rig = new ShapeletRig(this.game_system.display, this, data.sprite_data);
     this.syncher = new ClientShapeletSyncher(this, this.game_system);
+
+    this.health_component.death_observable.add_observer({
+      id: this.id,
+      on_die: () => {
+        this.game_system.particle_system.factory.shapelet_remains(
+          this.sprite_data.body_color,
+          this.body.pos,
+          this.body.velocity.x
+        );
+      },
+    });
   }
 
   public destroy() {

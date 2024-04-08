@@ -8,10 +8,12 @@ import { ClientGamePlayerState } from "./player/ClientGamePlayerState";
 import { ClientObjectContainer } from "../../objectcontainer/ClientObjectContainer";
 import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
 import { ClientGameData } from "../server/ServerGameMessageSchema";
+import { ParticleSystem } from "../../particlesystem/ParticleSystem";
 
 export class ClientGameSystem extends GameSystem {
   public readonly object_factory: ClientObjectFactory;
   public readonly object_container: ClientObjectContainer;
+  public readonly particle_system: ParticleSystem;
   public readonly router: ClientGameRouter;
 
   public readonly display: GameDisplay;
@@ -31,15 +33,18 @@ export class ClientGameSystem extends GameSystem {
 
     this.player_state = new ClientGamePlayerState(data.player_state, this, data.user_id);
     this.game_input = new GameInput(this);
+    this.particle_system = new ParticleSystem(this);
   }
 
   public update(elapsed_seconds: number): void {
+    this.particle_system.update(elapsed_seconds);
     this.game_input.update();
     super.update(elapsed_seconds);
     this.display.update(elapsed_seconds);
   }
 
   public dispose() {
+    this.particle_system.destroy();
     this.game_input.cleanup();
     this.player_state.deconstruct();
     LifecycleTextures.destroy_all();

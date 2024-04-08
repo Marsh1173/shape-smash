@@ -12,8 +12,8 @@ X Death
 X Rezzing
 X Client input cleanup
 X Sprite data separation
+X Death animation
 
-Death animation
 State update + routing cleanup
 Combat / damage animation
 Server sleep
