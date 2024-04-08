@@ -9,8 +9,7 @@ export interface ShapeletControllerData {
 export enum ShapeletAction {
   MoveLeft,
   MoveRight,
-  MoveUp,
-  MoveDown,
+  Jump,
 }
 
 export class ShapeletController {
@@ -35,8 +34,7 @@ export class ShapeletController {
     this.active_actions = data.active_actions ?? {
       [ShapeletAction.MoveLeft]: false,
       [ShapeletAction.MoveRight]: false,
-      [ShapeletAction.MoveUp]: false,
-      [ShapeletAction.MoveDown]: false,
+      [ShapeletAction.Jump]: false,
     };
 
     this.jump_force = this.world.gravity.y / 3.5;
@@ -60,8 +58,8 @@ export class ShapeletController {
       }
     }
 
-    if (this.active_actions[ShapeletAction.MoveUp]) {
-      this.active_actions[ShapeletAction.MoveUp] = false;
+    if (this.active_actions[ShapeletAction.Jump]) {
+      this.active_actions[ShapeletAction.Jump] = false;
       if (this.remaining_jumps > 0) {
         this.remaining_jumps--;
         this.shapelet_body.velocity = { y: -this.jump_force };

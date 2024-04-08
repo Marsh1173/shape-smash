@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { ClientTicker } from "../model/utils/ticker/ClientTicker";
 import { uuid } from "../model/utils/Id";
 import "./main.less";
-import { Input } from "../model/game/display/Input";
 import { ImageAssetHandler } from "../model/game/display/Assets";
 import { ServerTalker } from "./network/ServerTalker";
 import { ClientGameData, ClientGameSystem } from "../model/game/system/client/ClientGameSystem";
@@ -59,7 +58,6 @@ export function run() {
     }
   }
 
-  Input.init();
   const domContainer = document.querySelector("#reactDom")!;
   const root = createRoot(domContainer);
   root.render(<MainDiv></MainDiv>);

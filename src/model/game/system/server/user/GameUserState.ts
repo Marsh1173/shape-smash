@@ -88,7 +88,7 @@ export class GameUserDeadState implements StateMachineState {
     };
   }
 
-  protected static readonly death_time: number = 3;
+  protected static readonly death_time: number = 1;
   protected death_time_remaining: number = GameUserDeadState.death_time;
   public update(elapsed_seconds: number) {
     this.death_time_remaining -= elapsed_seconds;

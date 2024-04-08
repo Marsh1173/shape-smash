@@ -1,9 +1,10 @@
 import { StateMachineObservable, StateMachineState } from "../../../../utils/observer/StateMachineObservable";
-import { ClientPlayer } from "./ClientPlayer";
+import { PlayerController } from "../controller/PlayerController";
 import { ClientShapelet } from "../../../objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "../ClientGameSystem";
 import { UserStateAliveMessage, UserStateUpdateMessage } from "../../server/user/ServerGameUserSchema";
 import { Id } from "../../../../utils/Id";
+import { PlayerInputConfig } from "../controller/PlayerInputConfig";
 
 export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlayerStateType> {
   constructor(
@@ -27,13 +28,22 @@ export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlay
       throw new Error("Unknown user state update message");
     }
   }
+
+  public route_input(key: string, active: boolean) {
+    if (this.value.type === "ClientGamePlayerAliveState") {
+      const action = PlayerInputConfig[key];
+      if (action !== undefined) {
+        this.value.controller.route_input(action, active);
+      }
+    }
+  }
 }
 export type ClientGamePlayerStateType = ClientGamePlayerAliveState | ClientGamePlayerDeadState;
 
 export class ClientGamePlayerAliveState implements StateMachineState {
   public readonly type = "ClientGamePlayerAliveState";
 
-  public readonly player: ClientPlayer;
+  public readonly controller: PlayerController;
   public readonly shapelet: ClientShapelet;
 
   constructor(protected readonly game_system: ClientGameSystem, msg: UserStateAliveMessage) {
@@ -43,7 +53,7 @@ export class ClientGamePlayerAliveState implements StateMachineState {
     } else {
       throw new Error("Could not find shapelet after changing to Player Alive State");
     }
-    this.player = new ClientPlayer(this.shapelet, msg, this.game_system);
+    this.controller = new PlayerController(this.shapelet, this.game_system);
   }
 
   public init(): void {
@@ -51,7 +61,6 @@ export class ClientGamePlayerAliveState implements StateMachineState {
   }
 
   public deconstruct(): void {
-    this.player.destroy();
     this.game_system.display.camera.clear_focus();
   }
 }

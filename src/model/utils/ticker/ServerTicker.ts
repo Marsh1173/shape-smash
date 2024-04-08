@@ -3,7 +3,8 @@ import { TickerListener } from "./TickerListener";
 
 export class ServerTicker {
   private static interval_id?: NodeJS.Timeout;
-  private static readonly MS_PER_FRAME = 1000 / 60;
+  private static readonly FPS = 120; // higher fps on server for more accuracy
+  private static readonly MS_PER_FRAME = 1000 / ServerTicker.FPS;
 
   private constructor() {}
 

@@ -10,8 +10,8 @@ X Server controller
 X Health UI
 X Death
 X Rezzing
+X Client input cleanup
 
 State update + routing cleanup
-Client input cleanup
 Combat
-Death animation
+Death / damage animation
