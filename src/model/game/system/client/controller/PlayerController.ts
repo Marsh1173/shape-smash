@@ -15,6 +15,8 @@ export class PlayerController {
     } else if (action === ShapeletAction.MoveLeft) {
       this.shapelet.controller.on_input(ShapeletAction.MoveLeft, active);
       this.broadcast_move(ShapeletAction.MoveLeft, active);
+    } else if (action === ShapeletAction.MainAction) {
+      this.broadcast_move(ShapeletAction.MainAction, active);
     }
   }
 

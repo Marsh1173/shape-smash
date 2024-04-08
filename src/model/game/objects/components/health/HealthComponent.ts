@@ -34,20 +34,12 @@ export abstract class HealthComponent {
     this.current_health.set_value(Math.min(this.current_health.value + amount, this.max_health.value));
   }
 
-  public damage(amount: number): boolean {
+  public damage(amount: number) {
     this.current_health.set_value(Math.max(this.current_health.value - amount, 0));
-
-    if (this.current_health.value === 0) {
-      this.die();
-      return true;
-    } else {
-      return false;
-    }
   }
 
-  protected die() {
+  public die() {
     this.death_observable.on_die({});
-    this.game_system.object_container.remove_object(this.object_id);
   }
 
   public serialize(): HealthComponentData {

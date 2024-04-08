@@ -1,6 +1,9 @@
 export interface ServerHealthComponentMessage {
   type: "ServerHealthComponentMessage";
-  msg: ServerHealthComponentUpdateCurrentHealthMessage | ServerHealthComponentUpdateMaxHealthMessage;
+  msg:
+    | ServerHealthComponentUpdateCurrentHealthMessage
+    | ServerHealthComponentUpdateMaxHealthMessage
+    | ServerHealthComponentDieMessage;
 }
 
 export interface ServerHealthComponentUpdateCurrentHealthMessage {
@@ -11,4 +14,8 @@ export interface ServerHealthComponentUpdateCurrentHealthMessage {
 export interface ServerHealthComponentUpdateMaxHealthMessage {
   type: "ServerHealthComponentUpdateMaxHealthMessage";
   new_value: number;
+}
+
+export interface ServerHealthComponentDieMessage {
+  type: "ServerHealthComponentDieMessage";
 }

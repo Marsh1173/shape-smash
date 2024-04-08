@@ -3,7 +3,7 @@ import { ShapeletAction } from "../ShapeletController";
 import { ServerHealthComponentMessage } from "../../components/health/server/ServerHealthComponentSchema";
 import { Id } from "../../../../utils/Id";
 
-export type ServerShapeletMessageContent = ServerShapeletMoveMessage | ServerHealthComponentMessage;
+export type ServerShapeletMessageContent = ServerShapeletActionMessage | ServerHealthComponentMessage;
 
 export interface ServerShapeletMessage {
   type: "ServerShapeletMessage";
@@ -11,8 +11,8 @@ export interface ServerShapeletMessage {
   msg: ServerShapeletMessageContent;
 }
 
-export interface ServerShapeletMoveMessage {
-  type: "ServerShapeletMoveMessage";
+export interface ServerShapeletActionMessage {
+  type: "ServerShapeletActionMessage";
   active: boolean;
   action: ShapeletAction;
   pos: Vector;

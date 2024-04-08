@@ -37,5 +37,17 @@ export class ServerHealthComponentSyncher {
         });
       },
     });
+
+    this.health_component.death_observable.add_observer({
+      id: this.syncher_id,
+      on_die: () => {
+        this.broadcaster.broadcast({
+          type: "ServerHealthComponentMessage",
+          msg: {
+            type: "ServerHealthComponentDieMessage",
+          },
+        });
+      },
+    });
   }
 }

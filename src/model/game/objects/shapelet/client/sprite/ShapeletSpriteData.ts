@@ -70,9 +70,9 @@ const faces: ShapeletFaceType[] = [
   "face_g",
   "face_h",
   "face_i",
-  "face_j",
   "face_k",
   "face_l",
+  // "face_j",
 ];
 
 const body_shapes: ShapeletBodyShape[] = ["squircle", "square", "rhombus", "circle"];

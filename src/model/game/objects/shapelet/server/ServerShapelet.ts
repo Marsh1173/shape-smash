@@ -28,4 +28,12 @@ export class ServerShapelet extends Shapelet {
     super.update(elapsed_seconds);
     this.trigger_death_on_fall.update();
   }
+
+  //temp code called by syncher
+  public snipe() {
+    for (const shapelet of this.game_system.object_container.shapelets.values()) {
+      shapelet.health_component.damage(1);
+      break;
+    }
+  }
 }

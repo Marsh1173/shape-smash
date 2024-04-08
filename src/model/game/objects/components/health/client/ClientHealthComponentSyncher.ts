@@ -9,6 +9,8 @@ export class ClientHealthComponentSyncher {
       this.health_component.current_health.set_value(msg.msg.new_value);
     } else if (msg.msg.type === "ServerHealthComponentUpdateMaxHealthMessage") {
       this.health_component.max_health.set_value(msg.msg.new_value);
+    } else if (msg.msg.type === "ServerHealthComponentDieMessage") {
+      this.health_component.die();
     } else {
       throw new Error("Route not implemented yet");
     }

@@ -10,6 +10,7 @@ export enum ShapeletAction {
   MoveLeft,
   MoveRight,
   Jump,
+  MainAction,
 }
 
 export class ShapeletController {
@@ -35,6 +36,7 @@ export class ShapeletController {
       [ShapeletAction.MoveLeft]: false,
       [ShapeletAction.MoveRight]: false,
       [ShapeletAction.Jump]: false,
+      [ShapeletAction.MainAction]: false,
     };
 
     this.jump_force = this.world.gravity.y / 3.5;

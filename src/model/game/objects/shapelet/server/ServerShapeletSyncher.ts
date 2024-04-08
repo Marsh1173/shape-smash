@@ -5,6 +5,7 @@ import {
   ServerHealthComponentBroadcaster,
   ServerHealthComponentSyncher,
 } from "../../components/health/server/ServerHealthComponentSyncher";
+import { ShapeletAction } from "../ShapeletController";
 import { ServerShapelet } from "./ServerShapelet";
 import { ServerShapeletMessageContent } from "./ServerShapeletSchema";
 
@@ -31,8 +32,13 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
     this.shapelet.controller.on_input(msg.action, msg.active);
     this.shapelet.body.set_pos_and_vel(msg.pos, msg.vel);
 
+    //temp code
+    if (msg.action === ShapeletAction.MainAction && msg.active) {
+      this.shapelet.snipe();
+    }
+
     this.broadcast({
-      type: "ServerShapeletMoveMessage",
+      type: "ServerShapeletActionMessage",
       active: msg.active,
       action: msg.action,
       pos: msg.pos,

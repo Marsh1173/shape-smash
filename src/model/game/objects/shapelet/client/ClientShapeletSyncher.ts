@@ -13,7 +13,7 @@ export class ClientShapeletSyncher {
   public route_msg(msg: ServerShapeletMessage) {
     if (msg.msg.type === "ServerHealthComponentMessage") {
       this.health_syncher.route_msg(msg.msg);
-    } else if (msg.msg.type === "ServerShapeletMoveMessage") {
+    } else if (msg.msg.type === "ServerShapeletActionMessage") {
       if (
         this.game_system.player_state.value.type !== "ClientGamePlayerAliveState" ||
         this.shapelet.id !== this.game_system.player_state.value.shapelet.id
