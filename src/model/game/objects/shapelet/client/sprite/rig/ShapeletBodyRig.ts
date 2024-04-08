@@ -1,6 +1,6 @@
 import { Container, Sprite } from "pixi.js";
-import { ShapeletSpriteData } from "../ShapeletAssets";
-import { ImageAssetHandler } from "../../../../../display/Assets";
+import { ShapeletSpriteData, ShapeletSpriteDataGenerator } from "../ShapeletSpriteData";
+import { ImageAssetHandler } from "../../../../../display/assets/Assets";
 import { Camera } from "../../../../../display/Camera";
 
 export class ShapeletBodyRig {
@@ -16,7 +16,8 @@ export class ShapeletBodyRig {
   public destroy() {}
 
   protected make_body_sprite(): Sprite {
-    const body_sprite = Sprite.from(ImageAssetHandler.get(this.data.body_type));
+    const body_asset = ShapeletSpriteDataGenerator.get_body_asset(this.data.body_shape, this.data.body_color);
+    const body_sprite = Sprite.from(ImageAssetHandler.get(body_asset));
     body_sprite.scale.set(Camera.sprite_scale);
     body_sprite.position.set(-body_sprite.width / 2, -body_sprite.height / 2);
     return body_sprite;

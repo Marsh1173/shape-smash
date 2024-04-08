@@ -1,7 +1,7 @@
 import { Id } from "../../../utils/Id";
 import { ShapeletBody } from "./ShapeletBody";
 import { ShapeletController } from "./ShapeletController";
-import { ShapeletSpriteData } from "./client/sprite/ShapeletAssets";
+import { ShapeletSpriteData } from "./client/sprite/ShapeletSpriteData";
 import { HealthComponent } from "../components/health/HealthComponent";
 import { GameSystem } from "../../system/GameSystem";
 import { GameObject } from "../model/GameObject";

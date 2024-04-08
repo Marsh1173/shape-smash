@@ -3,7 +3,7 @@ import { GameDisplay } from "../../../../display/GameDisplay";
 import { ClientShapelet } from "../../../shapelet/client/ClientShapelet";
 import { Container, DisplayObject, Sprite } from "pixi.js";
 import { uuid } from "../../../../../utils/Id";
-import { ImageAssetHandler } from "../../../../display/Assets";
+import { ImageAssetHandler } from "../../../../display/assets/Assets";
 
 export class ClientHealthComponentDisplay {
   protected readonly container = new Container();

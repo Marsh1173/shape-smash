@@ -1,6 +1,6 @@
 import { Container, Sprite } from "pixi.js";
 import { Camera } from "../../display/Camera";
-import { ImageAssetHandler } from "../../display/Assets";
+import { ImageAssetHandler } from "../../display/assets/Assets";
 import { PlatformBodyData } from "./PlatformBody";
 import { GameDisplay } from "../../display/GameDisplay";
 

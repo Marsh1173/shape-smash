@@ -1,7 +1,7 @@
 import { Container, Sprite } from "pixi.js";
 import { ShapeletBody } from "../../../ShapeletBody";
-import { ShapeletSpriteData } from "../ShapeletAssets";
-import { ImageAssetHandler } from "../../../../../display/Assets";
+import { ShapeletSpriteData } from "../ShapeletSpriteData";
+import { ImageAssetHandler } from "../../../../../display/assets/Assets";
 import { Camera } from "../../../../../display/Camera";
 import { uuid } from "../../../../../../utils/Id";
 

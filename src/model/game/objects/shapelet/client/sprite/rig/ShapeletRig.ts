@@ -1,7 +1,7 @@
 import { Container } from "pixi.js";
 import { ShapeletBodyRig } from "./ShapeletBodyRig";
 import { ShapeletFaceRig } from "./ShapeletFaceRig";
-import { ShapeletSpriteData } from "../ShapeletAssets";
+import { ShapeletSpriteData } from "../ShapeletSpriteData";
 import { Camera } from "../../../../../display/Camera";
 import { GameDisplay } from "../../../../../display/GameDisplay";
 import { ClientShapelet } from "../../../client/ClientShapelet";

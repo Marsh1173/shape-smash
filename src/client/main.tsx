@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ClientTicker } from "../model/utils/ticker/ClientTicker";
 import { uuid } from "../model/utils/Id";
 import "./main.less";
-import { ImageAssetHandler } from "../model/game/display/Assets";
+import { ImageAssetHandler } from "../model/game/display/assets/Assets";
 import { ServerTalker } from "./network/ServerTalker";
 import { ClientGameData, ClientGameSystem } from "../model/game/system/client/ClientGameSystem";
 import RAPIER from "@dimforge/rapier2d-compat";

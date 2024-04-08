@@ -2,7 +2,7 @@ import { GameData, GameSystem } from "../GameSystem";
 import { ServerObjectFactory } from "../../factory/ServerObjectFactory";
 import { GameUser } from "./user/GameUser";
 import { uuid } from "../../../utils/Id";
-import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/client/sprite/ShapeletAssets";
+import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/client/sprite/ShapeletSpriteData";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 import { GameServerRoom } from "./GameServerRoom";
 import { ServerObjectContainer } from "../../objectcontainer/ServerObjectContainer";
