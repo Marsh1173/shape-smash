@@ -44,7 +44,7 @@ export class ShapeletRemains implements ParticleUnit {
         .setTranslation(pos.x + relative_pos.x, pos.y + relative_pos.y)
         .setLinvel(relative_pos.x * 10 + x_vel / 2, relative_pos.y * 10 - 7)
         .setLinearDamping(3)
-        .setAdditionalSolverIterations(2);
+        .setAdditionalSolverIterations(1);
       const rigid_body = this.game_system.rapier_world.createRigidBody(rigid_body_desc);
 
       const collider_desc = RAPIER.ColliderDesc.cuboid(

@@ -17,3 +17,7 @@ X Death animation
 State update + routing cleanup
 Combat / damage animation
 Server sleep
+
+BUGS
+
+> Fix bug where a player doesn't build another player loading in at the same time

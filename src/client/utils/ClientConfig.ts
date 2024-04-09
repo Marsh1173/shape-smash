@@ -2,6 +2,7 @@ export interface IClientConfig {
   port: number;
   ws_url: () => string;
   is_development: boolean;
+  refresh_on_ws_close: boolean;
 }
 
 const PRODUCTION_CLIENT_CONFIG: IClientConfig = {
@@ -10,6 +11,7 @@ const PRODUCTION_CLIENT_CONFIG: IClientConfig = {
     return `wss://${location.host}:${PRODUCTION_CLIENT_CONFIG.port}`;
   },
   is_development: false,
+  refresh_on_ws_close: false,
 };
 
 const DEVELOPMENT_CLIENT_CONFIG: IClientConfig = {
@@ -19,6 +21,7 @@ const DEVELOPMENT_CLIENT_CONFIG: IClientConfig = {
     return `ws://${location.host}`;
   },
   is_development: true,
+  refresh_on_ws_close: true,
 };
 
 type ClientConfigMode = "production" | "development";
