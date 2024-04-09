@@ -1,9 +1,9 @@
 import { World } from "@dimforge/rapier2d-compat";
-import { Application, Color, Graphics } from "pixi.js";
+import { Color, Container, Graphics } from "pixi.js";
 import { Camera } from "./Camera";
 
 let graphics: Graphics[] = [];
-export function debug_shapes(world: World, pixijs_app: Application<HTMLCanvasElement>) {
+export function debug_shapes(world: World, stage: Container) {
   const { vertices, colors } = world.debugRender();
 
   graphics.forEach((g) => g.destroy());
@@ -24,6 +24,6 @@ export function debug_shapes(world: World, pixijs_app: Application<HTMLCanvasEle
     g.closePath();
 
     graphics.push(g);
-    pixijs_app.stage.addChild(g);
+    stage.addChild(g);
   }
 }

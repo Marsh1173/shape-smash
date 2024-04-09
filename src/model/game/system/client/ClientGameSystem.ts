@@ -41,6 +41,8 @@ export class ClientGameSystem extends GameSystem {
     this.game_input.update();
     super.update(elapsed_seconds);
     this.display.update(elapsed_seconds);
+
+    // debug_shapes(this.rapier_world, this.display.layers.indicators);
   }
 
   public dispose() {
