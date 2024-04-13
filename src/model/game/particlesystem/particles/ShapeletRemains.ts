@@ -24,7 +24,7 @@ export class ShapeletRemains implements ParticleUnit {
   protected readonly container: Container = new Container();
 
   constructor(protected readonly game_system: ClientGameSystem, color: ShapeletBodyColor, pos: Vector, x_vel: number) {
-    this.game_system.display.layers.shapelets.addChild(this.container);
+    this.game_system.display.layers.game_space.addChild(this.container);
 
     const asset = ShapeletSpriteDataGenerator.get_body_asset("square", color);
 
@@ -93,7 +93,7 @@ export class ShapeletRemains implements ParticleUnit {
   }
 
   public destroy(): void {
-    this.game_system.display.layers.shapelets.removeChild(this.container);
+    this.game_system.display.layers.game_space.removeChild(this.container);
     this.remains.forEach((remain) => {
       this.destroy_remain(remain);
     });

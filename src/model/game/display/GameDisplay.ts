@@ -6,8 +6,9 @@ import { GradientSprite } from "./pixijsutils/GradientSprite";
 
 export interface GameDisplayLayers {
   readonly indicators: Container;
-  readonly shapelets: Container;
+  readonly visual_effects: Container;
   readonly platforms: Container;
+  readonly game_space: Container;
   readonly pixijs_main_stage: Container;
 }
 
@@ -21,8 +22,9 @@ export class GameDisplay {
 
   public readonly layers: GameDisplayLayers = {
     indicators: new Container(),
-    shapelets: new Container(),
+    visual_effects: new Container(),
     platforms: new Container(),
+    game_space: new Container(),
     pixijs_main_stage: new Container(),
   };
 
@@ -37,7 +39,12 @@ export class GameDisplay {
 
     this.background_cover = this.make_background_cover();
 
-    this.translating_layer.addChild(this.layers.platforms, this.layers.shapelets, this.layers.indicators);
+    this.translating_layer.addChild(
+      this.layers.game_space,
+      this.layers.platforms,
+      this.layers.visual_effects,
+      this.layers.indicators
+    );
 
     this.layers.pixijs_main_stage.addChild(this.background_cover, this.translating_layer);
 

@@ -22,7 +22,7 @@ export class ShapeletRig {
     protected readonly data: ShapeletSpriteData
   ) {
     this.container = new Container();
-    this.game_display.layers.shapelets.addChild(this.container);
+    this.game_display.layers.game_space.addChild(this.container);
 
     this.body_rig = new ShapeletBodyRig(this.container, this.data);
     this.face_rig = new ShapeletFaceRig(this.container, this.shapelet.body, this.data);
@@ -42,7 +42,7 @@ export class ShapeletRig {
   }
 
   public destroy() {
-    this.game_display.layers.shapelets.removeChild(this.container);
+    this.game_display.layers.game_space.removeChild(this.container);
     this.body_rig.destroy();
     this.face_rig.destroy();
     this.health_display.destroy();
