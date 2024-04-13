@@ -9,11 +9,9 @@ import { ClientGameData, ClientGameSystem } from "../model/game/system/client/Cl
 import RAPIER from "@dimforge/rapier2d-compat";
 
 export function run() {
-  const server_talker = new ServerTalker();
-  const load_all_images_promise = ImageAssetHandler.load_all_images();
-
   class MainDiv extends Component<{}, {}> {
-    private canvas_ref = React.createRef<HTMLCanvasElement>();
+    private readonly canvas_ref = React.createRef<HTMLCanvasElement>();
+    private readonly server_talker: ServerTalker;
 
     private canvas: HTMLCanvasElement | undefined = undefined;
     private game_data: ClientGameData | undefined = undefined;
@@ -21,12 +19,13 @@ export function run() {
     constructor(props: any) {
       super(props);
 
-      server_talker.set_listener({
+      this.server_talker = new ServerTalker();
+      this.server_talker.set_listener({
         receive_message: (msg) => {
           if (msg.type === "GameDataMessage") {
             this.game_data = msg.data;
+            this.server_talker.clear_listener();
             this.attempt_start_game();
-            server_talker.clear_listener();
           }
         },
       });
@@ -43,12 +42,10 @@ export function run() {
 
     protected async attempt_start_game() {
       if (this.canvas && this.game_data) {
-        await Promise.all([RAPIER.init(), load_all_images_promise]);
-
         const game_data = this.game_data;
         const canvas = this.canvas;
 
-        const game = new ClientGameSystem(game_data, canvas, server_talker);
+        const game = new ClientGameSystem(game_data, canvas, this.server_talker);
 
         ClientTicker.add({
           id: uuid(),
@@ -60,5 +57,7 @@ export function run() {
 
   const domContainer = document.querySelector("#reactDom")!;
   const root = createRoot(domContainer);
-  root.render(<MainDiv></MainDiv>);
+  Promise.all([RAPIER.init(), ImageAssetHandler.load_all_images()]).then(() => {
+    root.render(<MainDiv></MainDiv>);
+  });
 }

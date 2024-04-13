@@ -16,7 +16,7 @@ X Death animation
 
 State update + routing cleanup
 Combat / damage animation
-Server sleep
+Server stages and main stage sleep
 
 BUGS
 
