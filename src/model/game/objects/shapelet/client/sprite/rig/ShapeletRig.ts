@@ -24,7 +24,7 @@ export class ShapeletRig {
     this.container = new Container();
     this.game_display.layers.game_space.addChild(this.container);
 
-    this.body_rig = new ShapeletBodyRig(this.container, this.data);
+    this.body_rig = new ShapeletBodyRig(this.container, this.shapelet.controller, this.data);
     this.face_rig = new ShapeletFaceRig(this.container, this.shapelet.body, this.data);
     this.health_display = new ClientHealthComponentDisplay(this.game_display, this.shapelet, this.position);
   }

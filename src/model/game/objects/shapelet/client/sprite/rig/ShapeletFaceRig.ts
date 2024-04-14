@@ -3,11 +3,15 @@ import { ShapeletBody } from "../../../ShapeletBody";
 import { ShapeletSpriteData } from "../ShapeletSpriteData";
 import { ImageAssetHandler } from "../../../../../display/assets/Assets";
 import { Camera } from "../../../../../display/Camera";
-import { uuid } from "../../../../../../utils/Id";
+import { Id, uuid } from "../../../../../../utils/Id";
+import { ShapeletFaceAnimator, ShapeletFaceAnimations } from "./ShapeletFaceAnimator";
 
 export class ShapeletFaceRig {
-  protected readonly face_container: Container;
+  public readonly face_container: Container;
   protected readonly face_sprite: Sprite;
+  protected readonly animator: ShapeletFaceAnimator;
+
+  protected readonly observer_id: Id = uuid();
 
   constructor(
     protected readonly rig_container: Container,
@@ -20,24 +24,31 @@ export class ShapeletFaceRig {
     this.face_container.addChild(this.face_sprite);
 
     this.rig_container.addChild(this.face_container);
+    this.animator = new ShapeletFaceAnimator(this);
 
     this.update_facing(
       this.body.facing.add_observer_and_get_value({
-        id: uuid(),
+        id: this.observer_id,
         on_change: this.update_facing.bind(this),
       })
     );
   }
 
-  public update(elapsed_seconds: number) {}
+  public update(elapsed_seconds: number) {
+    this.animator.update(elapsed_seconds);
+  }
 
-  public destroy() {}
+  public destroy() {
+    this.body.facing.remove_observer(this.observer_id);
+  }
 
   protected update_facing(new_value: "left" | "right") {
     if (new_value === "left") {
-      this.face_container.position.set(-4, 0);
+      this.animator.set_animation(ShapeletFaceAnimations.left_slide);
+      this.animator.set_default(ShapeletFaceAnimations.left_stay);
     } else {
-      this.face_container.position.set(4, 0);
+      this.animator.set_animation(ShapeletFaceAnimations.right_slide);
+      this.animator.set_default(ShapeletFaceAnimations.right_stay);
     }
   }
 

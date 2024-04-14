@@ -13,6 +13,7 @@ X Rezzing
 X Client input cleanup
 X Sprite data separation
 X Death animation
+X Animation framework + jump and move animation
 
 State update + routing cleanup
 Combat / damage animation
@@ -20,4 +21,4 @@ Server stages and main stage sleep
 
 BUGS
 
-> Fix bug where a player doesn't build another player loading in at the same time
+X Fix bug where a player doesn't build another player loading in at the same time

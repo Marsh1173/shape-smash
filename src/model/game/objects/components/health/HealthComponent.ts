@@ -39,7 +39,7 @@ export abstract class HealthComponent {
   }
 
   public die() {
-    this.death_observable.on_die({});
+    this.death_observable.on_die(undefined);
   }
 
   public serialize(): HealthComponentData {

@@ -1,5 +1,6 @@
 import { Vector, World } from "@dimforge/rapier2d-compat";
 import { ShapeletBody } from "./ShapeletBody";
+import { Observable, Observer } from "../../../utils/observer/Observer";
 
 export interface ShapeletControllerData {
   remaining_jumps?: number;
@@ -25,6 +26,7 @@ export class ShapeletController {
   protected on_ground: boolean = false;
   protected readonly allowed_jumps: number = 2;
   protected remaining_jumps: number;
+  public readonly jump_observable: JumpObservable = new JumpObservable();
 
   constructor(
     protected readonly shapelet_body: ShapeletBody,
@@ -56,6 +58,7 @@ export class ShapeletController {
     if (this.shapelet_body.on_ground !== this.on_ground) {
       this.on_ground = this.shapelet_body.on_ground;
       if (this.on_ground) {
+        this.jump_observable.on_land(undefined);
         this.remaining_jumps = this.allowed_jumps;
       }
     }
@@ -65,6 +68,7 @@ export class ShapeletController {
       if (this.remaining_jumps > 0) {
         this.remaining_jumps--;
         this.shapelet_body.velocity = { y: -this.jump_force };
+        this.jump_observable.on_jump(this.remaining_jumps);
       }
     }
   }
@@ -96,9 +100,13 @@ export class ShapeletController {
 
   protected handle_face_direction() {
     if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
-      this.shapelet_body.facing.set_value("left");
+      if (this.shapelet_body.facing.value !== "left") {
+        this.shapelet_body.facing.set_value("left");
+      }
     } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
-      this.shapelet_body.facing.set_value("right");
+      if (this.shapelet_body.facing.value !== "right") {
+        this.shapelet_body.facing.set_value("right");
+      }
     }
   }
 
@@ -108,4 +116,13 @@ export class ShapeletController {
       active_actions: this.active_actions,
     };
   }
+}
+
+interface JumpObserver extends Observer {
+  on_jump: (jumps_remaining: number) => void;
+  on_land: () => void;
+}
+class JumpObservable extends Observable<JumpObserver> {
+  public on_jump = this.broadcast((o) => o.on_jump);
+  public on_land = this.broadcast((o) => o.on_land);
 }
