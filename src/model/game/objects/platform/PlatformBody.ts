@@ -11,7 +11,7 @@ export class PlatformBody {
 
   constructor(protected readonly world: World, protected readonly data: PlatformBodyData) {
     this.collider_desc = RAPIER.ColliderDesc.cuboid(this.data.len / 2, 0.5)
-      .setTranslation(this.data.pos.x, this.data.pos.y)
+      .setTranslation(this.data.pos.x, this.data.pos.y + 0.5)
       .setCollisionGroups(0x0001ffff);
 
     this.collider = world.createCollider(this.collider_desc);

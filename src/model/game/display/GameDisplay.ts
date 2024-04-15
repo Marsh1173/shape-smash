@@ -9,6 +9,7 @@ export interface GameDisplayLayers {
   readonly visual_effects: Container;
   readonly platforms: Container;
   readonly game_space: Container;
+  readonly background: Container;
   readonly pixijs_main_stage: Container;
 }
 
@@ -25,6 +26,7 @@ export class GameDisplay {
     visual_effects: new Container(),
     platforms: new Container(),
     game_space: new Container(),
+    background: new Container(),
     pixijs_main_stage: new Container(),
   };
 
@@ -40,6 +42,7 @@ export class GameDisplay {
     this.background_cover = this.make_background_cover();
 
     this.translating_layer.addChild(
+      this.layers.background,
       this.layers.game_space,
       this.layers.platforms,
       this.layers.visual_effects,

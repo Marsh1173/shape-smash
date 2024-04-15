@@ -1,6 +1,7 @@
 import { Id } from "../../utils/Id";
 import { ClientPlatform } from "../objects/platform/ClientPlatform";
 import { ClientShapelet } from "../objects/shapelet/client/ClientShapelet";
+import { ClientPortal } from "../objects/portal/client/ClientPortal";
 import { ObjectContainer } from "./ObjectContainer";
 import { ClientGameObjectType } from "../objects/model/ClientGameObject";
 import { ServerObjectMessage } from "../objects/model/ServerObjectSchema";
@@ -9,6 +10,8 @@ import { ClientGameSystem } from "../system/client/ClientGameSystem";
 export class ClientObjectContainer extends ObjectContainer {
   declare readonly shapelets: ReadonlyMap<Id, ClientShapelet>;
   declare readonly platforms: ReadonlyMap<Id, ClientPlatform>;
+  declare readonly portals: ReadonlyMap<Id, ClientPortal>;
+
   declare readonly objects: ReadonlyMap<Id, ClientGameObjectType>;
 
   constructor(protected readonly game_system: ClientGameSystem) {

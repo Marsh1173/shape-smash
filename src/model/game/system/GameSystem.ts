@@ -1,9 +1,8 @@
 import { HasId } from "../../utils/Id";
-import { PlatformData } from "../objects/platform/Platform";
 import { ObjectFactory } from "../factory/ObjectFactory";
 import RAPIER, { World } from "@dimforge/rapier2d-compat";
 import { ObjectContainer } from "../objectcontainer/ObjectContainer";
-import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
+import { GameObjectData } from "../objects/model/GameObject";
 
 export abstract class GameSystem extends HasId {
   public readonly rapier_world: World;
@@ -17,11 +16,8 @@ export abstract class GameSystem extends HasId {
   }
 
   protected populate_objects(data: GameData) {
-    for (const platform_data of data.platforms) {
-      this.object_factory.platform(platform_data);
-    }
-    for (const shapelet_data of data.shapelets) {
-      this.object_factory.shapelet(shapelet_data);
+    for (const obj_data of data.obj_data) {
+      this.object_factory.object(obj_data);
     }
   }
 
@@ -40,6 +36,5 @@ export abstract class GameSystem extends HasId {
 }
 
 export interface GameData {
-  platforms: PlatformData[];
-  shapelets: ShapeletData[];
+  obj_data: GameObjectData[];
 }

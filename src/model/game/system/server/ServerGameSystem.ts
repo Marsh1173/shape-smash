@@ -35,7 +35,7 @@ export class ServerGameSystem extends GameSystem {
       type: "ShapeletData",
       id: uuid(),
       body_data: {
-        pos: { x: 8, y: -10 },
+        pos: { x: 1, y: -12 },
       },
       controller_data: {},
       sprite_data: ShapeletSpriteDataGenerator.generate(),
@@ -59,8 +59,7 @@ export class ServerGameSystem extends GameSystem {
 
   public get_game_data(): GameData {
     return {
-      shapelets: [...this.object_container.shapelets].map(([_, shapelet]) => shapelet.serialize()),
-      platforms: [...this.object_container.platforms].map(([_, platform]) => platform.serialize()),
+      obj_data: [...this.object_container.objects].map(([_, object]) => object.serialize()),
     };
   }
 }
