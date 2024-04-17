@@ -16,12 +16,14 @@ export class ClientHealthComponentDisplay {
   ) {
     this.game_display.layers.indicators.addChild(this.container);
 
-    this.shapelet.health_component.current_health.add_observer_and_broadcast_value({
-      id: uuid(),
-      on_change: (new_value: number) => {
-        this.update_nits(new_value);
-      },
-    });
+    this.update_nits(
+      this.shapelet.health_component.current_health.add_observer_and_get_value({
+        id: uuid(),
+        on_change: (params: { new_value: number }) => {
+          this.update_nits(params.new_value);
+        },
+      })
+    );
   }
 
   public update(elapsed_seconds: number) {

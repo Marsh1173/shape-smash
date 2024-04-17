@@ -1,7 +1,7 @@
 import { Observable, Observer } from "./Observer";
 
 export interface ValueObserver<T> extends Observer {
-  on_change(new_value: T): void;
+  on_change(params: { new_value: T; old_value: T }): void;
 }
 
 export class ValueObservable<T> extends Observable<ValueObserver<T>> {
@@ -17,8 +17,9 @@ export class ValueObservable<T> extends Observable<ValueObserver<T>> {
   }
 
   public set_value(new_value: T): void {
+    const old_value = this._value;
     this._value = new_value;
-    this.broadcast_change(this._value);
+    this.broadcast_change({ new_value: this._value, old_value });
   }
 
   public add_observer_and_get_value(observer: ValueObserver<T>): T {
@@ -28,7 +29,7 @@ export class ValueObservable<T> extends Observable<ValueObserver<T>> {
 
   public add_observer_and_broadcast_value(observer: ValueObserver<T>) {
     super.add_observer(observer);
-    observer.on_change(this._value);
+    observer.on_change({ new_value: this._value, old_value: this._value });
   }
 
   private broadcast_change = this.broadcast((o) => o.on_change);

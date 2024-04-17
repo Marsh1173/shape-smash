@@ -14,12 +14,12 @@ export class ServerHealthComponentSyncher {
   ) {
     this.health_component.current_health.add_observer({
       id: this.syncher_id,
-      on_change: (new_value: number) => {
+      on_change: (params: { new_value: number }) => {
         this.broadcaster.broadcast({
           type: "ServerHealthComponentMessage",
           msg: {
             type: "ServerHealthComponentUpdateCurrentHealthMessage",
-            new_value,
+            new_value: params.new_value,
           },
         });
       },
@@ -27,12 +27,12 @@ export class ServerHealthComponentSyncher {
 
     this.health_component.max_health.add_observer({
       id: this.syncher_id,
-      on_change: (new_value: number) => {
+      on_change: (params: { new_value: number }) => {
         this.broadcaster.broadcast({
           type: "ServerHealthComponentMessage",
           msg: {
             type: "ServerHealthComponentUpdateMaxHealthMessage",
-            new_value,
+            new_value: params.new_value,
           },
         });
       },

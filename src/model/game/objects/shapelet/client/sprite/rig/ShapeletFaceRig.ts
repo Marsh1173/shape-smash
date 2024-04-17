@@ -29,7 +29,9 @@ export class ShapeletFaceRig {
     this.update_facing(
       this.body.facing.add_observer_and_get_value({
         id: this.observer_id,
-        on_change: this.update_facing.bind(this),
+        on_change: (params: { new_value: "left" | "right" }) => {
+          this.update_facing(params.new_value);
+        },
       })
     );
   }
