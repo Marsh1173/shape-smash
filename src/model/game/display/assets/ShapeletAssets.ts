@@ -12,6 +12,14 @@ export type ShapeletFaceType =
   | "face_k"
   | "face_l";
 
+export type ShapeletRemainType =
+  | "blue_remain"
+  | "green_remain"
+  | "pink_remain"
+  | "purple_remain"
+  | "red_remain"
+  | "yellow_remain";
+
 export type ShapeletBodyType =
   | "blue_body_squircle"
   | "green_body_squircle"
@@ -38,7 +46,7 @@ export type ShapeletBodyType =
   | "red_body_circle"
   | "yellow_body_circle";
 
-export const ShapeletAssetUrls: Record<ShapeletFaceType | ShapeletBodyType, string> = {
+export const ShapeletAssetUrls: Record<ShapeletFaceType | ShapeletBodyType | ShapeletRemainType, string> = {
   blue_body_squircle: "./assets/images/bodies/blue_body_squircle.png",
   green_body_squircle: "./assets/images/bodies/green_body_squircle.png",
   pink_body_squircle: "./assets/images/bodies/pink_body_squircle.png",
@@ -75,4 +83,10 @@ export const ShapeletAssetUrls: Record<ShapeletFaceType | ShapeletBodyType, stri
   face_j: "./assets/images/faces/face_j.png",
   face_k: "./assets/images/faces/face_k.png",
   face_l: "./assets/images/faces/face_l.png",
+  blue_remain: "./assets/images/remains/blue_remain.png",
+  green_remain: "./assets/images/remains/green_remain.png",
+  pink_remain: "./assets/images/remains/pink_remain.png",
+  purple_remain: "./assets/images/remains/purple_remain.png",
+  red_remain: "./assets/images/remains/red_remain.png",
+  yellow_remain: "./assets/images/remains/yellow_remain.png",
 };

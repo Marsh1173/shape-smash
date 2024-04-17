@@ -1,8 +1,15 @@
 import { Texture } from "pixi.js";
 import { TileAssetUrls, TileAsset } from "./TileAssets";
-import { ShapeletAssetUrls, ShapeletBodyType, ShapeletFaceType } from "./ShapeletAssets";
+import { ShapeletAssetUrls, ShapeletBodyType, ShapeletFaceType, ShapeletRemainType } from "./ShapeletAssets";
 
-export type ImageAsset = ShapeletFaceType | ShapeletBodyType | TileAsset | "heart" | "empty_health" | "portal";
+export type ImageAsset =
+  | ShapeletFaceType
+  | ShapeletBodyType
+  | ShapeletRemainType
+  | TileAsset
+  | "heart"
+  | "empty_health"
+  | "portal";
 
 const ImageAssetUrl: Record<ImageAsset, string> = {
   ...TileAssetUrls,

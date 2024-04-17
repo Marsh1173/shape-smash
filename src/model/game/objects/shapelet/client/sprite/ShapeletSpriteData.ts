@@ -1,4 +1,4 @@
-import { ShapeletBodyType, ShapeletFaceType } from "../../../../display/assets/ShapeletAssets";
+import { ShapeletBodyType, ShapeletFaceType, ShapeletRemainType } from "../../../../display/assets/ShapeletAssets";
 
 export type ShapeletBodyShape = "squircle" | "square" | "rhombus" | "circle";
 export type ShapeletBodyColor = "blue" | "green" | "pink" | "purple" | "red" | "yellow";
@@ -19,6 +19,19 @@ export class ShapeletSpriteDataGenerator {
       face_type: get_random(faces),
     };
   }
+
+  public static get_remain_asset(color: ShapeletBodyColor): ShapeletRemainType {
+    return this.remain_asset_map[color];
+  }
+
+  private static remain_asset_map: Record<ShapeletBodyColor, ShapeletRemainType> = {
+    blue: "blue_remain",
+    green: "green_remain",
+    pink: "pink_remain",
+    purple: "purple_remain",
+    red: "red_remain",
+    yellow: "yellow_remain",
+  };
 
   public static get_body_asset(shape: ShapeletBodyShape, color: ShapeletBodyColor): ShapeletBodyType {
     return this.body_asset_map[shape][color];

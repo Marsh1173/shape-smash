@@ -26,12 +26,12 @@ export class ShapeletRemains implements ParticleUnit {
   constructor(protected readonly game_system: ClientGameSystem, color: ShapeletBodyColor, pos: Vector, x_vel: number) {
     this.game_system.display.layers.game_space.addChild(this.container);
 
-    const asset = ShapeletSpriteDataGenerator.get_body_asset("square", color);
+    const asset = ShapeletSpriteDataGenerator.get_remain_asset(color);
 
     for (let i: number = 0; i < this.remains_initial_count; i++) {
       const scale_multiplier = Math.random() * 0.6 + 0.7;
       const sprite = Sprite.from(ImageAssetHandler.get(asset));
-      sprite.scale.set(Camera.sprite_scale * this.scale * scale_multiplier);
+      sprite.scale.set(Camera.sprite_scale * 0.8 * scale_multiplier);
       sprite.anchor.set(0.5, 0.5);
       this.container.addChild(sprite);
 
