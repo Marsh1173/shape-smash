@@ -12,14 +12,31 @@ export class ServerHealthComponentSyncher {
     protected readonly syncher_id: Id,
     protected readonly broadcaster: ServerHealthComponentBroadcaster
   ) {
-    this.health_component.current_health.add_observer({
+    this.health_component.damage_observable.add_observer({
       id: this.syncher_id,
-      on_change: (params: { new_value: number }) => {
+      on_take_damage: (params: { amount: number; old_health: number; new_health: number }) => {
         this.broadcaster.broadcast({
           type: "ServerHealthComponentMessage",
           msg: {
-            type: "ServerHealthComponentUpdateCurrentHealthMessage",
-            new_value: params.new_value,
+            type: "ServerHealthComponentTakeDamageMessage",
+            amount: params.amount,
+            old_health: params.old_health,
+            new_health: params.new_health,
+          },
+        });
+      },
+    });
+
+    this.health_component.heal_observable.add_observer({
+      id: this.syncher_id,
+      on_take_heal: (params: { amount: number; old_health: number; new_health: number }) => {
+        this.broadcaster.broadcast({
+          type: "ServerHealthComponentMessage",
+          msg: {
+            type: "ServerHealthComponentTakeHealMessage",
+            amount: params.amount,
+            old_health: params.old_health,
+            new_health: params.new_health,
           },
         });
       },
