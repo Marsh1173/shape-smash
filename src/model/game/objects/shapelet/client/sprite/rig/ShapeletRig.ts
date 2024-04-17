@@ -37,7 +37,7 @@ export class ShapeletRig {
     this.face_rig = new ShapeletFaceRig(this.container, this.shapelet.body, this.data);
     this.health_display = new ClientHealthComponentDisplay(this.game_display, this.shapelet, this.position);
 
-    this.effect_filters.flash.grayscale(0.8, false);
+    this.effect_filters.flash.grayscale(0.6, false);
     this.container.filters = [this.effect_filters.flash];
 
     this.animator = new ShapeletAnimator(this);
@@ -67,5 +67,6 @@ export class ShapeletRig {
     this.body_rig.destroy();
     this.face_rig.destroy();
     this.health_display.destroy();
+    this.effect_filters.flash.destroy();
   }
 }

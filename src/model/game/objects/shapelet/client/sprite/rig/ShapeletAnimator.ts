@@ -37,7 +37,7 @@ export class ShapeletAnimations {
   };
 
   public static readonly damage: AnimationRunData<ShapeletAnimatableField> = {
-    duration: 0.07,
+    duration: 0.08,
     anim: {
       [ShapeletAnimatableField.white_filter]: [[0, this.filter_values.on]],
     },

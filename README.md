@@ -18,6 +18,7 @@ X Basic dummy portal objects
 
 State update + routing cleanup
 Combat / damage animation
+Interactions
 Server stages and main stage sleep
 
 BUGS
