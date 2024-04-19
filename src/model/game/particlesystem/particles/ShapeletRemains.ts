@@ -56,7 +56,7 @@ export class ShapeletRemains implements ParticleUnit {
       const collider = this.game_system.rapier_world.createCollider(collider_desc, rigid_body);
 
       this.remains.push({
-        life: Math.random() / 3 + 5,
+        life: Math.random() / 3 + 4,
         sprite,
         rigid_body,
         collider,
@@ -81,6 +81,7 @@ export class ShapeletRemains implements ParticleUnit {
     const px_pos = Camera.units_to_px(remain.rigid_body.translation());
     remain.sprite.position.set(px_pos.x, px_pos.y);
     remain.sprite.transform.rotation = remain.collider.rotation();
+    remain.sprite.alpha = Math.min(1, remain.life * 3);
 
     remain.life -= elapsed_seconds;
     return remain.life < 0;
