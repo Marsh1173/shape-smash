@@ -1,4 +1,4 @@
-import { Container, Sprite } from "pixi.js";
+import { Container, DisplayObject, Sprite } from "pixi.js";
 import { ShapeletSpriteData, ShapeletSpriteDataGenerator } from "../ShapeletSpriteData";
 import { ImageAssetHandler } from "../../../../../display/assets/Assets";
 import { Camera } from "../../../../../display/Camera";
@@ -7,7 +7,7 @@ import { ShapeletBodyAnimator, ShapeletBodyAnimations } from "./ShapeletBodyAnim
 import { Id, uuid } from "../../../../../../utils/Id";
 
 export class ShapeletBodyRig {
-  protected readonly body_sprite: Container;
+  protected readonly body_sprite: DisplayObject;
   public readonly body_container: Container = new Container();
   protected readonly animator: ShapeletBodyAnimator;
 
@@ -48,6 +48,12 @@ export class ShapeletBodyRig {
     const body_sprite = Sprite.from(ImageAssetHandler.get(body_asset));
     body_sprite.scale.set(Camera.sprite_scale);
     body_sprite.position.set(-body_sprite.width / 2, -body_sprite.height / 2);
+
+    const sword_sprite = Sprite.from(ImageAssetHandler.get("sword"));
+    body_sprite.addChild(sword_sprite);
+    sword_sprite.scale.set(Camera.sprite_scale * 2);
+    sword_sprite.position.set(body_sprite.width * 3, -body_sprite.height / 2);
+
     return body_sprite;
   }
 }

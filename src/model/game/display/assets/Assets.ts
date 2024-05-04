@@ -9,7 +9,8 @@ export type ImageAsset =
   | TileAsset
   | "heart"
   | "empty_health"
-  | "portal";
+  | "portal"
+  | "sword";
 
 const ImageAssetUrl: Record<ImageAsset, string> = {
   ...TileAssetUrls,
@@ -17,6 +18,7 @@ const ImageAssetUrl: Record<ImageAsset, string> = {
   heart: "./assets/images/heart.png",
   empty_health: "./assets/images/empty_health.png",
   portal: "./assets/images/portal.png",
+  sword: "./assets/images/sword.png",
 };
 
 export class ImageAssetHandler {
