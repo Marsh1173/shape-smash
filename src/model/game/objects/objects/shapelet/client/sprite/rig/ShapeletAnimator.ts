@@ -1,11 +1,16 @@
-import { AnimationRunData, Animator } from "../../../../../display/animation/Animation";
+import {
+  AnimationRunData,
+  Animator,
+} from "../../../../../../display/animation/Animation";
 import { ShapeletRig } from "./ShapeletRig";
 
 enum ShapeletAnimatableField {
   white_filter,
 }
 
-const updated_fields: ShapeletAnimatableField[] = [ShapeletAnimatableField.white_filter];
+const updated_fields: ShapeletAnimatableField[] = [
+  ShapeletAnimatableField.white_filter,
+];
 
 export class ShapeletAnimator extends Animator<ShapeletAnimatableField> {
   public set_field: Record<ShapeletAnimatableField, (value: number) => void> = {

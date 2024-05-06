@@ -1,5 +1,5 @@
 import { Vector } from "@dimforge/rapier2d-compat";
-import { ShapeletAction } from "../../../model/game/objects/shapelet/ShapeletController";
+import { ShapeletAction } from "../../../model/game/objects/objects/shapelet/ShapeletController";
 
 export type ClientMessage = ClientGameMessage;
 

@@ -1,7 +1,7 @@
 import { Id } from "../../../utils/Id";
-import { ClientPlatform } from "../platform/ClientPlatform";
-import { ClientShapelet } from "../shapelet/client/ClientShapelet";
-import { ClientPortal } from "../portal/client/ClientPortal";
+import { ClientPlatform } from "../objects/platform/ClientPlatform";
+import { ClientShapelet } from "../objects/shapelet/client/ClientShapelet";
+import { ClientPortal } from "../objects/portal/client/ClientPortal";
 import { ObjectContainer } from "./ObjectContainer";
 import { ClientGameObjectType } from "../model/ClientGameObject";
 import { ServerObjectMessage } from "../model/ServerObjectSchema";

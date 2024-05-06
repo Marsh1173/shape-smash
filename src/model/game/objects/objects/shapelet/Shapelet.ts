@@ -1,10 +1,10 @@
-import { Id } from "../../../utils/Id";
+import { Id } from "../../../../utils/Id";
 import { ShapeletBody } from "./ShapeletBody";
 import { ShapeletController } from "./ShapeletController";
 import { ShapeletSpriteData } from "./client/sprite/ShapeletSpriteData";
-import { HealthComponent } from "../components/health/HealthComponent";
-import { GameSystem } from "../../system/GameSystem";
-import { GameObject } from "../model/GameObject";
+import { HealthComponent } from "../../components/health/HealthComponent";
+import { GameSystem } from "../../../system/GameSystem";
+import { GameObject } from "../../model/GameObject";
 import { ShapeletData } from "./ShapeletSchema";
 
 export abstract class Shapelet implements GameObject {
@@ -25,7 +25,11 @@ export abstract class Shapelet implements GameObject {
     this.sprite_data = data.sprite_data;
 
     this.body = new ShapeletBody(this.game_system.rapier_world, data.body_data);
-    this.controller = new ShapeletController(this.body, this.game_system.rapier_world, data.controller_data);
+    this.controller = new ShapeletController(
+      this.body,
+      this.game_system.rapier_world,
+      data.controller_data
+    );
   }
 
   public destroy() {

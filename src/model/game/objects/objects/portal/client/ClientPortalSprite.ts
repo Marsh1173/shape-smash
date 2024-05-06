@@ -1,12 +1,15 @@
 import { Container, Sprite } from "pixi.js";
 import { ClientPortal } from "./ClientPortal";
-import { Camera } from "../../../display/Camera";
-import { GameDisplay } from "../../../display/GameDisplay";
-import { ImageAssetHandler } from "../../../display/assets/Assets";
+import { Camera } from "../../../../display/Camera";
+import { GameDisplay } from "../../../../display/GameDisplay";
+import { ImageAssetHandler } from "../../../../display/assets/Assets";
 
 export class ClientPortalSprite {
   protected readonly sprite_container: Container;
-  constructor(protected readonly portal: ClientPortal, protected readonly game_display: GameDisplay) {
+  constructor(
+    protected readonly portal: ClientPortal,
+    protected readonly game_display: GameDisplay
+  ) {
     const px_pos = Camera.units_to_px(this.portal.pos);
     this.sprite_container = new Container();
     this.sprite_container.position.set(px_pos.x, px_pos.y);

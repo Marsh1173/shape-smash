@@ -1,10 +1,10 @@
-import { PlayerMoveMessage } from "../../../../../client/network/schema/ClientMessage";
-import { Id, uuid } from "../../../../utils/Id";
-import { GameServerRoom } from "../../../system/server/GameServerRoom";
+import { PlayerMoveMessage } from "../../../../../../client/network/schema/ClientMessage";
+import { Id, uuid } from "../../../../../utils/Id";
+import { GameServerRoom } from "../../../../system/server/GameServerRoom";
 import {
   ServerHealthComponentBroadcaster,
   ServerHealthComponentSyncher,
-} from "../../components/health/server/ServerHealthComponentSyncher";
+} from "../../../components/health/server/ServerHealthComponentSyncher";
 import { ShapeletAction } from "../ShapeletController";
 import { ServerShapelet } from "./ServerShapelet";
 import { ServerShapeletMessageContent } from "./ServerShapeletSchema";
@@ -13,8 +13,15 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
   protected readonly syncher_id: Id = uuid();
   protected readonly health_syncher: ServerHealthComponentSyncher;
 
-  constructor(protected readonly shapelet: ServerShapelet, protected readonly server_room: GameServerRoom) {
-    this.health_syncher = new ServerHealthComponentSyncher(this.shapelet.health_component, this.syncher_id, this);
+  constructor(
+    protected readonly shapelet: ServerShapelet,
+    protected readonly server_room: GameServerRoom
+  ) {
+    this.health_syncher = new ServerHealthComponentSyncher(
+      this.shapelet.health_component,
+      this.syncher_id,
+      this
+    );
   }
 
   public broadcast(msg: ServerShapeletMessageContent) {

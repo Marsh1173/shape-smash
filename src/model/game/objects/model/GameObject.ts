@@ -1,9 +1,9 @@
 import { HasId } from "../../../utils/Id";
-import { Platform, PlatformData } from "../platform/Platform";
-import { Portal } from "../portal/Portal";
-import { PortalData } from "../portal/PortalSchema";
-import { Shapelet } from "../shapelet/Shapelet";
-import { ShapeletData } from "../shapelet/ShapeletSchema";
+import { Platform, PlatformData } from "../objects/platform/Platform";
+import { Portal } from "../objects/portal/Portal";
+import { PortalData } from "../objects/portal/PortalSchema";
+import { Shapelet } from "../objects/shapelet/Shapelet";
+import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
 
 export type GameObjectData = ShapeletData | PlatformData | PortalData;
 

@@ -1,9 +1,12 @@
-import { ClientShapelet } from "../../../objects/shapelet/client/ClientShapelet";
+import { ClientShapelet } from "../../../objects/objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "../ClientGameSystem";
-import { ShapeletAction } from "../../../objects/shapelet/ShapeletController";
+import { ShapeletAction } from "../../../objects/objects/shapelet/ShapeletController";
 
 export class PlayerController {
-  constructor(protected readonly shapelet: ClientShapelet, protected readonly game_system: ClientGameSystem) {}
+  constructor(
+    protected readonly shapelet: ClientShapelet,
+    protected readonly game_system: ClientGameSystem
+  ) {}
 
   public route_input(action: ShapeletAction, active: boolean) {
     if (action === ShapeletAction.Jump) {

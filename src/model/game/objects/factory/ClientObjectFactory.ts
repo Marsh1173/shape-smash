@@ -1,11 +1,11 @@
-import { PlatformData } from "../platform/Platform";
+import { PlatformData } from "../objects/platform/Platform";
 import { ObjectFactory } from "./ObjectFactory";
-import { ClientPlatform } from "../platform/ClientPlatform";
-import { ClientShapelet } from "../shapelet/client/ClientShapelet";
+import { ClientPlatform } from "../objects/platform/ClientPlatform";
+import { ClientShapelet } from "../objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "../../system/client/ClientGameSystem";
-import { ShapeletData } from "../shapelet/ShapeletSchema";
-import { PortalData } from "../portal/PortalSchema";
-import { ClientPortal } from "../portal/client/ClientPortal";
+import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
+import { PortalData } from "../objects/portal/PortalSchema";
+import { ClientPortal } from "../objects/portal/client/ClientPortal";
 
 export class ClientObjectFactory extends ObjectFactory {
   constructor(protected readonly game_system: ClientGameSystem) {

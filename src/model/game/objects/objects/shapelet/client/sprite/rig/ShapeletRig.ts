@@ -2,13 +2,13 @@ import { ColorMatrixFilter, Container } from "pixi.js";
 import { ShapeletBodyRig } from "./ShapeletBodyRig";
 import { ShapeletFaceRig } from "./ShapeletFaceRig";
 import { ShapeletSpriteData } from "../ShapeletSpriteData";
-import { Camera } from "../../../../../display/Camera";
-import { GameDisplay } from "../../../../../display/GameDisplay";
+import { Camera } from "../../../../../../display/Camera";
+import { GameDisplay } from "../../../../../../display/GameDisplay";
 import { ClientShapelet } from "../../../client/ClientShapelet";
-import { ClientHealthComponentDisplay } from "../../../../components/health/client/ClientHealthComponentDisplay";
+import { ClientHealthComponentDisplay } from "../../../../../components/health/client/ClientHealthComponentDisplay";
 import { Vector } from "@dimforge/rapier2d-compat";
 import { ShapeletAnimations, ShapeletAnimator } from "./ShapeletAnimator";
-import { uuid } from "../../../../../../utils/Id";
+import { uuid } from "../../../../../../../utils/Id";
 
 export class ShapeletRig {
   protected readonly body_rig: ShapeletBodyRig;
@@ -33,9 +33,21 @@ export class ShapeletRig {
     this.container = new Container();
     this.game_display.layers.game_space.addChild(this.container);
 
-    this.body_rig = new ShapeletBodyRig(this.container, this.shapelet.controller, this.data);
-    this.face_rig = new ShapeletFaceRig(this.container, this.shapelet.body, this.data);
-    this.health_display = new ClientHealthComponentDisplay(this.game_display, this.shapelet, this.position);
+    this.body_rig = new ShapeletBodyRig(
+      this.container,
+      this.shapelet.controller,
+      this.data
+    );
+    this.face_rig = new ShapeletFaceRig(
+      this.container,
+      this.shapelet.body,
+      this.data
+    );
+    this.health_display = new ClientHealthComponentDisplay(
+      this.game_display,
+      this.shapelet,
+      this.position
+    );
 
     this.effect_filters.flash.grayscale(0.6, false);
     this.container.filters = [this.effect_filters.flash];

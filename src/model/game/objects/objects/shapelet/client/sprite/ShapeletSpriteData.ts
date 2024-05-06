@@ -1,7 +1,17 @@
-import { ShapeletBodyType, ShapeletFaceType, ShapeletRemainType } from "../../../../display/assets/ShapeletAssets";
+import {
+  ShapeletBodyType,
+  ShapeletFaceType,
+  ShapeletRemainType,
+} from "../../../../../display/assets/ShapeletAssets";
 
 export type ShapeletBodyShape = "squircle" | "square" | "rhombus" | "circle";
-export type ShapeletBodyColor = "blue" | "green" | "pink" | "purple" | "red" | "yellow";
+export type ShapeletBodyColor =
+  | "blue"
+  | "green"
+  | "pink"
+  | "purple"
+  | "red"
+  | "yellow";
 
 export interface ShapeletSpriteData {
   body_shape: ShapeletBodyShape;
@@ -24,7 +34,10 @@ export class ShapeletSpriteDataGenerator {
     return this.remain_asset_map[color];
   }
 
-  private static remain_asset_map: Record<ShapeletBodyColor, ShapeletRemainType> = {
+  private static remain_asset_map: Record<
+    ShapeletBodyColor,
+    ShapeletRemainType
+  > = {
     blue: "blue_remain",
     green: "green_remain",
     pink: "pink_remain",
@@ -33,11 +46,17 @@ export class ShapeletSpriteDataGenerator {
     yellow: "yellow_remain",
   };
 
-  public static get_body_asset(shape: ShapeletBodyShape, color: ShapeletBodyColor): ShapeletBodyType {
+  public static get_body_asset(
+    shape: ShapeletBodyShape,
+    color: ShapeletBodyColor
+  ): ShapeletBodyType {
     return this.body_asset_map[shape][color];
   }
 
-  private static body_asset_map: Record<ShapeletBodyShape, Record<ShapeletBodyColor, ShapeletBodyType>> = {
+  private static body_asset_map: Record<
+    ShapeletBodyShape,
+    Record<ShapeletBodyColor, ShapeletBodyType>
+  > = {
     squircle: {
       blue: "blue_body_squircle",
       green: "green_body_squircle",
@@ -88,8 +107,20 @@ const faces: ShapeletFaceType[] = [
   // "face_j",
 ];
 
-const body_shapes: ShapeletBodyShape[] = ["squircle", "square", "rhombus", "circle"];
-const body_colors: ShapeletBodyColor[] = ["blue", "green", "pink", "purple", "red", "yellow"];
+const body_shapes: ShapeletBodyShape[] = [
+  "squircle",
+  "square",
+  "rhombus",
+  "circle",
+];
+const body_colors: ShapeletBodyColor[] = [
+  "blue",
+  "green",
+  "pink",
+  "purple",
+  "red",
+  "yellow",
+];
 
 function get_random<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];

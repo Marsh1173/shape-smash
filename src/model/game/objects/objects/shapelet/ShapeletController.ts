@@ -1,6 +1,6 @@
 import { Vector, World } from "@dimforge/rapier2d-compat";
 import { ShapeletBody } from "./ShapeletBody";
-import { Observable, Observer } from "../../../utils/observer/Observer";
+import { Observable, Observer } from "../../../../utils/observer/Observer";
 
 export interface ShapeletControllerData {
   remaining_jumps?: number;
@@ -76,34 +76,58 @@ export class ShapeletController {
   protected handle_lateral_movement(elapsed_seconds: number) {
     const current_velocity: Vector = this.shapelet_body.velocity;
 
-    if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
+    if (
+      this.active_actions[ShapeletAction.MoveLeft] &&
+      !this.active_actions[ShapeletAction.MoveRight]
+    ) {
       if (current_velocity.x > -this.side_max_velocity) {
         this.shapelet_body.velocity = {
-          x: Math.max(-this.side_max_velocity, current_velocity.x - this.side_accel * elapsed_seconds),
+          x: Math.max(
+            -this.side_max_velocity,
+            current_velocity.x - this.side_accel * elapsed_seconds
+          ),
         };
       }
-    } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
+    } else if (
+      this.active_actions[ShapeletAction.MoveRight] &&
+      !this.active_actions[ShapeletAction.MoveLeft]
+    ) {
       if (current_velocity.x < this.side_max_velocity) {
         this.shapelet_body.velocity = {
-          x: Math.min(this.side_max_velocity, current_velocity.x + this.side_accel * elapsed_seconds),
+          x: Math.min(
+            this.side_max_velocity,
+            current_velocity.x + this.side_accel * elapsed_seconds
+          ),
         };
       }
     } else {
-      let decel_factor = this.on_ground ? this.side_deccel : this.side_deccel_airborne;
+      let decel_factor = this.on_ground
+        ? this.side_deccel
+        : this.side_deccel_airborne;
       if (current_velocity.x > 0) {
-        this.shapelet_body.velocity = { x: Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0) };
+        this.shapelet_body.velocity = {
+          x: Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0),
+        };
       } else if (current_velocity.x < 0) {
-        this.shapelet_body.velocity = { x: Math.min(current_velocity.x + decel_factor * elapsed_seconds, 0) };
+        this.shapelet_body.velocity = {
+          x: Math.min(current_velocity.x + decel_factor * elapsed_seconds, 0),
+        };
       }
     }
   }
 
   protected handle_face_direction() {
-    if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
+    if (
+      this.active_actions[ShapeletAction.MoveLeft] &&
+      !this.active_actions[ShapeletAction.MoveRight]
+    ) {
       if (this.shapelet_body.facing.value !== "left") {
         this.shapelet_body.facing.set_value("left");
       }
-    } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
+    } else if (
+      this.active_actions[ShapeletAction.MoveRight] &&
+      !this.active_actions[ShapeletAction.MoveLeft]
+    ) {
       if (this.shapelet_body.facing.value !== "right") {
         this.shapelet_body.facing.set_value("right");
       }

@@ -7,8 +7,8 @@ import RAPIER, {
   Vector,
   World,
 } from "@dimforge/rapier2d-compat";
-import { IsOnGround } from "../../physicsutils/IsOnGround";
-import { ValueObservable } from "../../../utils/observer/ValueObserver";
+import { IsOnGround } from "../../../physicsutils/IsOnGround";
+import { ValueObservable } from "../../../../utils/observer/ValueObserver";
 
 export interface ShapeletBodyData {
   pos: Vector;
@@ -65,16 +65,26 @@ export class ShapeletBody {
   constructor(protected readonly world: World, data: ShapeletBodyData) {
     this._velocity = data.velocity ?? { x: 0, y: 0 };
 
-    this.rigid_body_desc = RAPIER.RigidBodyDesc.kinematicVelocityBased().setTranslation(data.pos.x, data.pos.y);
+    this.rigid_body_desc =
+      RAPIER.RigidBodyDesc.kinematicVelocityBased().setTranslation(
+        data.pos.x,
+        data.pos.y
+      );
     this.prev_pos = data.pos;
     this.rigid_body = this.world.createRigidBody(this.rigid_body_desc);
 
-    this.collider_desc = RAPIER.ColliderDesc.cuboid(0.5 - this.offset, 0.5 - this.offset).setCollisionGroups(
-      this.groups_and_filters
+    this.collider_desc = RAPIER.ColliderDesc.cuboid(
+      0.5 - this.offset,
+      0.5 - this.offset
+    ).setCollisionGroups(this.groups_and_filters);
+    this.collider = this.world.createCollider(
+      this.collider_desc,
+      this.rigid_body
     );
-    this.collider = this.world.createCollider(this.collider_desc, this.rigid_body);
 
-    this.shapelet_controller = this.world.createCharacterController(this.offset);
+    this.shapelet_controller = this.world.createCharacterController(
+      this.offset
+    );
   }
 
   public destroy() {
@@ -94,7 +104,8 @@ export class ShapeletBody {
       undefined,
       this.groups_and_filters
     );
-    const corrected_frame_velocity = this.shapelet_controller.computedMovement();
+    const corrected_frame_velocity =
+      this.shapelet_controller.computedMovement();
 
     this._on_ground = IsOnGround(this.shapelet_controller);
 
@@ -107,7 +118,10 @@ export class ShapeletBody {
 
   protected compute_velocity(elapsed_seconds: number) {
     //apply gravity
-    this._velocity.y = Math.min(this._velocity.y + this.world.gravity.y * elapsed_seconds, this.world.gravity.y / 2);
+    this._velocity.y = Math.min(
+      this._velocity.y + this.world.gravity.y * elapsed_seconds,
+      this.world.gravity.y / 2
+    );
   }
 
   public serialize(): ShapeletBodyData {

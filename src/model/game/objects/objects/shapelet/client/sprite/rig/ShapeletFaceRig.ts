@@ -1,10 +1,13 @@
 import { Container, Sprite } from "pixi.js";
 import { ShapeletBody } from "../../../ShapeletBody";
 import { ShapeletSpriteData } from "../ShapeletSpriteData";
-import { ImageAssetHandler } from "../../../../../display/assets/Assets";
-import { Camera } from "../../../../../display/Camera";
-import { Id, uuid } from "../../../../../../utils/Id";
-import { ShapeletFaceAnimator, ShapeletFaceAnimations } from "./ShapeletFaceAnimator";
+import { ImageAssetHandler } from "../../../../../../display/assets/Assets";
+import { Camera } from "../../../../../../display/Camera";
+import { Id, uuid } from "../../../../../../../utils/Id";
+import {
+  ShapeletFaceAnimator,
+  ShapeletFaceAnimations,
+} from "./ShapeletFaceAnimator";
 
 export class ShapeletFaceRig {
   public readonly face_container: Container;

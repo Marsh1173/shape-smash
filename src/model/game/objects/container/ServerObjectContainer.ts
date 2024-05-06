@@ -1,8 +1,8 @@
 import { Id } from "../../../utils/Id";
 import { ServerGameObjectType } from "../model/ServerGameObject";
-import { ServerShapelet } from "../shapelet/server/ServerShapelet";
 import { ServerGameSystem } from "../../system/server/ServerGameSystem";
 import { ObjectContainer } from "./ObjectContainer";
+import { ServerShapelet } from "../objects/shapelet/server/ServerShapelet";
 
 export class ServerObjectContainer extends ObjectContainer {
   declare readonly shapelets: ReadonlyMap<Id, ServerShapelet>;

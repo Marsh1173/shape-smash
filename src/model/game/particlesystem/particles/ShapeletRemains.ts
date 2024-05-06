@@ -4,7 +4,7 @@ import { ParticleUnit } from "../ParticleSystem";
 import {
   ShapeletBodyColor,
   ShapeletSpriteDataGenerator,
-} from "../../objects/shapelet/client/sprite/ShapeletSpriteData";
+} from "../../objects/objects/shapelet/client/sprite/ShapeletSpriteData";
 import { ImageAssetHandler } from "../../display/assets/Assets";
 import RAPIER, { Collider, RigidBody, Vector } from "@dimforge/rapier2d-compat";
 import { Camera } from "../../display/Camera";
@@ -23,7 +23,12 @@ export class ShapeletRemains implements ParticleUnit {
   protected readonly remains: Remain[] = [];
   protected readonly container: Container = new Container();
 
-  constructor(protected readonly game_system: ClientGameSystem, color: ShapeletBodyColor, pos: Vector, x_vel: number) {
+  constructor(
+    protected readonly game_system: ClientGameSystem,
+    color: ShapeletBodyColor,
+    pos: Vector,
+    x_vel: number
+  ) {
     this.game_system.display.layers.game_space.addChild(this.container);
 
     const asset = ShapeletSpriteDataGenerator.get_remain_asset(color);
@@ -45,7 +50,8 @@ export class ShapeletRemains implements ParticleUnit {
         .setLinvel(relative_pos.x * 10 + x_vel / 2, relative_pos.y * 10 - 7)
         .setLinearDamping(3)
         .setAdditionalSolverIterations(1);
-      const rigid_body = this.game_system.rapier_world.createRigidBody(rigid_body_desc);
+      const rigid_body =
+        this.game_system.rapier_world.createRigidBody(rigid_body_desc);
 
       const collider_desc = RAPIER.ColliderDesc.cuboid(
         (this.scale * scale_multiplier) / 2,
@@ -53,7 +59,10 @@ export class ShapeletRemains implements ParticleUnit {
       )
         .setCollisionGroups(0x00040005)
         .setRestitution(0.8);
-      const collider = this.game_system.rapier_world.createCollider(collider_desc, rigid_body);
+      const collider = this.game_system.rapier_world.createCollider(
+        collider_desc,
+        rigid_body
+      );
 
       this.remains.push({
         life: Math.random() / 3 + 4,

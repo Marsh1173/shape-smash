@@ -1,4 +1,7 @@
-import { AnimationRunData, Animator } from "../../../../../display/animation/Animation";
+import {
+  AnimationRunData,
+  Animator,
+} from "../../../../../../display/animation/Animation";
 import { ShapeletBodyRig } from "./ShapeletBodyRig";
 
 enum ShapeletBodyAnimatableField {
@@ -14,7 +17,10 @@ const updated_fields: ShapeletBodyAnimatableField[] = [
 ];
 
 export class ShapeletBodyAnimator extends Animator<ShapeletBodyAnimatableField> {
-  public set_field: Record<ShapeletBodyAnimatableField, (value: number) => void> = {
+  public set_field: Record<
+    ShapeletBodyAnimatableField,
+    (value: number) => void
+  > = {
     [ShapeletBodyAnimatableField.x_scale]: (value: number) => {
       this.rig.body_container.scale.x = value;
     },

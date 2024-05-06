@@ -1,6 +1,6 @@
 import { Vector } from "@dimforge/rapier2d-compat";
 import { GameDisplay } from "../../../../display/GameDisplay";
-import { ClientShapelet } from "../../../shapelet/client/ClientShapelet";
+import { ClientShapelet } from "../../../objects/shapelet/client/ClientShapelet";
 import { Container, DisplayObject, Sprite } from "pixi.js";
 import { uuid } from "../../../../../utils/Id";
 import { ImageAssetHandler } from "../../../../display/assets/Assets";

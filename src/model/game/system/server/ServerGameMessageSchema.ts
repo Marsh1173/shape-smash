@@ -1,6 +1,9 @@
-import { ServerShapeletMessage } from "../../objects/shapelet/server/ServerShapeletSchema";
+import { ServerShapeletMessage } from "../../objects/objects/shapelet/server/ServerShapeletSchema";
 import { ServerObjectMessage } from "../../objects/model/ServerObjectSchema";
-import { ServerGameUserMessage, UserStateUpdateMessage } from "./user/ServerGameUserSchema";
+import {
+  ServerGameUserMessage,
+  UserStateUpdateMessage,
+} from "./user/ServerGameUserSchema";
 import { GameData } from "../GameSystem";
 import { Id } from "../../../utils/Id";
 

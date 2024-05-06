@@ -1,8 +1,8 @@
 import { Id } from "../../../utils/Id";
 import { GameObjectType } from "../model/GameObject";
-import { Platform } from "../platform/Platform";
-import { Portal } from "../portal/Portal";
-import { Shapelet } from "../shapelet/Shapelet";
+import { Platform } from "../objects/platform/Platform";
+import { Portal } from "../objects/portal/Portal";
+import { Shapelet } from "../objects/shapelet/Shapelet";
 
 export abstract class ObjectContainer {
   protected readonly _platforms: Map<Id, Platform> = new Map();

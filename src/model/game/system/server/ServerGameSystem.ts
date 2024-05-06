@@ -1,12 +1,12 @@
 import { GameData, GameSystem } from "../GameSystem";
-import { ServerObjectFactory } from "../../factory/ServerObjectFactory";
+import { ServerObjectFactory } from "../../objects/factory/ServerObjectFactory";
 import { GameUser } from "./user/GameUser";
 import { uuid } from "../../../utils/Id";
-import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/client/sprite/ShapeletSpriteData";
+import { ShapeletSpriteDataGenerator } from "../../objects/objects/shapelet/client/sprite/ShapeletSpriteData";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 import { GameServerRoom } from "./GameServerRoom";
 import { ServerObjectContainer } from "../../objects/container/ServerObjectContainer";
-import { ShapeletData } from "../../objects/shapelet/ShapeletSchema";
+import { ShapeletData } from "../../objects/objects/shapelet/ShapeletSchema";
 
 export interface ServerGameData extends GameData {}
 

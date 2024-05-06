@@ -3,19 +3,30 @@ import { ClientMessage } from "../../../../../client/network/schema/ClientMessag
 import { ServerGameSystem } from "../ServerGameSystem";
 import { WebsocketWrapper } from "../../../../../server/network/user/WebsocketWrapper";
 import { GameUserAliveState, GameUserState } from "./GameUserState";
-import { ShapeletData } from "../../../objects/shapelet/ShapeletSchema";
+import { ShapeletData } from "../../../objects/objects/shapelet/ShapeletSchema";
 
 export class GameUser extends User {
   public readonly state: GameUserState;
 
-  constructor(ws_wrapper: WebsocketWrapper, protected readonly game: ServerGameSystem, shapelet_data: ShapeletData) {
+  constructor(
+    ws_wrapper: WebsocketWrapper,
+    protected readonly game: ServerGameSystem,
+    shapelet_data: ShapeletData
+  ) {
     super(ws_wrapper);
 
-    this.state = new GameUserState(new GameUserAliveState(this.game, shapelet_data, this), this.game, this.id);
+    this.state = new GameUserState(
+      new GameUserAliveState(this.game, shapelet_data, this),
+      this.game,
+      this.id
+    );
   }
 
   public receive_message(msg: ClientMessage): void {
-    if (msg.type === "ClientGameMessage" && this.state.value.type === "GameUserAliveState") {
+    if (
+      msg.type === "ClientGameMessage" &&
+      this.state.value.type === "GameUserAliveState"
+    ) {
       this.game.server_room.router.route_msg(msg, this.state.value.shapelet.id);
     }
   }

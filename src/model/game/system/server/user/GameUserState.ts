@@ -1,9 +1,15 @@
-import { ServerShapelet } from "../../../objects/shapelet/server/ServerShapelet";
+import { ServerShapelet } from "../../../objects/objects/shapelet/server/ServerShapelet";
 import { ServerGameSystem } from "../ServerGameSystem";
-import { StateMachineObservable, StateMachineState } from "../../../../utils/observer/StateMachineObservable";
-import { ShapeletData } from "../../../objects/shapelet/ShapeletSchema";
+import {
+  StateMachineObservable,
+  StateMachineState,
+} from "../../../../utils/observer/StateMachineObservable";
+import { ShapeletData } from "../../../objects/objects/shapelet/ShapeletSchema";
 import { GameUser } from "./GameUser";
-import { UserStateDieMessage, UserStateAliveMessage } from "./ServerGameUserSchema";
+import {
+  UserStateDieMessage,
+  UserStateAliveMessage,
+} from "./ServerGameUserSchema";
 import { Id } from "../../../../utils/Id";
 
 export class GameUserState extends StateMachineObservable<GameUserStateType> {
@@ -49,7 +55,11 @@ export class GameUserAliveState implements StateMachineState {
       id: this.shapelet.id,
       on_die: () => {
         this.game_user.state.set_value(
-          new GameUserDeadState(this.game_system, this.game_user, this.shapelet.serialize())
+          new GameUserDeadState(
+            this.game_system,
+            this.game_user,
+            this.shapelet.serialize()
+          )
         );
       },
     });
@@ -57,7 +67,9 @@ export class GameUserAliveState implements StateMachineState {
 
   public init(): void {}
   public deconstruct(): void {
-    this.shapelet.health_component.death_observable.remove_observer(this.shapelet.id);
+    this.shapelet.health_component.death_observable.remove_observer(
+      this.shapelet.id
+    );
   }
 
   public map_to_update_state_msg(): UserStateAliveMessage {
