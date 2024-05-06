@@ -1,11 +1,11 @@
-import { ClientObjectFactory } from "../../factory/ClientObjectFactory";
+import { ClientObjectFactory } from "../../objects/factory/ClientObjectFactory";
 import { GameSystem } from "../GameSystem";
 import { ServerTalker } from "../../../../client/network/ServerTalker";
 import { ClientGameRouter } from "./ClientGameRouter";
 import { GameDisplay } from "../../display/GameDisplay";
 import { GameInput } from "../../display/input/GameInput";
 import { ClientGamePlayerState } from "./player/ClientGamePlayerState";
-import { ClientObjectContainer } from "../../objectcontainer/ClientObjectContainer";
+import { ClientObjectContainer } from "../../objects/container/ClientObjectContainer";
 import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
 import { ClientGameData } from "../server/ServerGameMessageSchema";
 import { ParticleSystem } from "../../particlesystem/ParticleSystem";
@@ -20,7 +20,11 @@ export class ClientGameSystem extends GameSystem {
   public readonly player_state: ClientGamePlayerState;
   public readonly game_input: GameInput;
 
-  constructor(data: ClientGameData, canvas: HTMLCanvasElement, public readonly server_talker: ServerTalker) {
+  constructor(
+    data: ClientGameData,
+    canvas: HTMLCanvasElement,
+    public readonly server_talker: ServerTalker
+  ) {
     super(data);
 
     this.display = new GameDisplay(this, canvas);
@@ -31,7 +35,11 @@ export class ClientGameSystem extends GameSystem {
 
     this.populate_objects(data);
 
-    this.player_state = new ClientGamePlayerState(data.player_state, this, data.user_id);
+    this.player_state = new ClientGamePlayerState(
+      data.player_state,
+      this,
+      data.user_id
+    );
     this.game_input = new GameInput(this);
     this.particle_system = new ParticleSystem(this);
   }

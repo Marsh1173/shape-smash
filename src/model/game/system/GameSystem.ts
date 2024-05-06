@@ -1,7 +1,7 @@
 import { HasId } from "../../utils/Id";
-import { ObjectFactory } from "../factory/ObjectFactory";
+import { ObjectFactory } from "../objects/factory/ObjectFactory";
 import RAPIER, { World } from "@dimforge/rapier2d-compat";
-import { ObjectContainer } from "../objectcontainer/ObjectContainer";
+import { ObjectContainer } from "../objects/container/ObjectContainer";
 import { GameObjectData } from "../objects/model/GameObject";
 
 export abstract class GameSystem extends HasId {
@@ -22,7 +22,9 @@ export abstract class GameSystem extends HasId {
   }
 
   public update(elapsed_seconds: number) {
-    this.object_container.shapelets.forEach((shapelet) => shapelet.update(elapsed_seconds));
+    this.object_container.shapelets.forEach((shapelet) =>
+      shapelet.update(elapsed_seconds)
+    );
 
     this.rapier_world.timestep = elapsed_seconds; // sync physics across varying fps
     this.rapier_world.step();

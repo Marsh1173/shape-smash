@@ -1,7 +1,7 @@
-import { Id } from "../../utils/Id";
-import { ServerGameObjectType } from "../objects/model/ServerGameObject";
-import { ServerShapelet } from "../objects/shapelet/server/ServerShapelet";
-import { ServerGameSystem } from "../system/server/ServerGameSystem";
+import { Id } from "../../../utils/Id";
+import { ServerGameObjectType } from "../model/ServerGameObject";
+import { ServerShapelet } from "../shapelet/server/ServerShapelet";
+import { ServerGameSystem } from "../../system/server/ServerGameSystem";
 import { ObjectContainer } from "./ObjectContainer";
 
 export class ServerObjectContainer extends ObjectContainer {

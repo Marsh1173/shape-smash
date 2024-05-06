@@ -1,10 +1,10 @@
-import { Platform, PlatformData } from "../objects/platform/Platform";
-import { GameSystem } from "../system/GameSystem";
-import { Shapelet } from "../objects/shapelet/Shapelet";
-import { GameObjectData, GameObjectType } from "../objects/model/GameObject";
-import { ShapeletData } from "../objects/shapelet/ShapeletSchema";
-import { PortalData } from "../objects/portal/PortalSchema";
-import { Portal } from "../objects/portal/Portal";
+import { Platform, PlatformData } from "../platform/Platform";
+import { GameSystem } from "../../system/GameSystem";
+import { Shapelet } from "../shapelet/Shapelet";
+import { GameObjectData, GameObjectType } from "../model/GameObject";
+import { ShapeletData } from "../shapelet/ShapeletSchema";
+import { PortalData } from "../portal/PortalSchema";
+import { Portal } from "../portal/Portal";
 
 export abstract class ObjectFactory {
   constructor(protected readonly game_system: GameSystem) {}
@@ -24,7 +24,9 @@ export abstract class ObjectFactory {
     } else if (object_data.type === "PortalData") {
       this.portal(object_data);
     } else {
-      throw new Error("Unknown object data type " + (object_data as { type: string }).type);
+      throw new Error(
+        "Unknown object data type " + (object_data as { type: string }).type
+      );
     }
   }
 }

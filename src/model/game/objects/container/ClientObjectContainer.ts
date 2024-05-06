@@ -1,11 +1,11 @@
-import { Id } from "../../utils/Id";
-import { ClientPlatform } from "../objects/platform/ClientPlatform";
-import { ClientShapelet } from "../objects/shapelet/client/ClientShapelet";
-import { ClientPortal } from "../objects/portal/client/ClientPortal";
+import { Id } from "../../../utils/Id";
+import { ClientPlatform } from "../platform/ClientPlatform";
+import { ClientShapelet } from "../shapelet/client/ClientShapelet";
+import { ClientPortal } from "../portal/client/ClientPortal";
 import { ObjectContainer } from "./ObjectContainer";
-import { ClientGameObjectType } from "../objects/model/ClientGameObject";
-import { ServerObjectMessage } from "../objects/model/ServerObjectSchema";
-import { ClientGameSystem } from "../system/client/ClientGameSystem";
+import { ClientGameObjectType } from "../model/ClientGameObject";
+import { ServerObjectMessage } from "../model/ServerObjectSchema";
+import { ClientGameSystem } from "../../system/client/ClientGameSystem";
 
 export class ClientObjectContainer extends ObjectContainer {
   declare readonly shapelets: ReadonlyMap<Id, ClientShapelet>;

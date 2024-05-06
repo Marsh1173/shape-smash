@@ -1,8 +1,8 @@
-import { Id } from "../../utils/Id";
-import { GameObjectType } from "../objects/model/GameObject";
-import { Platform } from "../objects/platform/Platform";
-import { Portal } from "../objects/portal/Portal";
-import { Shapelet } from "../objects/shapelet/Shapelet";
+import { Id } from "../../../utils/Id";
+import { GameObjectType } from "../model/GameObject";
+import { Platform } from "../platform/Platform";
+import { Portal } from "../portal/Portal";
+import { Shapelet } from "../shapelet/Shapelet";
 
 export abstract class ObjectContainer {
   protected readonly _platforms: Map<Id, Platform> = new Map();
@@ -18,7 +18,9 @@ export abstract class ObjectContainer {
 
   public add_object(object: GameObjectType) {
     if (this._objects.has(object.id)) {
-      throw new Error("Object already in container: " + object.type + " " + object.id);
+      throw new Error(
+        "Object already in container: " + object.type + " " + object.id
+      );
     }
 
     this._objects.set(object.id, object);

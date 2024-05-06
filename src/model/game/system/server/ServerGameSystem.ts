@@ -5,7 +5,7 @@ import { uuid } from "../../../utils/Id";
 import { ShapeletSpriteDataGenerator } from "../../objects/shapelet/client/sprite/ShapeletSpriteData";
 import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapper";
 import { GameServerRoom } from "./GameServerRoom";
-import { ServerObjectContainer } from "../../objectcontainer/ServerObjectContainer";
+import { ServerObjectContainer } from "../../objects/container/ServerObjectContainer";
 import { ShapeletData } from "../../objects/shapelet/ShapeletSchema";
 
 export interface ServerGameData extends GameData {}
@@ -59,7 +59,9 @@ export class ServerGameSystem extends GameSystem {
 
   public get_game_data(): GameData {
     return {
-      obj_data: [...this.object_container.objects].map(([_, object]) => object.serialize()),
+      obj_data: [...this.object_container.objects].map(([_, object]) =>
+        object.serialize()
+      ),
     };
   }
 }
