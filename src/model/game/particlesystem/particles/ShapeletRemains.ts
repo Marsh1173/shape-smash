@@ -8,6 +8,7 @@ import {
 import { ImageAssetHandler } from "../../display/assets/Assets";
 import RAPIER, { Collider, RigidBody, Vector } from "@dimforge/rapier2d-compat";
 import { Camera } from "../../display/Camera";
+import { CollisionGroupName, MakeCollisionGroups } from "../../physicsutils/MakeCollisionGroups";
 
 interface Remain {
   life: number;
@@ -50,19 +51,20 @@ export class ShapeletRemains implements ParticleUnit {
         .setLinvel(relative_pos.x * 10 + x_vel / 2, relative_pos.y * 10 - 7)
         .setLinearDamping(3)
         .setAdditionalSolverIterations(1);
-      const rigid_body =
-        this.game_system.rapier_world.createRigidBody(rigid_body_desc);
+      const rigid_body = this.game_system.rapier_world.createRigidBody(rigid_body_desc);
 
       const collider_desc = RAPIER.ColliderDesc.cuboid(
         (this.scale * scale_multiplier) / 2,
         (this.scale * scale_multiplier) / 2
       )
-        .setCollisionGroups(0x00040005)
+        .setCollisionGroups(
+          MakeCollisionGroups(
+            [CollisionGroupName.ShapeletRemains],
+            [CollisionGroupName.ShapeletRemains, CollisionGroupName.Ground]
+          )
+        )
         .setRestitution(0.8);
-      const collider = this.game_system.rapier_world.createCollider(
-        collider_desc,
-        rigid_body
-      );
+      const collider = this.game_system.rapier_world.createCollider(collider_desc, rigid_body);
 
       this.remains.push({
         life: Math.random() / 3 + 4,

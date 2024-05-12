@@ -9,6 +9,7 @@ import RAPIER, {
 } from "@dimforge/rapier2d-compat";
 import { IsOnGround } from "../../../physicsutils/IsOnGround";
 import { ValueObservable } from "../../../../utils/observer/ValueObserver";
+import { CollisionGroupName, MakeCollisionGroups } from "../../../physicsutils/MakeCollisionGroups";
 
 export interface ShapeletBodyData {
   pos: Vector;
@@ -53,7 +54,10 @@ export class ShapeletBody {
 
   public facing = new ValueObservable<"left" | "right">("right");
 
-  protected readonly groups_and_filters: number = 0x00020001;
+  protected readonly groups_and_filters: number = MakeCollisionGroups(
+    [CollisionGroupName.Entity],
+    [CollisionGroupName.Ground]
+  );
   protected readonly offset: number = 0.01;
   protected readonly rigid_body_desc: RigidBodyDesc;
   protected readonly rigid_body: RigidBody;
@@ -65,11 +69,10 @@ export class ShapeletBody {
   constructor(protected readonly world: World, data: ShapeletBodyData) {
     this._velocity = data.velocity ?? { x: 0, y: 0 };
 
-    this.rigid_body_desc =
-      RAPIER.RigidBodyDesc.kinematicVelocityBased().setTranslation(
-        data.pos.x,
-        data.pos.y
-      );
+    this.rigid_body_desc = RAPIER.RigidBodyDesc.kinematicVelocityBased().setTranslation(
+      data.pos.x,
+      data.pos.y
+    );
     this.prev_pos = data.pos;
     this.rigid_body = this.world.createRigidBody(this.rigid_body_desc);
 
@@ -77,14 +80,9 @@ export class ShapeletBody {
       0.5 - this.offset,
       0.5 - this.offset
     ).setCollisionGroups(this.groups_and_filters);
-    this.collider = this.world.createCollider(
-      this.collider_desc,
-      this.rigid_body
-    );
+    this.collider = this.world.createCollider(this.collider_desc, this.rigid_body);
 
-    this.shapelet_controller = this.world.createCharacterController(
-      this.offset
-    );
+    this.shapelet_controller = this.world.createCharacterController(this.offset);
   }
 
   public destroy() {
@@ -104,8 +102,7 @@ export class ShapeletBody {
       undefined,
       this.groups_and_filters
     );
-    const corrected_frame_velocity =
-      this.shapelet_controller.computedMovement();
+    const corrected_frame_velocity = this.shapelet_controller.computedMovement();
 
     this._on_ground = IsOnGround(this.shapelet_controller);
 
