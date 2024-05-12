@@ -1,5 +1,14 @@
-import { Platform } from "../objects/platform/Platform";
-import { Portal } from "../objects/portal/Portal";
+import { ServerHealthComponent } from "../components/health/server/ServerHealthComponent";
+import { ServerPlatform } from "../objects/platform/ServerPlatform";
+import { ServerPortal } from "../objects/portal/ServerPortal";
 import { ServerShapelet } from "../objects/shapelet/server/ServerShapelet";
+import { GameObject } from "./GameObject";
 
-export type ServerGameObjectType = ServerShapelet | Platform | Portal;
+export type ServerGameObjectType =
+  | ServerShapelet
+  | ServerPlatform
+  | ServerPortal;
+
+export interface ServerGameObject extends GameObject {
+  readonly health_component?: ServerHealthComponent;
+}

@@ -3,9 +3,14 @@ import { ServerGameObjectType } from "../model/ServerGameObject";
 import { ServerGameSystem } from "../../system/server/ServerGameSystem";
 import { ObjectContainer } from "./ObjectContainer";
 import { ServerShapelet } from "../objects/shapelet/server/ServerShapelet";
+import { ServerPlatform } from "../objects/platform/ServerPlatform";
+import { ServerPortal } from "../objects/portal/ServerPortal";
 
 export class ServerObjectContainer extends ObjectContainer {
   declare readonly shapelets: ReadonlyMap<Id, ServerShapelet>;
+  declare readonly platforms: ReadonlyMap<Id, ServerPlatform>;
+  declare readonly portals: ReadonlyMap<Id, ServerPortal>;
+
   declare readonly objects: ReadonlyMap<Id, ServerGameObjectType>;
 
   constructor(protected readonly game_system: ServerGameSystem) {

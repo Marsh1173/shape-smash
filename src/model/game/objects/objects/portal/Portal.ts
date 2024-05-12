@@ -4,7 +4,7 @@ import { GameSystem } from "../../../system/GameSystem";
 import { GameObject } from "../../model/GameObject";
 import { PortalData } from "./PortalSchema";
 
-export class Portal implements GameObject {
+export abstract class Portal implements GameObject {
   public readonly id: Id;
   public readonly type = "Portal";
 

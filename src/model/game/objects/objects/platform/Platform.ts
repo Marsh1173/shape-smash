@@ -9,7 +9,7 @@ export interface PlatformData {
   body_data: PlatformBodyData;
 }
 
-export class Platform implements GameObject {
+export abstract class Platform implements GameObject {
   public readonly type = "Platform";
   public readonly id: Id;
   protected readonly body: PlatformBody;
