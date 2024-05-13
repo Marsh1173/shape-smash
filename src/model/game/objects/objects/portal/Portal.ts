@@ -1,18 +1,19 @@
-import { Vector } from "@dimforge/rapier2d-compat";
 import { Id } from "../../../../utils/Id";
 import { GameSystem } from "../../../system/GameSystem";
 import { GameObject } from "../../model/GameObject";
 import { PortalData } from "./PortalSchema";
+import { PositionalComponent } from "../../components/positional/PositionalComponent";
+import { PositionComponent } from "../../components/positional/position/PositionComponent";
 
 export abstract class Portal implements GameObject {
-  public readonly id: Id;
   public readonly type = "Portal";
 
-  public readonly pos: Readonly<Vector>;
+  public readonly id: Id;
+  public readonly positional_component: PositionalComponent;
 
   constructor(protected readonly game_system: GameSystem, data: PortalData) {
     this.id = data.id;
-    this.pos = data.pos;
+    this.positional_component = new PositionComponent(data.positional_data);
   }
 
   public destroy() {}
@@ -21,7 +22,7 @@ export abstract class Portal implements GameObject {
     return {
       type: "PortalData",
       id: this.id,
-      pos: this.pos,
+      positional_data: this.positional_component.serialize(),
     };
   }
 }

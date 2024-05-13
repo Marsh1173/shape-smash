@@ -36,7 +36,7 @@ export class ServerApp {
         { type: "PlatformData", id: uuid(), body_data: { len: 5, pos: { x: 20, y: -10 } } },
         { type: "PlatformData", id: uuid(), body_data: { len: 6, pos: { x: -1, y: -9 } } },
         { type: "PlatformData", id: uuid(), body_data: { len: 3, pos: { x: 5, y: -13 } } },
-        { type: "PortalData", id: uuid(), pos: { x: -2, y: -9 } },
+        { type: "PortalData", id: uuid(), positional_data: { pos: { x: -2, y: -9 } } },
       ],
     });
 

@@ -1,7 +1,7 @@
-import { Vector } from "@dimforge/rapier2d-compat";
 import { HasId } from "../../../../utils/Id";
+import { PositionComponentData } from "../../components/positional/position/PositionComponent";
 
 export interface PortalData extends HasId {
   type: "PortalData";
-  pos: Vector;
+  positional_data: PositionComponentData;
 }

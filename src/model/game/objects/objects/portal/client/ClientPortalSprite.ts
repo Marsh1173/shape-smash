@@ -10,7 +10,7 @@ export class ClientPortalSprite {
     protected readonly portal: ClientPortal,
     protected readonly game_display: GameDisplay
   ) {
-    const px_pos = Camera.units_to_px(this.portal.pos);
+    const px_pos = Camera.units_to_px(this.portal.positional_component.pos);
     this.sprite_container = new Container();
     this.sprite_container.position.set(px_pos.x, px_pos.y);
 
