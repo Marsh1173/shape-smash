@@ -1,7 +1,11 @@
+import { FunctionOfProgress } from "../../../utils/functionofprogress/FunctionOfProgress";
+
 /**
  * [progress, value]
  */
-export type Animation<FieldName extends number> = Readonly<Record<FieldName, [number, number][]>>;
+export type Animation<FieldName extends number> = Readonly<
+  Record<FieldName, FunctionOfProgress<number>>
+>;
 
 export interface AnimationRunData<FieldName extends number> {
   readonly anim: Animation<FieldName>;
@@ -66,43 +70,10 @@ export abstract class Animator<FieldName extends number> {
     const anim = this.current_anim().anim;
 
     for (const field_name of this.updated_fields) {
-      const field_animation: [number, number][] | undefined = anim[field_name];
+      const field_animation: FunctionOfProgress<number> | undefined = anim[field_name];
       if (field_animation) {
-        this.set_field[field_name](this.lerp_animation(progress, field_animation));
+        this.set_field[field_name](field_animation(progress));
       }
     }
-  }
-
-  protected lerp_animation(progress: number, field_animation: [number, number][]): number {
-    if (field_animation.length === 0) {
-      throw new Error("Field animation had 0 length");
-    } else if (field_animation.length === 1) {
-      return field_animation[0][1];
-    }
-
-    //could be optimized to binary search field animation array
-    let upper_index = field_animation.findIndex(([key_progress, _]) => {
-      return key_progress > progress;
-    });
-
-    if (upper_index === -1) {
-      //progress is higher than highest key progress
-      return field_animation[field_animation.length - 1][1];
-    } else if (upper_index === 0) {
-      //progress is lower than lowest key progress
-      return field_animation[0][1];
-    } else {
-      const lower_index = upper_index - 1;
-      return this.lerp_value(
-        field_animation[lower_index][1],
-        field_animation[upper_index][1],
-        (progress - field_animation[lower_index][0]) /
-          (field_animation[upper_index][0] - field_animation[lower_index][0])
-      );
-    }
-  }
-
-  protected lerp_value(start: number, end: number, progress: number): number {
-    return end * progress + start * (1 - progress);
   }
 }

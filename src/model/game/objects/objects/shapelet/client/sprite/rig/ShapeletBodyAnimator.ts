@@ -1,7 +1,5 @@
-import {
-  AnimationRunData,
-  Animator,
-} from "../../../../../../display/animation/Animation";
+import { LinearInterpolationAnim } from "../../../../../../../utils/functionofprogress/LinearInterpolation";
+import { AnimationRunData, Animator } from "../../../../../../display/animation/Animation";
 import { ShapeletBodyRig } from "./ShapeletBodyRig";
 
 enum ShapeletBodyAnimatableField {
@@ -17,10 +15,7 @@ const updated_fields: ShapeletBodyAnimatableField[] = [
 ];
 
 export class ShapeletBodyAnimator extends Animator<ShapeletBodyAnimatableField> {
-  public set_field: Record<
-    ShapeletBodyAnimatableField,
-    (value: number) => void
-  > = {
+  public set_field: Record<ShapeletBodyAnimatableField, (value: number) => void> = {
     [ShapeletBodyAnimatableField.x_scale]: (value: number) => {
       this.rig.body_container.scale.x = value;
     },
@@ -48,45 +43,45 @@ export class ShapeletBodyAnimations {
   public static readonly jump: AnimationRunData<ShapeletBodyAnimatableField> = {
     duration: this.jiggle.duration,
     anim: {
-      [ShapeletBodyAnimatableField.x_scale]: [
+      [ShapeletBodyAnimatableField.x_scale]: LinearInterpolationAnim([
         [0, 1],
         [0.5, 1 - this.jiggle.scale_factor],
         [1, 1],
-      ],
-      [ShapeletBodyAnimatableField.y_scale]: [
+      ]),
+      [ShapeletBodyAnimatableField.y_scale]: LinearInterpolationAnim([
         [0, 1],
         [0.5, 1 + this.jiggle.scale_factor],
         [1, 1],
-      ],
-      [ShapeletBodyAnimatableField.y_position]: [[0, 0]],
+      ]),
+      [ShapeletBodyAnimatableField.y_position]: () => 0,
     },
   };
   public static readonly land: AnimationRunData<ShapeletBodyAnimatableField> = {
     duration: this.jiggle.duration,
     anim: {
-      [ShapeletBodyAnimatableField.x_scale]: [
+      [ShapeletBodyAnimatableField.x_scale]: LinearInterpolationAnim([
         [0, 1],
         [0.5, 1 + this.jiggle.scale_factor],
         [1, 1],
-      ],
-      [ShapeletBodyAnimatableField.y_scale]: [
+      ]),
+      [ShapeletBodyAnimatableField.y_scale]: LinearInterpolationAnim([
         [0, 1],
         [0.5, 1 - this.jiggle.scale_factor],
         [1, 1],
-      ],
-      [ShapeletBodyAnimatableField.y_position]: [
+      ]),
+      [ShapeletBodyAnimatableField.y_position]: LinearInterpolationAnim([
         [0, 0],
         [0.5, this.jiggle.y_pos_change],
         [1, 0],
-      ],
+      ]),
     },
   };
   public static readonly idle: AnimationRunData<ShapeletBodyAnimatableField> = {
     duration: Infinity,
     anim: {
-      [ShapeletBodyAnimatableField.x_scale]: [[0, 1]],
-      [ShapeletBodyAnimatableField.y_scale]: [[0, 1]],
-      [ShapeletBodyAnimatableField.y_position]: [[0, 0]],
+      [ShapeletBodyAnimatableField.x_scale]: () => 1,
+      [ShapeletBodyAnimatableField.y_scale]: () => 1,
+      [ShapeletBodyAnimatableField.y_position]: () => 0,
     },
   };
 }

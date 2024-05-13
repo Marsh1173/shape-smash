@@ -1,16 +1,11 @@
-import {
-  AnimationRunData,
-  Animator,
-} from "../../../../../../display/animation/Animation";
+import { AnimationRunData, Animator } from "../../../../../../display/animation/Animation";
 import { ShapeletRig } from "./ShapeletRig";
 
 enum ShapeletAnimatableField {
   white_filter,
 }
 
-const updated_fields: ShapeletAnimatableField[] = [
-  ShapeletAnimatableField.white_filter,
-];
+const updated_fields: ShapeletAnimatableField[] = [ShapeletAnimatableField.white_filter];
 
 export class ShapeletAnimator extends Animator<ShapeletAnimatableField> {
   public set_field: Record<ShapeletAnimatableField, (value: number) => void> = {
@@ -37,14 +32,14 @@ export class ShapeletAnimations {
   public static readonly idle: AnimationRunData<ShapeletAnimatableField> = {
     duration: Infinity,
     anim: {
-      [ShapeletAnimatableField.white_filter]: [[0, this.filter_values.off]],
+      [ShapeletAnimatableField.white_filter]: () => this.filter_values.off,
     },
   };
 
   public static readonly damage: AnimationRunData<ShapeletAnimatableField> = {
     duration: 0.06,
     anim: {
-      [ShapeletAnimatableField.white_filter]: [[0, this.filter_values.on]],
+      [ShapeletAnimatableField.white_filter]: () => this.filter_values.on,
     },
   };
 }
