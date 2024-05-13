@@ -5,13 +5,10 @@ import { ClientGameSystem } from "../../../system/client/ClientGameSystem";
 export class ClientPlatform extends Platform {
   protected readonly sprite: PlatformSprite;
 
-  constructor(
-    protected readonly game_system: ClientGameSystem,
-    data: PlatformData
-  ) {
+  constructor(protected readonly game_system: ClientGameSystem, data: PlatformData) {
     super(game_system, data);
 
-    this.sprite = new PlatformSprite(data.body_data, this.game_system.display);
+    this.sprite = new PlatformSprite(data, this.game_system.display);
   }
 
   public destroy(): void {

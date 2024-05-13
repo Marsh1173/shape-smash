@@ -9,6 +9,7 @@ import { ClientObjectContainer } from "../../objects/container/ClientObjectConta
 import { LifecycleTextures } from "../../display/pixijsutils/LifecycleTextures";
 import { ClientGameData } from "../server/ServerGameMessageSchema";
 import { ParticleSystem } from "../../particlesystem/ParticleSystem";
+import { debug_shapes } from "../../display/DebugShapes";
 
 export class ClientGameSystem extends GameSystem {
   public readonly object_factory: ClientObjectFactory;
@@ -35,11 +36,7 @@ export class ClientGameSystem extends GameSystem {
 
     this.populate_objects(data);
 
-    this.player_state = new ClientGamePlayerState(
-      data.player_state,
-      this,
-      data.user_id
-    );
+    this.player_state = new ClientGamePlayerState(data.player_state, this, data.user_id);
     this.game_input = new GameInput(this);
     this.particle_system = new ParticleSystem(this);
   }
