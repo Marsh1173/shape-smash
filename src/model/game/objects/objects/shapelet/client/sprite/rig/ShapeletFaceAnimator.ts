@@ -7,8 +7,9 @@ enum ShapeletFaceAnimatableField {
 }
 
 const updated_fields: ShapeletFaceAnimatableField[] = [ShapeletFaceAnimatableField.x_translation];
+type ShapeletFaceAnimationRunData = AnimationRunData<ShapeletFaceAnimatableField, number>;
 
-export class ShapeletFaceAnimator extends Animator<ShapeletFaceAnimatableField> {
+export class ShapeletFaceAnimator extends Animator<ShapeletFaceAnimatableField, number> {
   public set_field: Record<ShapeletFaceAnimatableField, (value: number) => void> = {
     [ShapeletFaceAnimatableField.x_translation]: (value: number) => {
       this.rig.face_container.position.x = value;
@@ -28,7 +29,7 @@ export class ShapeletFaceAnimations {
   };
   private constructor() {}
 
-  public static readonly left_slide: AnimationRunData<ShapeletFaceAnimatableField> = {
+  public static readonly left_slide: ShapeletFaceAnimationRunData = {
     duration: this.slide.duration,
     anim: {
       [ShapeletFaceAnimatableField.x_translation]: LinearInterpolationAnim([
@@ -37,7 +38,7 @@ export class ShapeletFaceAnimations {
       ]),
     },
   };
-  public static readonly right_slide: AnimationRunData<ShapeletFaceAnimatableField> = {
+  public static readonly right_slide: ShapeletFaceAnimationRunData = {
     duration: this.slide.duration,
     anim: {
       [ShapeletFaceAnimatableField.x_translation]: LinearInterpolationAnim([
@@ -46,7 +47,7 @@ export class ShapeletFaceAnimations {
       ]),
     },
   };
-  public static readonly left_stay: AnimationRunData<ShapeletFaceAnimatableField> = {
+  public static readonly left_stay: ShapeletFaceAnimationRunData = {
     duration: Infinity,
     anim: {
       [ShapeletFaceAnimatableField.x_translation]: LinearInterpolationAnim([
@@ -54,7 +55,7 @@ export class ShapeletFaceAnimations {
       ]),
     },
   };
-  public static readonly right_stay: AnimationRunData<ShapeletFaceAnimatableField> = {
+  public static readonly right_stay: ShapeletFaceAnimationRunData = {
     duration: Infinity,
     anim: {
       [ShapeletFaceAnimatableField.x_translation]: LinearInterpolationAnim([

@@ -6,12 +6,11 @@ enum ShapeletAnimatableField {
 }
 
 const updated_fields: ShapeletAnimatableField[] = [ShapeletAnimatableField.white_filter];
+type ShapeletAnimationRunData = AnimationRunData<ShapeletAnimatableField, boolean>;
 
-export class ShapeletAnimator extends Animator<ShapeletAnimatableField> {
-  public set_field: Record<ShapeletAnimatableField, (value: number) => void> = {
-    [ShapeletAnimatableField.white_filter]: (value: number) => {
-      console.log();
-      const enabled = value === 1;
+export class ShapeletAnimator extends Animator<ShapeletAnimatableField, boolean> {
+  public set_field: Record<ShapeletAnimatableField, (value: boolean) => void> = {
+    [ShapeletAnimatableField.white_filter]: (enabled: boolean) => {
       if (enabled !== this.rig.effect_filters.flash.enabled) {
         this.rig.effect_filters.flash.enabled = enabled;
       }
@@ -24,22 +23,17 @@ export class ShapeletAnimator extends Animator<ShapeletAnimatableField> {
 }
 
 export class ShapeletAnimations {
-  protected static filter_values = {
-    on: 1,
-    off: 0,
-  };
-
-  public static readonly idle: AnimationRunData<ShapeletAnimatableField> = {
+  public static readonly idle: ShapeletAnimationRunData = {
     duration: Infinity,
     anim: {
-      [ShapeletAnimatableField.white_filter]: () => this.filter_values.off,
+      [ShapeletAnimatableField.white_filter]: () => false,
     },
   };
 
-  public static readonly damage: AnimationRunData<ShapeletAnimatableField> = {
+  public static readonly damage: ShapeletAnimationRunData = {
     duration: 0.06,
     anim: {
-      [ShapeletAnimatableField.white_filter]: () => this.filter_values.on,
+      [ShapeletAnimatableField.white_filter]: () => true,
     },
   };
 }

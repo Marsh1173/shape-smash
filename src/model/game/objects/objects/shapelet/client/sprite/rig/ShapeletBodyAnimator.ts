@@ -13,8 +13,9 @@ const updated_fields: ShapeletBodyAnimatableField[] = [
   ShapeletBodyAnimatableField.y_scale,
   ShapeletBodyAnimatableField.y_position,
 ];
+type ShapeletBodyAnimationRunData = AnimationRunData<ShapeletBodyAnimatableField, number>;
 
-export class ShapeletBodyAnimator extends Animator<ShapeletBodyAnimatableField> {
+export class ShapeletBodyAnimator extends Animator<ShapeletBodyAnimatableField, number> {
   public set_field: Record<ShapeletBodyAnimatableField, (value: number) => void> = {
     [ShapeletBodyAnimatableField.x_scale]: (value: number) => {
       this.rig.body_container.scale.x = value;
@@ -40,7 +41,7 @@ export class ShapeletBodyAnimations {
   };
   private constructor() {}
 
-  public static readonly jump: AnimationRunData<ShapeletBodyAnimatableField> = {
+  public static readonly jump: ShapeletBodyAnimationRunData = {
     duration: this.jiggle.duration,
     anim: {
       [ShapeletBodyAnimatableField.x_scale]: LinearInterpolationAnim([
@@ -56,7 +57,7 @@ export class ShapeletBodyAnimations {
       [ShapeletBodyAnimatableField.y_position]: () => 0,
     },
   };
-  public static readonly land: AnimationRunData<ShapeletBodyAnimatableField> = {
+  public static readonly land: ShapeletBodyAnimationRunData = {
     duration: this.jiggle.duration,
     anim: {
       [ShapeletBodyAnimatableField.x_scale]: LinearInterpolationAnim([
@@ -76,7 +77,7 @@ export class ShapeletBodyAnimations {
       ]),
     },
   };
-  public static readonly idle: AnimationRunData<ShapeletBodyAnimatableField> = {
+  public static readonly idle: ShapeletBodyAnimationRunData = {
     duration: Infinity,
     anim: {
       [ShapeletBodyAnimatableField.x_scale]: () => 1,
