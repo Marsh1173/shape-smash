@@ -1,11 +1,8 @@
 import { Vector } from "@dimforge/rapier2d-compat";
 import { ShapeletAction } from "../ShapeletController";
-import { ServerHealthComponentMessage } from "../../../components/health/server/ServerHealthComponentSchema";
 import { Id } from "../../../../../utils/Id";
 
-export type ServerShapeletMessageContent =
-  | ServerShapeletActionMessage
-  | ServerHealthComponentMessage;
+export type ServerShapeletMessageContent = ServerShapeletActionMessage;
 
 export interface ServerShapeletMessage {
   type: "ServerShapeletMessage";

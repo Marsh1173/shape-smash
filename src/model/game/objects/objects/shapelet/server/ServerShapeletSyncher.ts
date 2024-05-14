@@ -1,15 +1,12 @@
 import { PlayerMoveMessage } from "../../../../../../client/network/schema/ClientMessage";
 import { Id, uuid } from "../../../../../utils/Id";
 import { GameServerRoom } from "../../../../system/server/GameServerRoom";
-import {
-  ServerHealthComponentBroadcaster,
-  ServerHealthComponentSyncher,
-} from "../../../components/health/server/ServerHealthComponentSyncher";
+import { ServerHealthComponentSyncher } from "../../../components/health/server/ServerHealthComponentSyncher";
 import { ShapeletAction } from "../ShapeletController";
 import { ServerShapelet } from "./ServerShapelet";
 import { ServerShapeletMessageContent } from "./ServerShapeletSchema";
 
-export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
+export class ServerShapeletSyncher {
   protected readonly syncher_id: Id = uuid();
   protected readonly health_syncher: ServerHealthComponentSyncher;
 
@@ -20,11 +17,12 @@ export class ServerShapeletSyncher implements ServerHealthComponentBroadcaster {
     this.health_syncher = new ServerHealthComponentSyncher(
       this.shapelet.health_component,
       this.syncher_id,
-      this
+      this.server_room,
+      this.shapelet.id
     );
   }
 
-  public broadcast(msg: ServerShapeletMessageContent) {
+  protected broadcast(msg: ServerShapeletMessageContent) {
     this.server_room.broadcast({
       type: "ServerGameMessage",
       msg: {

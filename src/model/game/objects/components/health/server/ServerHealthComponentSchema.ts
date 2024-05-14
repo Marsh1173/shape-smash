@@ -1,10 +1,12 @@
+export type ServerHealthComponentMessageContent =
+  | ServerHealthComponentTakeHealMessage
+  | ServerHealthComponentTakeDamageMessage
+  | ServerHealthComponentUpdateMaxHealthMessage
+  | ServerHealthComponentDieMessage;
+
 export interface ServerHealthComponentMessage {
   type: "ServerHealthComponentMessage";
-  msg:
-    | ServerHealthComponentTakeHealMessage
-    | ServerHealthComponentTakeDamageMessage
-    | ServerHealthComponentUpdateMaxHealthMessage
-    | ServerHealthComponentDieMessage;
+  msg: ServerHealthComponentMessageContent;
 }
 
 export interface ServerHealthComponentTakeHealMessage {
