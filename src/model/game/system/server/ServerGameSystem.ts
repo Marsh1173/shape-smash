@@ -7,10 +7,12 @@ import { WebsocketWrapper } from "../../../../server/network/user/WebsocketWrapp
 import { GameServerRoom } from "./GameServerRoom";
 import { ServerObjectContainer } from "../../objects/container/ServerObjectContainer";
 import { ShapeletData } from "../../objects/objects/shapelet/ShapeletSchema";
+import { ServerAbilityFactory } from "../../abilities/factory/ServerAbilityFactory";
 
 export interface ServerGameData extends GameData {}
 
 export class ServerGameSystem extends GameSystem {
+  public readonly ability_factory: ServerAbilityFactory;
   public readonly object_factory: ServerObjectFactory;
   public readonly object_container: ServerObjectContainer;
   public readonly server_room: GameServerRoom;
@@ -18,6 +20,7 @@ export class ServerGameSystem extends GameSystem {
   constructor(data: ServerGameData) {
     super(data);
 
+    this.ability_factory = new ServerAbilityFactory(this);
     this.server_room = new GameServerRoom(this);
     this.object_factory = new ServerObjectFactory(this);
     this.object_container = new ServerObjectContainer(this);
@@ -59,9 +62,7 @@ export class ServerGameSystem extends GameSystem {
 
   public get_game_data(): GameData {
     return {
-      obj_data: [...this.object_container.objects].map(([_, object]) =>
-        object.serialize()
-      ),
+      obj_data: [...this.object_container.objects].map(([_, object]) => object.serialize()),
     };
   }
 }

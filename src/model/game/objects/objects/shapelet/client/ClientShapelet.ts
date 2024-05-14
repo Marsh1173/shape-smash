@@ -4,18 +4,18 @@ import { ClientHealthComponent } from "../../../components/health/client/ClientH
 import { ClientShapeletSyncher } from "./ClientShapeletSyncher";
 import { ClientGameSystem } from "../../../../system/client/ClientGameSystem";
 import { ShapeletData } from "../ShapeletSchema";
+import { ClientAbilityComponent } from "../../../components/ability/client/ClientAbilityComponent";
 
 export class ClientShapelet extends Shapelet {
   public readonly syncher: ClientShapeletSyncher;
   public readonly health_component: ClientHealthComponent;
+  public readonly ability_component: ClientAbilityComponent;
   public readonly rig: ShapeletRig;
 
-  constructor(
-    protected readonly game_system: ClientGameSystem,
-    data: ShapeletData
-  ) {
+  constructor(protected readonly game_system: ClientGameSystem, data: ShapeletData) {
     super(game_system, data);
 
+    this.ability_component = new ClientAbilityComponent(this.game_system);
     this.health_component = new ClientHealthComponent(
       Shapelet.base_stats.max_health,
       data.health_data,
@@ -23,11 +23,7 @@ export class ClientShapelet extends Shapelet {
       this.id
     );
 
-    this.rig = new ShapeletRig(
-      this.game_system.display,
-      this,
-      data.sprite_data
-    );
+    this.rig = new ShapeletRig(this.game_system.display, this, data.sprite_data);
     this.syncher = new ClientShapeletSyncher(this, this.game_system);
 
     this.health_component.death_observable.add_observer({

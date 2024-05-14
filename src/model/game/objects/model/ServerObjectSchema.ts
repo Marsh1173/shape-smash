@@ -1,5 +1,6 @@
 import { Id } from "../../../utils/Id";
 import { ServerHealthComponentMessage } from "../components/health/server/ServerHealthComponentSchema";
+import { ServerAbilityComponentMessage } from "../components/ability/server/ServerAbilityComponentSchema";
 import { GameObjectData } from "./GameObject";
 
 export interface ServerObjectMessage {
@@ -20,5 +21,5 @@ export interface ServerObjectDestroyMessage {
 export interface ServerObjectComponentMessage {
   type: "ServerObjectComponentMessage";
   object_id: Id;
-  msg: ServerHealthComponentMessage;
+  msg: ServerHealthComponentMessage | ServerAbilityComponentMessage;
 }

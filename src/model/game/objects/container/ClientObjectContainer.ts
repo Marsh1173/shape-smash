@@ -35,11 +35,15 @@ export class ClientObjectContainer extends ObjectContainer {
   protected route_object_component_msg(msg: ServerObjectComponentMessage, obj: ClientGameObject) {
     if (msg.msg.type === "ServerHealthComponentMessage") {
       obj.health_component?.route_msg(msg.msg);
+    } else if (msg.msg.type === "ServerAbilityComponentMessage") {
+      obj.ability_component?.route_msg(msg.msg);
+    } else {
+      throw new Error("Route not implemented yet");
     }
   }
 
   protected get_obj_or_warn(object_id: Id, msg: any): ClientGameObject | undefined {
-    const obj: ClientGameObject | undefined = this.objects.get(msg.msg.object_id);
+    const obj: ClientGameObject | undefined = this.objects.get(object_id);
     if (!obj) {
       console.error(
         "Could not find obj with id " +

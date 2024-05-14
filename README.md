@@ -16,6 +16,14 @@ X Death animation
 X Animation framework + jump and move animation
 X Basic dummy portal objects
 X Damage animation
+X Basic ability system
+
+Ability component
+
+> Make generic dynamic position component
+>
+> > Queueing velocity animations? Based on difference from last position
+> > Dash ability requires generic position
 
 State update + routing cleanup
 Combat animation

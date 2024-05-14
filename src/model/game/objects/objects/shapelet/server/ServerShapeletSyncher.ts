@@ -38,16 +38,18 @@ export class ServerShapeletSyncher {
     this.shapelet.body.set_pos_and_vel(msg.pos, msg.vel);
 
     //temp code
-    if (msg.action === ShapeletAction.MainAction && msg.active) {
-      this.shapelet.snipe();
+    if (msg.action === ShapeletAction.MainAction) {
+      if (msg.active) {
+        this.shapelet.attack();
+      }
+    } else {
+      this.broadcast({
+        type: "ServerShapeletActionMessage",
+        active: msg.active,
+        action: msg.action,
+        pos: msg.pos,
+        vel: msg.vel,
+      });
     }
-
-    this.broadcast({
-      type: "ServerShapeletActionMessage",
-      active: msg.active,
-      action: msg.action,
-      pos: msg.pos,
-      vel: msg.vel,
-    });
   }
 }

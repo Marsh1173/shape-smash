@@ -6,6 +6,7 @@ import { HealthComponent } from "../../components/health/HealthComponent";
 import { GameSystem } from "../../../system/GameSystem";
 import { GameObject } from "../../model/GameObject";
 import { ShapeletData } from "./ShapeletSchema";
+import { AbilityComponent } from "../../components/ability/AbilityComponent";
 
 export abstract class Shapelet implements GameObject {
   public readonly id: Id;
@@ -15,6 +16,7 @@ export abstract class Shapelet implements GameObject {
   public readonly body: ShapeletBody;
   public readonly controller: ShapeletController;
   public abstract readonly health_component: HealthComponent;
+  public abstract readonly ability_component: AbilityComponent;
 
   public static readonly base_stats = {
     max_health: 4,
@@ -33,10 +35,12 @@ export abstract class Shapelet implements GameObject {
   }
 
   public destroy() {
+    this.ability_component.destroy();
     this.body.destroy();
   }
 
   public update(elapsed_seconds: number) {
+    this.ability_component.update(elapsed_seconds);
     this.controller.update(elapsed_seconds);
     this.body.update(elapsed_seconds);
   }
