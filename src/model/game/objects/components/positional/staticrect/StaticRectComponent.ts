@@ -1,8 +1,5 @@
 import { Collider, ColliderDesc, Vector, World } from "@dimforge/rapier2d-compat";
-import {
-  CollisionGroupName,
-  MakeCollisionGroups,
-} from "../../../../physicsutils/MakeCollisionGroups";
+import { CollisionGroupName, MakeCollisionGroups } from "../../../../utils/physics/MakeCollisionGroups";
 import { Dimensions } from "../../../../../utils/Dimensions";
 
 export interface StaticRectComponentData {
@@ -18,10 +15,7 @@ export class StaticRectComponent {
   protected readonly collider_desc: ColliderDesc;
   protected readonly collider: Collider;
 
-  protected readonly collision_groups = MakeCollisionGroups(
-    [CollisionGroupName.Ground],
-    [CollisionGroupName.All]
-  );
+  protected readonly collision_groups = MakeCollisionGroups([CollisionGroupName.Ground], [CollisionGroupName.All]);
 
   constructor(data: StaticRectComponentData, protected readonly world: World) {
     this.pos = data.pos;

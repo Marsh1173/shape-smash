@@ -67,7 +67,8 @@ export class GameDisplay {
       { x: 0, y: 0 },
       { x: Camera.standard_viewport_size.w, y: Camera.standard_viewport_size.h },
       "#7e889d",
-      "#162f3d"
+      "#162f3d",
+      this.game_system.cleanup_callbacks
     );
   }
 }

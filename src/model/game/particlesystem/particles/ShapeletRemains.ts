@@ -8,7 +8,7 @@ import {
 import { ImageAssetHandler } from "../../display/assets/Assets";
 import RAPIER, { Collider, RigidBody, Vector } from "@dimforge/rapier2d-compat";
 import { Camera } from "../../display/Camera";
-import { CollisionGroupName, MakeCollisionGroups } from "../../physicsutils/MakeCollisionGroups";
+import { CollisionGroupName, MakeCollisionGroups } from "../../utils/physics/MakeCollisionGroups";
 
 interface Remain {
   life: number;
@@ -24,12 +24,7 @@ export class ShapeletRemains implements ParticleUnit {
   protected readonly remains: Remain[] = [];
   protected readonly container: Container = new Container();
 
-  constructor(
-    protected readonly game_system: ClientGameSystem,
-    color: ShapeletBodyColor,
-    pos: Vector,
-    x_vel: number
-  ) {
+  constructor(protected readonly game_system: ClientGameSystem, color: ShapeletBodyColor, pos: Vector, x_vel: number) {
     this.game_system.display.layers.game_space.addChild(this.container);
 
     const asset = ShapeletSpriteDataGenerator.get_remain_asset(color);

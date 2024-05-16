@@ -1,8 +1,15 @@
 import { Vector } from "@dimforge/rapier2d-compat";
 import { Texture, Sprite } from "pixi.js";
-import { LifecycleTextures } from "./LifecycleTextures";
+import { CleanupCallbacks } from "../../utils/CleanupCallbacks";
 
-export function GradientSprite(size: Vector, from: Vector, to: Vector, from_color: string, to_color: string): Sprite {
+export function GradientSprite(
+  size: Vector,
+  from: Vector,
+  to: Vector,
+  from_color: string,
+  to_color: string,
+  cleanup_callbacks: CleanupCallbacks
+): Sprite {
   const canvas = document.createElement("canvas");
   canvas.width = size.x;
   canvas.height = size.y;
@@ -17,7 +24,9 @@ export function GradientSprite(size: Vector, from: Vector, to: Vector, from_colo
   context.fillRect(0, 0, size.x, size.y);
 
   const texture = Texture.from(canvas);
-  LifecycleTextures.add_texture(texture);
+  cleanup_callbacks.add(() => {
+    texture.destroy(true);
+  });
 
   return Sprite.from(texture);
 }
