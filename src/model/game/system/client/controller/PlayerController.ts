@@ -3,10 +3,7 @@ import { ClientGameSystem } from "../ClientGameSystem";
 import { ShapeletAction } from "../../../objects/objects/shapelet/ShapeletController";
 
 export class PlayerController {
-  constructor(
-    protected readonly shapelet: ClientShapelet,
-    protected readonly game_system: ClientGameSystem
-  ) {}
+  constructor(protected readonly shapelet: ClientShapelet, protected readonly game_system: ClientGameSystem) {}
 
   public route_input(action: ShapeletAction, active: boolean) {
     if (action === ShapeletAction.Jump) {
@@ -30,8 +27,8 @@ export class PlayerController {
         type: "PlayerMoveMessage",
         active,
         action,
-        pos: this.shapelet.body.pos,
-        vel: this.shapelet.body.velocity,
+        pos: this.shapelet.positional_component.pos,
+        vel: this.shapelet.positional_component.vel,
       },
     });
   }

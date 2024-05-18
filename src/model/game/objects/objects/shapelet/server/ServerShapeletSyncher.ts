@@ -10,10 +10,7 @@ export class ServerShapeletSyncher {
   protected readonly syncher_id: Id = uuid();
   protected readonly health_syncher: ServerHealthComponentSyncher;
 
-  constructor(
-    protected readonly shapelet: ServerShapelet,
-    protected readonly server_room: GameServerRoom
-  ) {
+  constructor(protected readonly shapelet: ServerShapelet, protected readonly server_room: GameServerRoom) {
     this.health_syncher = new ServerHealthComponentSyncher(
       this.shapelet.health_component,
       this.syncher_id,
@@ -35,7 +32,7 @@ export class ServerShapeletSyncher {
 
   public route_msg(msg: PlayerMoveMessage) {
     this.shapelet.controller.on_input(msg.action, msg.active);
-    this.shapelet.body.set_pos_and_vel(msg.pos, msg.vel);
+    this.shapelet.positional_component.set_pos_and_vel(msg.pos, msg.vel);
 
     //temp code
     if (msg.action === ShapeletAction.MainAction) {

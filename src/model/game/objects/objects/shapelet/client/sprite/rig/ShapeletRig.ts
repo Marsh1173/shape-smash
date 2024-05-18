@@ -33,21 +33,9 @@ export class ShapeletRig {
     this.container = new Container();
     this.game_display.layers.game_space.addChild(this.container);
 
-    this.body_rig = new ShapeletBodyRig(
-      this.container,
-      this.shapelet.controller,
-      this.data
-    );
-    this.face_rig = new ShapeletFaceRig(
-      this.container,
-      this.shapelet.body,
-      this.data
-    );
-    this.health_display = new ClientHealthComponentDisplay(
-      this.game_display,
-      this.shapelet,
-      this.position
-    );
+    this.body_rig = new ShapeletBodyRig(this.container, this.shapelet.controller, this.data);
+    this.face_rig = new ShapeletFaceRig(this.container, this.shapelet.controller, this.data);
+    this.health_display = new ClientHealthComponentDisplay(this.game_display, this.shapelet, this.position);
 
     this.effect_filters.flash.grayscale(0.6, false);
     this.container.filters = [this.effect_filters.flash];
@@ -62,7 +50,7 @@ export class ShapeletRig {
   }
 
   public update(elapsed_seconds: number) {
-    const body_pos = Camera.units_to_px(this.shapelet.body.pos);
+    const body_pos = Camera.units_to_px(this.shapelet.positional_component.pos);
     this.position.x = body_pos.x;
     this.position.y = body_pos.y;
 

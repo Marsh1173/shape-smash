@@ -9,7 +9,7 @@ import { ClientObjectContainer } from "../../objects/container/ClientObjectConta
 import { ClientGameData } from "../server/ServerGameMessageSchema";
 import { ParticleSystem } from "../../particlesystem/ParticleSystem";
 import { ClientAbilityFactory } from "../../abilities/factory/ClientAbilityFactory";
-import { debug_shapes } from "../../display/DebugShapes";
+import { debug_shapes } from "../../display/pixijsutils/DebugShapes";
 
 export class ClientGameSystem extends GameSystem {
   public readonly ability_factory: ClientAbilityFactory;

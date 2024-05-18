@@ -31,8 +31,8 @@ export class ClientShapelet extends Shapelet {
       on_die: () => {
         this.game_system.particle_system.factory.shapelet_remains(
           this.sprite_data.body_color,
-          this.body.pos,
-          this.body.velocity.x
+          this.positional_component.pos,
+          this.positional_component.vel.x
         );
       },
     });

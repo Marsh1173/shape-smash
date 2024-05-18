@@ -1,6 +1,7 @@
 import { Vector, World } from "@dimforge/rapier2d-compat";
-import { ShapeletBody } from "./ShapeletBody";
 import { Observable, Observer } from "../../../../utils/observer/Observer";
+import { DynamicRectComponent } from "../../components/positional/dynamicrect/DynamicRectComponent";
+import { ValueObservable } from "../../../../utils/observer/ValueObserver";
 
 export interface ShapeletControllerData {
   remaining_jumps?: number;
@@ -27,9 +28,10 @@ export class ShapeletController {
   protected readonly allowed_jumps: number = 2;
   protected remaining_jumps: number;
   public readonly jump_observable: JumpObservable = new JumpObservable();
+  public facing = new ValueObservable<"left" | "right">("right");
 
   constructor(
-    protected readonly shapelet_body: ShapeletBody,
+    protected readonly positional_component: DynamicRectComponent,
     protected readonly world: World,
     data: ShapeletControllerData
   ) {
@@ -55,8 +57,8 @@ export class ShapeletController {
   }
 
   protected handle_jumps() {
-    if (this.shapelet_body.on_ground !== this.on_ground) {
-      this.on_ground = this.shapelet_body.on_ground;
+    if (this.positional_component.on_ground.value !== this.on_ground) {
+      this.on_ground = this.positional_component.on_ground.value;
       if (this.on_ground) {
         this.jump_observable.on_land(undefined);
         this.remaining_jumps = this.allowed_jumps;
@@ -67,69 +69,47 @@ export class ShapeletController {
       this.active_actions[ShapeletAction.Jump] = false;
       if (this.remaining_jumps > 0) {
         this.remaining_jumps--;
-        this.shapelet_body.velocity = { y: -this.jump_force };
+        this.positional_component.vel.y = -this.jump_force;
         this.jump_observable.on_jump(this.remaining_jumps);
       }
     }
   }
 
   protected handle_lateral_movement(elapsed_seconds: number) {
-    const current_velocity: Vector = this.shapelet_body.velocity;
+    const current_velocity: Readonly<Vector> = this.positional_component.vel;
 
-    if (
-      this.active_actions[ShapeletAction.MoveLeft] &&
-      !this.active_actions[ShapeletAction.MoveRight]
-    ) {
+    if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
       if (current_velocity.x > -this.side_max_velocity) {
-        this.shapelet_body.velocity = {
-          x: Math.max(
-            -this.side_max_velocity,
-            current_velocity.x - this.side_accel * elapsed_seconds
-          ),
-        };
+        this.positional_component.vel.x = Math.max(
+          -this.side_max_velocity,
+          current_velocity.x - this.side_accel * elapsed_seconds
+        );
       }
-    } else if (
-      this.active_actions[ShapeletAction.MoveRight] &&
-      !this.active_actions[ShapeletAction.MoveLeft]
-    ) {
+    } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
       if (current_velocity.x < this.side_max_velocity) {
-        this.shapelet_body.velocity = {
-          x: Math.min(
-            this.side_max_velocity,
-            current_velocity.x + this.side_accel * elapsed_seconds
-          ),
-        };
+        this.positional_component.vel.x = Math.min(
+          this.side_max_velocity,
+          current_velocity.x + this.side_accel * elapsed_seconds
+        );
       }
     } else {
-      let decel_factor = this.on_ground
-        ? this.side_deccel
-        : this.side_deccel_airborne;
+      let decel_factor = this.on_ground ? this.side_deccel : this.side_deccel_airborne;
       if (current_velocity.x > 0) {
-        this.shapelet_body.velocity = {
-          x: Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0),
-        };
+        this.positional_component.vel.x = Math.max(current_velocity.x - decel_factor * elapsed_seconds, 0);
       } else if (current_velocity.x < 0) {
-        this.shapelet_body.velocity = {
-          x: Math.min(current_velocity.x + decel_factor * elapsed_seconds, 0),
-        };
+        this.positional_component.vel.x = Math.min(current_velocity.x + decel_factor * elapsed_seconds, 0);
       }
     }
   }
 
   protected handle_face_direction() {
-    if (
-      this.active_actions[ShapeletAction.MoveLeft] &&
-      !this.active_actions[ShapeletAction.MoveRight]
-    ) {
-      if (this.shapelet_body.facing.value !== "left") {
-        this.shapelet_body.facing.set_value("left");
+    if (this.active_actions[ShapeletAction.MoveLeft] && !this.active_actions[ShapeletAction.MoveRight]) {
+      if (this.facing.value !== "left") {
+        this.facing.set_value("left");
       }
-    } else if (
-      this.active_actions[ShapeletAction.MoveRight] &&
-      !this.active_actions[ShapeletAction.MoveLeft]
-    ) {
-      if (this.shapelet_body.facing.value !== "right") {
-        this.shapelet_body.facing.set_value("right");
+    } else if (this.active_actions[ShapeletAction.MoveRight] && !this.active_actions[ShapeletAction.MoveLeft]) {
+      if (this.facing.value !== "right") {
+        this.facing.set_value("right");
       }
     }
   }

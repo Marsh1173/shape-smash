@@ -37,7 +37,7 @@ export class ServerGameSystem extends GameSystem {
     const shapelet_data: ShapeletData = {
       type: "ShapeletData",
       id: uuid(),
-      body_data: {
+      positional_data: {
         pos: { x: 1, y: -12 },
       },
       controller_data: {},

@@ -1,14 +1,8 @@
-import {
-  StateMachineObservable,
-  StateMachineState,
-} from "../../../../utils/observer/StateMachineObservable";
+import { StateMachineObservable, StateMachineState } from "../../../../utils/observer/StateMachineObservable";
 import { PlayerController } from "../controller/PlayerController";
 import { ClientShapelet } from "../../../objects/objects/shapelet/client/ClientShapelet";
 import { ClientGameSystem } from "../ClientGameSystem";
-import {
-  UserStateAliveMessage,
-  UserStateUpdateMessage,
-} from "../../server/user/ServerGameUserSchema";
+import { UserStateAliveMessage, UserStateUpdateMessage } from "../../server/user/ServerGameUserSchema";
 import { Id } from "../../../../utils/Id";
 import { PlayerInputConfig } from "../controller/PlayerInputConfig";
 
@@ -25,10 +19,7 @@ export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlay
     this.set_value(ClientGamePlayerState.get_state(msg, this.game_system));
   }
 
-  protected static get_state(
-    msg: UserStateUpdateMessage,
-    game_system: ClientGameSystem
-  ): ClientGamePlayerStateType {
+  protected static get_state(msg: UserStateUpdateMessage, game_system: ClientGameSystem): ClientGamePlayerStateType {
     if (msg.msg.type === "UserStateAliveMessage") {
       return new ClientGamePlayerAliveState(game_system, msg.msg);
     } else if (msg.msg.type === "UserStateDieMessage") {
@@ -47,9 +38,7 @@ export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlay
     }
   }
 }
-export type ClientGamePlayerStateType =
-  | ClientGamePlayerAliveState
-  | ClientGamePlayerDeadState;
+export type ClientGamePlayerStateType = ClientGamePlayerAliveState | ClientGamePlayerDeadState;
 
 export class ClientGamePlayerAliveState implements StateMachineState {
   public readonly type = "ClientGamePlayerAliveState";
@@ -57,25 +46,18 @@ export class ClientGamePlayerAliveState implements StateMachineState {
   public readonly controller: PlayerController;
   public readonly shapelet: ClientShapelet;
 
-  constructor(
-    protected readonly game_system: ClientGameSystem,
-    msg: UserStateAliveMessage
-  ) {
-    const shapelet = this.game_system.object_container.shapelets.get(
-      msg.shapelet_id
-    );
+  constructor(protected readonly game_system: ClientGameSystem, msg: UserStateAliveMessage) {
+    const shapelet = this.game_system.object_container.shapelets.get(msg.shapelet_id);
     if (shapelet) {
       this.shapelet = shapelet;
     } else {
-      throw new Error(
-        "Could not find shapelet after changing to Player Alive State"
-      );
+      throw new Error("Could not find shapelet after changing to Player Alive State");
     }
     this.controller = new PlayerController(this.shapelet, this.game_system);
   }
 
   public init(): void {
-    this.game_system.display.camera.set_focus(() => this.shapelet.body.pos);
+    this.game_system.display.camera.set_focus(() => this.shapelet.positional_component.pos);
   }
 
   public deconstruct(): void {

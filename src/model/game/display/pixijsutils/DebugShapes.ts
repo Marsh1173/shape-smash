@@ -1,6 +1,6 @@
 import { World } from "@dimforge/rapier2d-compat";
 import { Color, Container, Graphics } from "pixi.js";
-import { Camera } from "./Camera";
+import { Camera } from "../Camera";
 
 let graphics: Graphics[] = [];
 export function debug_shapes(world: World, stage: Container) {

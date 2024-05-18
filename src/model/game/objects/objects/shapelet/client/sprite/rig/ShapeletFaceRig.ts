@@ -1,13 +1,10 @@
 import { Container, Sprite } from "pixi.js";
-import { ShapeletBody } from "../../../ShapeletBody";
 import { ShapeletSpriteData } from "../ShapeletSpriteData";
 import { ImageAssetHandler } from "../../../../../../display/assets/Assets";
 import { Camera } from "../../../../../../display/Camera";
 import { Id, uuid } from "../../../../../../../utils/Id";
-import {
-  ShapeletFaceAnimator,
-  ShapeletFaceAnimations,
-} from "./ShapeletFaceAnimator";
+import { ShapeletFaceAnimator, ShapeletFaceAnimations } from "./ShapeletFaceAnimator";
+import { ShapeletController } from "../../../ShapeletController";
 
 export class ShapeletFaceRig {
   public readonly face_container: Container;
@@ -18,7 +15,7 @@ export class ShapeletFaceRig {
 
   constructor(
     protected readonly rig_container: Container,
-    protected readonly body: ShapeletBody,
+    protected readonly controller: ShapeletController,
     protected readonly data: ShapeletSpriteData
   ) {
     this.face_sprite = this.make_face_sprite();
@@ -30,7 +27,7 @@ export class ShapeletFaceRig {
     this.animator = new ShapeletFaceAnimator(this);
 
     this.update_facing(
-      this.body.facing.add_observer_and_get_value({
+      this.controller.facing.add_observer_and_get_value({
         id: this.observer_id,
         on_change: (params: { new_value: "left" | "right" }) => {
           this.update_facing(params.new_value);
@@ -44,7 +41,7 @@ export class ShapeletFaceRig {
   }
 
   public destroy() {
-    this.body.facing.remove_observer(this.observer_id);
+    this.controller.facing.remove_observer(this.observer_id);
   }
 
   protected update_facing(new_value: "left" | "right") {

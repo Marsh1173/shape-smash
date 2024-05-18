@@ -22,7 +22,7 @@ export class ServerShapelet extends Shapelet {
       this.game_system,
       this.id
     );
-    this.trigger_death_on_fall = new TriggerDeathOnFall(this.health_component, () => this.body.pos);
+    this.trigger_death_on_fall = new TriggerDeathOnFall(this.health_component, () => this.positional_component.pos);
 
     this.syncher = new ServerShapeletSyncher(this, game_system.server_room);
   }
@@ -34,8 +34,6 @@ export class ServerShapelet extends Shapelet {
 
   //temp code called by syncher
   public attack() {
-    this.ability_component.set_ability(
-      this.game_system.ability_factory.attack_sword({ type: "AttackSword" }, this.id)
-    );
+    this.ability_component.set_ability(this.game_system.ability_factory.attack_sword({ type: "AttackSword" }, this.id));
   }
 }
