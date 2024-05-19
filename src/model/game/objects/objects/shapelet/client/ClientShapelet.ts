@@ -15,7 +15,7 @@ export class ClientShapelet extends Shapelet {
   constructor(protected readonly game_system: ClientGameSystem, data: ShapeletData) {
     super(game_system, data);
 
-    this.ability_component = new ClientAbilityComponent(this.game_system);
+    this.ability_component = new ClientAbilityComponent(this.game_system, this);
     this.health_component = new ClientHealthComponent(
       Shapelet.base_stats.max_health,
       data.health_data,

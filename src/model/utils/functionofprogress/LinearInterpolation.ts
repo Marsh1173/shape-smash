@@ -1,4 +1,5 @@
 import { FunctionOfProgress } from "./FunctionOfProgress";
+import { lerp_value } from "./LerpValue";
 
 /**
  * @param keyframes [progress, value]
@@ -30,12 +31,7 @@ function lerp_animation(progress: number, field_animation: [number, number][]): 
     return lerp_value(
       field_animation[lower_index][1],
       field_animation[upper_index][1],
-      (progress - field_animation[lower_index][0]) /
-        (field_animation[upper_index][0] - field_animation[lower_index][0])
+      (progress - field_animation[lower_index][0]) / (field_animation[upper_index][0] - field_animation[lower_index][0])
     );
   }
-}
-
-function lerp_value(start: number, end: number, progress: number): number {
-  return end * progress + start * (1 - progress);
 }

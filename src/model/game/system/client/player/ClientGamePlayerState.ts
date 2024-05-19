@@ -12,14 +12,14 @@ export class ClientGamePlayerState extends StateMachineObservable<ClientGamePlay
     protected readonly game_system: ClientGameSystem,
     public readonly user_id: Id
   ) {
-    super(ClientGamePlayerState.get_state(data, game_system));
+    super(ClientGamePlayerState.make_state(data, game_system));
   }
 
   public set_state_with_data(msg: UserStateUpdateMessage) {
-    this.set_value(ClientGamePlayerState.get_state(msg, this.game_system));
+    this.set_value(ClientGamePlayerState.make_state(msg, this.game_system));
   }
 
-  protected static get_state(msg: UserStateUpdateMessage, game_system: ClientGameSystem): ClientGamePlayerStateType {
+  protected static make_state(msg: UserStateUpdateMessage, game_system: ClientGameSystem): ClientGamePlayerStateType {
     if (msg.msg.type === "UserStateAliveMessage") {
       return new ClientGamePlayerAliveState(game_system, msg.msg);
     } else if (msg.msg.type === "UserStateDieMessage") {

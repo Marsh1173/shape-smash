@@ -5,4 +5,5 @@ export const PlayerInputConfig: Record<string, ShapeletAction | undefined> = {
   a: ShapeletAction.MoveLeft,
   d: ShapeletAction.MoveRight,
   "mouse-0": ShapeletAction.MainAction,
+  "mouse-2": ShapeletAction.SecondaryAction,
 };

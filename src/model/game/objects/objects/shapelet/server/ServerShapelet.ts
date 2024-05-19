@@ -36,4 +36,16 @@ export class ServerShapelet extends Shapelet {
   public attack() {
     this.ability_component.set_ability(this.game_system.ability_factory.attack_sword({ type: "AttackSword" }, this.id));
   }
+  public dash() {
+    this.ability_component.set_ability(
+      this.game_system.ability_factory.dash(
+        {
+          type: "Dash",
+          start_pos: this.positional_component.pos,
+          end_pos: { x: this.positional_component.pos.x, y: this.positional_component.pos.y - 40 },
+        },
+        this.positional_component
+      )
+    );
+  }
 }

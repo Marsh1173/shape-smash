@@ -6,18 +6,13 @@ export class PlayerController {
   constructor(protected readonly shapelet: ClientShapelet, protected readonly game_system: ClientGameSystem) {}
 
   public route_input(action: ShapeletAction, active: boolean) {
-    if (action === ShapeletAction.Jump) {
-      this.shapelet.controller.on_input(ShapeletAction.Jump, active);
-      this.broadcast_move(ShapeletAction.Jump, active);
-    } else if (action === ShapeletAction.MoveRight) {
-      this.shapelet.controller.on_input(ShapeletAction.MoveRight, active);
-      this.broadcast_move(ShapeletAction.MoveRight, active);
-    } else if (action === ShapeletAction.MoveLeft) {
-      this.shapelet.controller.on_input(ShapeletAction.MoveLeft, active);
-      this.broadcast_move(ShapeletAction.MoveLeft, active);
-    } else if (action === ShapeletAction.MainAction) {
-      this.broadcast_move(ShapeletAction.MainAction, active);
+    const direct_input: boolean =
+      action === ShapeletAction.Jump || action === ShapeletAction.MoveRight || action === ShapeletAction.MoveLeft;
+
+    if (direct_input) {
+      this.shapelet.controller.on_input(action, active);
     }
+    this.broadcast_move(action, active);
   }
 
   protected broadcast_move(action: ShapeletAction, active: boolean) {

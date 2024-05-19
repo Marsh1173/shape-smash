@@ -39,6 +39,10 @@ export class ServerShapeletSyncher {
       if (msg.active) {
         this.shapelet.attack();
       }
+    } else if (msg.action === ShapeletAction.SecondaryAction) {
+      if (msg.active) {
+        this.shapelet.dash();
+      }
     } else {
       this.broadcast({
         type: "ServerShapeletActionMessage",

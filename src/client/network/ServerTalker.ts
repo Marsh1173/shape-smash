@@ -54,7 +54,9 @@ export class ServerTalker {
     console.error("Websocket connection closed");
     this.wss.onerror = () => {};
     if (ClientConfig.get().refresh_on_ws_close) {
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     }
   }
 
