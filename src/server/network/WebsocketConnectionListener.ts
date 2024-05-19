@@ -3,7 +3,7 @@ import { Application } from "express-ws";
 import * as https from "https";
 import * as http from "http";
 import * as fs from "fs";
-import { WebSocket, Server } from "ws";
+import { WebSocket, WebSocketServer } from "ws";
 import { ServerApp } from "../app/app";
 import { WebsocketWrapper } from "./user/WebsocketWrapper";
 
@@ -11,7 +11,7 @@ export class WebsocketConnectionListener {
   private server: http.Server | https.Server;
   private port: number;
   private url: string;
-  private socket: Server;
+  private socket: WebSocketServer;
 
   private readonly config: IServerConfig;
 

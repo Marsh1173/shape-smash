@@ -56,7 +56,7 @@ export class ServerTalker {
     if (ClientConfig.get().refresh_on_ws_close) {
       setTimeout(() => {
         location.reload();
-      }, 500);
+      }, 1000);
     }
   }
 

@@ -12,6 +12,7 @@ import { Dimensions } from "../../../../../utils/Dimensions";
 import { GameSystem } from "../../../../system/GameSystem";
 import { ValueObservable } from "../../../../../utils/observer/ValueObserver";
 import { IsOnGround } from "../../../../utils/physics/IsOnGround";
+import { GameForceHandler } from "./GameForceHandler";
 
 export interface DynamicRectComponentData {
   readonly pos: Readonly<Vector>;
@@ -28,6 +29,7 @@ export class DynamicRectComponent {
   public readonly vel: Vector;
   public readonly dimensions: Readonly<Dimensions>;
   public readonly on_ground = new ValueObservable<boolean>(false);
+  public readonly game_force_handler: GameForceHandler = new GameForceHandler();
 
   private prev_pos: Vector;
   public get pos(): Vector {
@@ -75,17 +77,18 @@ export class DynamicRectComponent {
     //apply gravity
     this.vel.y = Math.min(this.vel.y + this.world.gravity.y * elapsed_seconds, this.world.gravity.y / 2);
 
-    //compute collider movement
-    this.character_controller.computeColliderMovement(
-      this.collider,
-      {
-        x: this.vel.x * elapsed_seconds,
-        y: this.vel.y * elapsed_seconds,
-      },
-      undefined,
-      this.collision_groups
-    );
-    const corrected_frame_velocity = this.character_controller.computedMovement();
+    //compute velocity excluding game forces
+    const remaining_persistent_velocity = this.calculate_corrected_velocity(elapsed_seconds, {
+      x: this.vel.x * elapsed_seconds,
+      y: this.vel.y * elapsed_seconds,
+    });
+
+    //compute velocity including game forces
+    const game_frame_forces = this.game_force_handler.calculate_frame_force(elapsed_seconds);
+    const corrected_frame_velocity = this.calculate_corrected_velocity(elapsed_seconds, {
+      x: this.vel.x * elapsed_seconds + game_frame_forces.x,
+      y: this.vel.y * elapsed_seconds + game_frame_forces.y,
+    });
 
     //calculate is on ground
     const is_on_ground = IsOnGround(this.character_controller);
@@ -94,12 +97,22 @@ export class DynamicRectComponent {
     }
 
     //set velocity
-    this.vel.x = corrected_frame_velocity.x / elapsed_seconds;
-    this.vel.y = corrected_frame_velocity.y / elapsed_seconds;
-    this.rigid_body.setLinvel(this.vel, true);
+    this.vel.x = remaining_persistent_velocity.x;
+    this.vel.y = remaining_persistent_velocity.y;
+    this.rigid_body.setLinvel(corrected_frame_velocity, true);
 
     //set pos
     this.prev_pos = this.pos;
+  }
+
+  protected calculate_corrected_velocity(elapsed_seconds: number, vel: Vector): Vector {
+    this.character_controller.computeColliderMovement(this.collider, vel, undefined, this.collision_groups);
+
+    const corrected_frame_movement = this.character_controller.computedMovement();
+    return {
+      x: corrected_frame_movement.x / elapsed_seconds,
+      y: corrected_frame_movement.y / elapsed_seconds,
+    };
   }
 
   public serialize(): DynamicRectComponentData {

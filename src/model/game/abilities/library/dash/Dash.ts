@@ -1,7 +1,7 @@
 import { Vector } from "@dimforge/rapier2d-compat";
 import { BaseAbility } from "../../model/BaseAbility";
 import { DynamicRectComponent } from "../../../objects/components/positional/dynamicrect/DynamicRectComponent";
-import { lerp_value } from "../../../../utils/functionofprogress/LerpValue";
+import { Id, uuid } from "../../../../utils/Id";
 
 export interface DashData {
   type: "Dash";
@@ -14,7 +14,9 @@ export class Dash extends BaseAbility {
   protected readonly start_pos: Readonly<Vector>;
   protected readonly end_pos: Readonly<Vector>;
 
-  public static readonly duration: number = 0.2;
+  public static readonly duration: number = 1;
+
+  protected readonly dash_force_id: Id = uuid();
 
   constructor(data: DashData, protected readonly positional_component: DynamicRectComponent) {
     super();
@@ -23,21 +25,23 @@ export class Dash extends BaseAbility {
     this.end_pos = data.end_pos;
   }
 
-  public update(elapsed_seconds: number): void {
-    const prev_progress = this.runtime / Dash.duration;
+  public init(): void {
+    super.init();
 
-    super.update(elapsed_seconds);
+    this.positional_component.game_force_handler.add_force(this.dash_force_id, {
+      duration: Dash.duration,
+      calc_position: (progress: number) => {
+        return {
+          x: -3 * progress ** 0.7,
+          y: 0,
+        };
+      },
+    });
+  }
 
-    const current_progress = this.runtime / Dash.duration;
-
-    const prev_x = lerp_value(this.start_pos.x, this.end_pos.x, prev_progress);
-    const current_x = lerp_value(this.start_pos.x, this.end_pos.x, current_progress);
-
-    const prev_y = lerp_value(this.start_pos.y, this.end_pos.y, prev_progress);
-    const current_y = lerp_value(this.start_pos.y, this.end_pos.y, current_progress);
-
-    this.positional_component.vel.x += current_x - prev_x;
-    this.positional_component.vel.y += current_y - prev_y;
+  public cleanup(): void {
+    super.cleanup();
+    this.positional_component.game_force_handler.remove_force(this.dash_force_id);
   }
 
   public is_finished(): boolean {
