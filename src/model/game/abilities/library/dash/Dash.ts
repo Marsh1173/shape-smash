@@ -14,7 +14,7 @@ export class Dash extends BaseAbility {
   protected readonly start_pos: Readonly<Vector>;
   protected readonly end_pos: Readonly<Vector>;
 
-  public static readonly duration: number = 1;
+  public static readonly duration: number = 0.3;
 
   protected readonly dash_force_id: Id = uuid();
 
@@ -32,7 +32,7 @@ export class Dash extends BaseAbility {
       duration: Dash.duration,
       calc_position: (progress: number) => {
         return {
-          x: -3 * progress ** 0.7,
+          x: -3 * progress ** 0.5,
           y: 0,
         };
       },

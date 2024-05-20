@@ -6,12 +6,6 @@ export class PlayerController {
   constructor(protected readonly shapelet: ClientShapelet, protected readonly game_system: ClientGameSystem) {}
 
   public route_input(action: ShapeletAction, active: boolean) {
-    const direct_input: boolean =
-      action === ShapeletAction.Jump || action === ShapeletAction.MoveRight || action === ShapeletAction.MoveLeft;
-
-    if (direct_input) {
-      this.shapelet.controller.on_input(action, active);
-    }
     this.broadcast_move(action, active);
   }
 

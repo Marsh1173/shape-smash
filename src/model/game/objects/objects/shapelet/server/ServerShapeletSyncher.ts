@@ -32,7 +32,8 @@ export class ServerShapeletSyncher {
 
   public route_msg(msg: PlayerMoveMessage) {
     this.shapelet.controller.on_input(msg.action, msg.active);
-    this.shapelet.positional_component.set_pos_and_vel(msg.pos, msg.vel);
+
+    //TODO write a check here to make sure client position isn't too far from server position
 
     //temp code
     if (msg.action === ShapeletAction.MainAction) {
@@ -48,8 +49,8 @@ export class ServerShapeletSyncher {
         type: "ServerShapeletActionMessage",
         active: msg.active,
         action: msg.action,
-        pos: msg.pos,
-        vel: msg.vel,
+        pos: this.shapelet.positional_component.pos,
+        vel: this.shapelet.positional_component.vel,
       });
     }
   }

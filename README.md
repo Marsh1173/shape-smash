@@ -17,16 +17,16 @@ X Animation framework + jump and move animation
 X Basic dummy portal objects
 X Damage animation
 X Basic ability system
+X Ability component
+X Make generic dynamic position component
+X - Queueing velocity animations? Based on difference from last position
+X - Dash ability requires generic position
+X Server is authority on position
 
-Ability component
-
-> Make generic dynamic position component
->
-> > Queueing velocity animations? Based on difference from last position
-> > Dash ability requires generic position
-
-State update + routing cleanup
+Test ping delay live
+More abilities + polish
 Combat animation
+State update + routing cleanup
 Interactions
 Server stages and main stage sleep
 

@@ -13,6 +13,7 @@ import { GameSystem } from "../../../../system/GameSystem";
 import { ValueObservable } from "../../../../../utils/observer/ValueObserver";
 import { IsOnGround } from "../../../../utils/physics/IsOnGround";
 import { GameForceHandler } from "./GameForceHandler";
+import { uuid } from "../../../../../utils/Id";
 
 export interface DynamicRectComponentData {
   readonly pos: Readonly<Vector>;
@@ -127,11 +128,27 @@ export class DynamicRectComponent {
     this.world.removeCollider(this.collider, false);
   }
 
+  protected readonly pos_correction_id = uuid();
   public set_pos_and_vel(new_pos: Vector, new_velocity: Vector) {
     this.vel.x = new_velocity.x;
     this.vel.y = new_velocity.y;
 
-    this.pos = new_pos;
+    //correct position with game force
+    const diff = {
+      x: new_pos.x - this.pos.x,
+      y: new_pos.y - this.pos.y,
+    };
+
+    this.game_force_handler.remove_force(this.pos_correction_id);
+    this.game_force_handler.add_force(this.pos_correction_id, {
+      duration: 0.2,
+      calc_position: (progress: number) => {
+        return {
+          x: diff.x * progress,
+          y: diff.y * progress,
+        };
+      },
+    });
   }
 }
 
