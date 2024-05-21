@@ -22,11 +22,12 @@ X Make generic dynamic position component
 X - Queueing velocity animations? Based on difference from last position
 X - Dash ability requires generic position
 X Server is authority on position
+X Test ping delay
+X - Meh. Needs polish. Correct by rig position, not entity position. Make sure you're on Ciaglo
 
-Test ping delay live
 More abilities + polish
 Combat animation
-State update + routing cleanup
+State update + routing cleanup + controller cleanup
 Interactions
 Server stages and main stage sleep
 
